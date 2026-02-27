@@ -1,11 +1,16 @@
 'use client';
 
 import { useState, useRef, useEffect, type FC } from 'react';
-import { motion, AnimatePresence, MotionConfig } from 'motion/react';
+import {
+  motion,
+  AnimatePresence,
+  MotionConfig,
+} from 'motion/react';
 import { ChevronDown, Globe } from 'lucide-react';
 import { TbLockFilled } from 'react-icons/tb';
 import type { IconType } from 'react-icons';
 import { cn } from '@/lib/utils';
+
 
 export interface Option {
   id: string;
@@ -16,6 +21,7 @@ export interface Option {
 interface OptionPickerProps {
   options?: Option[];
 }
+
 
 const DEFAULT_OPTIONS: Option[] = [
   { id: 'private', label: 'Private', icon: TbLockFilled },
@@ -47,6 +53,7 @@ export const OptionPicker: FC<OptionPickerProps> = ({ options }) => {
     setSelected(option);
     setIsOpen(false);
   };
+
 
   const data = options || DEFAULT_OPTIONS;
 
