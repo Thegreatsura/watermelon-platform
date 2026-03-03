@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { motion, AnimatePresence, type Variants } from 'motion/react';
 
 interface GooeyMenuProps {
-  data: GooeyMenuData[]
+  data: GooeyMenuData[];
 }
 
 interface GooeyMenuData {
@@ -51,7 +51,7 @@ const menuVariants: Variants = {
     borderRadius: 20,
     width: DIMENSIONS.min,
     height: DIMENSIONS.min,
-    z:-10,
+    z: -10,
     transition: {
       // duration: 0.4,
       // ease: [0.22, 1, 0.36, 1],
@@ -81,11 +81,11 @@ const menuVariants: Variants = {
   },
 };
 
-export function GooeyMenu({data = DEFAULT_DATA}: GooeyMenuProps) {
+export function GooeyMenu({ data = DEFAULT_DATA }: GooeyMenuProps) {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <div className="relative flex h-full min-h-125 w-full items-center justify-center overflow-hidden bg-transparent px-4">
+    <div className="relative flex h-full min-h-125 w-full items-center justify-center  bg-transparent">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         className="absolute bottom-0 left-0"
@@ -114,7 +114,7 @@ export function GooeyMenu({data = DEFAULT_DATA}: GooeyMenuProps) {
           onMouseEnter={() => setIsOpen(true)}
           onMouseLeave={() => setIsOpen(false)}
           onClick={() => setIsOpen(!isOpen)}
-          className="relative z-20 flex size-10 items-center justify-center rounded-full border-none bg-black dark:bg-neutral-800 cursor-pointer"
+          className="relative z-20 flex size-10 cursor-pointer items-center justify-center rounded-full border-none bg-black dark:bg-neutral-800"
         >
           <svg width="32" height="32" viewBox="0 0 180 180" fill="none">
             <path
@@ -136,7 +136,7 @@ export function GooeyMenu({data = DEFAULT_DATA}: GooeyMenuProps) {
               initial="closed"
               animate="open"
               exit="closed"
-              className="absolute bottom-0 overflow-hidden bg-black dark:bg-neutral-800 will-change-[width,height,transform]"
+              className="absolute bottom-0 overflow-hidden bg-black dark:bg-neutral-800"
             >
               <motion.div
                 className="grid w-[200px] space-y-2 p-4"
