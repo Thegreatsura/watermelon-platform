@@ -1,120 +1,174 @@
-"use client";
+'use client';
 
 import React, { useState } from 'react';
 import { motion, AnimatePresence, LayoutGroup } from 'motion/react';
 import { X, ArrowRight } from 'lucide-react';
 
 export interface PasteData {
-    name: string;
-    image: string;
+  name: string;
+  image: string;
 }
 
 interface QuickPasteProps {
-    onPaste: () => PasteData;
-    onClear?: () => void;
-    onContinue?: (data: PasteData) => void;
-    placeholder?: string;
-    className?: string;
+  onPaste: (value: string) => PasteData | null;
+  onClear?: () => void;
+  onContinue?: (data: PasteData) => void;
+  placeholder?: string;
+  submitText?: string;
+  className?: string;
 }
 
 export const QuickPaste: React.FC<QuickPasteProps> = ({
-    onPaste,
-    onClear,
-    onContinue,
-    placeholder = "Email Address",
-    className = ""
+  onPaste,
+  onClear,
+  onContinue,
+  placeholder = 'Email Address',
+  submitText = 'Paste',
+  className = '',
 }) => {
-    const [pastedData, setPastedData] = useState<PasteData | null>(null);
-    const [inputValue, setInputValue] = useState("");
+  const [pastedData, setPastedData] = useState<PasteData | null>(null);
+  const [inputValue, setInputValue] = useState('');
 
-    const handlePaste = () => {
-        const data = onPaste();
-        setPastedData(data);
-    };
+  const handlePaste = () => {
+    const data = onPaste(inputValue);
+    if (data) {
+      setPastedData(data);
+    }
+  };
 
-    const handleClear = () => {
-        setPastedData(null);
-        setInputValue("");
-        onClear?.();
-    };
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      handlePaste();
+    }
+  };
 
-    return (
-        <div className={`w-full flex flex-col items-center justify-center p-4 antialiased select-none ${className}`}>
-            <div className="w-full max-w-100">
-                <LayoutGroup>
-                    <motion.div
-                        layout
-                        className="rounded-full p-1.5 flex items-center min-h-16 shadow-sm transition-colors duration-300 
-                                   bg-neutral-100 dark:bg-neutral-900"
+  const handleClear = () => {
+    setPastedData(null);
+    setInputValue('');
+    onClear?.();
+  };
+
+  const springConfig = { type: 'spring' as const, bounce: 0.1, duration: 0.4 };
+
+  return (
+    <div
+      className={`flex w-full flex-col items-center justify-center p-4 antialiased select-none ${className}`}
+    >
+      <div className="w-full max-w-100">
+        <LayoutGroup>
+          <motion.div
+            layout
+            transition={springConfig}
+            className="flex min-h-16 items-center rounded-full bg-neutral-100 p-1.5 shadow-sm transition-colors duration-300 dark:bg-neutral-900"
+          >
+            <AnimatePresence mode="popLayout">
+              {pastedData ? (
+                <motion.div
+                  key="pasted"
+                  className="flex w-full items-center justify-between pr-1"
+                >
+                  <motion.div
+                    initial={{
+                      opacity: 0,
+                      scale: 0.9,
+                      filter: 'blur(4px)',
+                      x: -20,
+                    }}
+                    animate={{
+                      opacity: 1,
+                      scale: 1,
+                      filter: 'blur(0px)',
+                      x: 0,
+                    }}
+                    exit={{
+                      opacity: 0,
+                      scale: 0.9,
+                      filter: 'blur(4px)',
+                      x: -20,
+                    }}
+                    transition={{ type: 'spring', bounce: 0, duration: 0.35 }}
+                    className="flex items-center rounded-full border border-neutral-200 bg-white py-1.5 pr-4 pl-1.5 shadow-sm transition-colors dark:border-neutral-700 dark:bg-neutral-800"
+                  >
+                    <img
+                      src={pastedData.image}
+                      alt={pastedData.name}
+                      className="mr-3 h-9 w-9 rounded-full border border-neutral-200 object-cover shadow-sm dark:border-neutral-700"
+                    />
+                    <span className="mr-3 max-w-30 truncate text-[15px] font-bold tracking-tight text-neutral-600 transition-colors sm:max-w-none sm:text-[16px] dark:text-neutral-200">
+                      {pastedData.name}
+                    </span>
+                    <button
+                      title="remove"
+                      onClick={handleClear}
+                      className="flex h-5 w-5 items-center justify-center rounded-full bg-neutral-400 text-white transition-colors hover:bg-red-500"
                     >
-                        <AnimatePresence mode="popLayout">
-                            {pastedData ? (
-                                <motion.div
-                                    key="pasted"
-                                    initial={{ opacity: 0, scale: 0.95, y: 5 }}
-                                    animate={{ opacity: 1, scale: 1, y: 0 }}
-                                    exit={{ opacity: 0, scale: 0.95, y: 5 }}
-                                    className="flex items-center justify-between w-full pr-1"
-                                >
-                                    <div className="flex items-center py-1.5 pl-1.5 pr-4 rounded-full border shadow-sm transition-colors 
-                                                    bg-white border-neutral-200 dark:bg-neutral-800 dark:border-neutral-700">
-                                        <img
-                                            src={pastedData.image}
-                                            alt={pastedData.name}
-                                            className="w-9 h-9 rounded-full shadow-sm border object-cover mr-3 
-                                                       border-neutral-200 dark:border-neutral-700"
-                                        />
-                                        <span className="text-[15px] sm:text-[16px] font-bold tracking-tight mr-3 transition-colors truncate max-w-30 sm:max-w-none 
-                                                       text-neutral-600 dark:text-neutral-200">
-                                            {pastedData.name}
-                                        </span>
-                                        <button
-                                            title='remove'
-                                            onClick={handleClear}
-                                            className="w-5 h-5 bg-neutral-400 rounded-full flex items-center justify-center text-white hover:bg-red-500 transition-colors"
-                                        >
-                                            <X size={14} strokeWidth={3} />
-                                        </button>
-                                    </div>
+                      <X size={14} strokeWidth={3} />
+                    </button>
+                  </motion.div>
 
-                                    <button
-                                        title='continue'
-                                        onClick={() => onContinue?.(pastedData)}
-                                        className="ml-2 w-11 h-11 rounded-full flex items-center justify-center shadow-lg active:scale-90 transition-all 
-                                                   bg-neutral-900 text-white dark:bg-white dark:text-black"
-                                    >
-                                        <ArrowRight size={22} strokeWidth={2.5} />
-                                    </button>
-                                </motion.div>
-                            ) : (
-                                <motion.div
-                                    key="input"
-                                    initial={{ opacity: 0 }}
-                                    animate={{ opacity: 1 }}
-                                    exit={{ opacity: 0 }}
-                                    className="flex items-center justify-between w-full pl-4 pr-1"
-                                >
-                                    <input
-                                        type="text"
-                                        placeholder={placeholder}
-                                        value={inputValue}
-                                        onChange={(e) => setInputValue(e.target.value)}
-                                        className="bg-transparent border-none outline-none text-[16px] sm:text-[18px] font-semibold w-full mr-2 transition-colors 
-                                                   text-neutral-900 placeholder:text-neutral-400 dark:text-white dark:placeholder:text-neutral-600"
-                                    />
-                                    <button
-                                        type='button'
-                                        onClick={handlePaste}
-                                        className="bg-blue-600 hover:bg-blue-700 text-white px-5 sm:px-7 py-2.5 rounded-full text-[14px] sm:text-[15px] font-bold tracking-tight shadow-md active:scale-95 transition-all whitespace-nowrap"
-                                    >
-                                        Paste
-                                    </button>
-                                </motion.div>
-                            )}
-                        </AnimatePresence>
+                  <motion.button
+                    title="continue"
+                    layoutId="shared-action-button"
+                    transition={springConfig}
+                    style={{ borderRadius: 9999 }}
+                    onClick={() => onContinue?.(pastedData)}
+                    className="ml-2 flex h-11 w-11 shrink-0 items-center justify-center bg-neutral-900 text-white shadow-lg active:scale-95 dark:bg-white dark:text-black"
+                  >
+                    <motion.div
+                      layout="position"
+                      initial={{ opacity: 0, scale: 0.8 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      exit={{ opacity: 0, scale: 0.8 }}
+                      transition={{ duration: 0.2 }}
+                      className="flex items-center justify-center"
+                    >
+                      <ArrowRight size={22} strokeWidth={2.5} />
                     </motion.div>
-                </LayoutGroup>
-            </div>
-        </div>
-    );
+                  </motion.button>
+                </motion.div>
+              ) : (
+                <motion.div
+                  key="input"
+                  initial={{ opacity: 0, filter: 'blur(4px)', x: 0 }}
+                  animate={{ opacity: 1, filter: 'blur(0px)', x: 0 }}
+                  exit={{ opacity: 0, filter: 'blur(4px)', x: 0 }}
+                  transition={{ type: 'spring', bounce: 0, duration: 0.35 }}
+                  className="flex w-full items-center justify-between pr-1 pl-4"
+                >
+                  <input
+                    type="text"
+                    placeholder={placeholder}
+                    value={inputValue}
+                    onChange={(e) => setInputValue(e.target.value)}
+                    onKeyDown={handleKeyDown}
+                    className="mr-2 w-full border-none bg-transparent text-[16px] font-semibold text-neutral-900 transition-colors outline-none placeholder:text-neutral-400 sm:text-[18px] dark:text-white dark:placeholder:text-neutral-600"
+                  />
+                  <motion.button
+                    layoutId="shared-action-button"
+                    type="button"
+                    transition={springConfig}
+                    style={{ borderRadius: 9999 }}
+                    onClick={handlePaste}
+                    className="flex h-11 shrink-0 items-center justify-center bg-blue-600 px-5 text-[14px] font-bold tracking-tight text-white shadow-md hover:bg-blue-700 active:scale-95 sm:px-7 sm:text-[15px]"
+                  >
+                    <motion.span
+                      layout="position"
+                      initial={{ opacity: 0, scale: 0.8 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      exit={{ opacity: 0, scale: 0.8 }}
+                      transition={{ duration: 0.2 }}
+                      className="whitespace-nowrap"
+                    >
+                      {submitText}
+                    </motion.span>
+                  </motion.button>
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </motion.div>
+        </LayoutGroup>
+      </div>
+    </div>
+  );
 };

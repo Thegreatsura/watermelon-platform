@@ -25,7 +25,7 @@ export default function UniswapDialogDemo() {
   );
 
   return (
-    <div className="flex min-h-screen h-full items-center justify-center bg-transparent">
+    <div className="flex h-full items-center justify-center bg-transparent">
       <UniSwapDialog
         value={selectedCountry}
         onChange={setSelectedCountry}

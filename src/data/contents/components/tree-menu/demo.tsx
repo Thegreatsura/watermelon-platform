@@ -33,6 +33,24 @@ const menu = [
           { id: "functional-colors", label: "Functional Colors" },
         ],
       },
+      {
+        id: "typography",
+        label: "Typography",
+        children: [
+          { id: "font-family", label: "Font Family" },
+          { id: "font-size", label: "Font Size" },
+          { id: "font-weight", label: "Font Weight" },
+        ],
+      },
+      {
+        id: "icons",
+        label: "Icons",
+        children: [
+          { id: "icon-family", label: "Icon Family" },
+          { id: "icon-size", label: "Icon Size" },
+          { id: "icon-weight", label: "Icon Weight" },
+        ],
+      }
     ],
   },
   {
