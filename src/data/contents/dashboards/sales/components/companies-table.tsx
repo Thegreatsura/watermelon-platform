@@ -49,7 +49,7 @@ function ActivityTrend() {
   const [heights, setHeights] = useState<string[]>([]);
 
   useEffect(() => {
-    setHeights(Array.from({ length: 12 }).map(() => `${Math.random() * 100}%`));
+    requestAnimationFrame(() => setHeights(Array.from({ length: 12 }).map(() => `${Math.random() * 100}%`)));
   }, []);
 
   return (

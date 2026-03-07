@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, useMemo } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence, type Transition, MotionConfig } from 'motion/react';
 import { Mic, X, Play, Square } from 'lucide-react';
 import { RiSendPlaneFill } from 'react-icons/ri';
@@ -31,7 +31,7 @@ export const VoiceNote: React.FC<VoiceNoteRecorderProps> = ({
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const playbackTimerRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
-  const spring:Transition = { type: 'spring', stiffness: 400, damping: 40 }
+  const spring: Transition = { type: 'spring', stiffness: 400, damping: 40 }
 
   const startRecording = () => {
     setState(RecorderState.RECORDING);
@@ -83,17 +83,20 @@ export const VoiceNote: React.FC<VoiceNoteRecorderProps> = ({
 
   const handleSend = () => {
     onSend?.({ duration, blob: null });
-    
+
   };
 
-  const barHeights = useMemo(() => {
-    return [...Array(6)].map(() => [
+  const [barHeights, setBarHeights] = useState<number[][]>([]);
+
+  useEffect(() => {
+    const heights = [...Array(6)].map(() => [
       8 + Math.random() * 6,
       18 + Math.random() * 10,
       12 + Math.random() * 8,
       24 + Math.random() * 12,
       10 + Math.random() * 6,
     ]);
+    requestAnimationFrame(() => setBarHeights(heights));
   }, []);
 
 
@@ -117,7 +120,7 @@ export const VoiceNote: React.FC<VoiceNoteRecorderProps> = ({
                 initial={{ opacity: 0, filter: 'blur(4px)', x: '95px' }}
                 animate={{ opacity: 1, filter: 'blur(0)', x: '0px' }}
                 exit={{ opacity: 1, filter: 'blur(4px)', x: '95px' }}
-              
+
                 onClick={cancelRecording}
                 className={actionBtnClass}
               >
@@ -130,12 +133,11 @@ export const VoiceNote: React.FC<VoiceNoteRecorderProps> = ({
             animate={{
               width: state === RecorderState.IDLE ? '65px' : '110px',
             }}
-        
-            className={`relative z-20 flex items-center justify-center overflow-hidden transition-colors duration-300 ${state === RecorderState.IDLE ? 'h-16 w-16' : 'h-16 px-6'} rounded-full border-[1.6px] ${
-              state === RecorderState.RECORDING
-                ? 'border-none bg-[#FEE5E4] dark:bg-[#441010]'
-                : 'border-[#E8E7EF] bg-[#fefefe] dark:border-[#2d2d33] dark:bg-[#1a1a1e]'
-            } `}
+
+            className={`relative z-20 flex items-center justify-center overflow-hidden transition-colors duration-300 ${state === RecorderState.IDLE ? 'h-16 w-16' : 'h-16 px-6'} rounded-full border-[1.6px] ${state === RecorderState.RECORDING
+              ? 'border-none bg-[#FEE5E4] dark:bg-[#441010]'
+              : 'border-[#E8E7EF] bg-[#fefefe] dark:border-[#2d2d33] dark:bg-[#1a1a1e]'
+              } `}
             style={{
               borderRadius: 32,
             }}
@@ -216,49 +218,48 @@ export const VoiceNote: React.FC<VoiceNoteRecorderProps> = ({
 
               {(state === RecorderState.REVIEWING ||
                 state === RecorderState.PLAYING) && (
-                <motion.div
-                  key="review-ui"
-                  initial={{ opacity: 0, y: 5 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -5 }}
-                  className="z-10 flex items-center gap-2"
-                >
-                  <motion.button
-                    key={
-                      state === RecorderState.PLAYING ? 'stop-btn' : 'play-btn'
-                    }
-                    onClick={
-                      state === RecorderState.PLAYING
-                        ? stopPlayback
-                        : startPlayback
-                    }
-                    className={`flex h-10 w-10 items-center justify-center rounded-full transition-colors ${
-                      state === RecorderState.PLAYING
+                  <motion.div
+                    key="review-ui"
+                    initial={{ opacity: 0, y: 5 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -5 }}
+                    className="z-10 flex items-center gap-2"
+                  >
+                    <motion.button
+                      key={
+                        state === RecorderState.PLAYING ? 'stop-btn' : 'play-btn'
+                      }
+                      onClick={
+                        state === RecorderState.PLAYING
+                          ? stopPlayback
+                          : startPlayback
+                      }
+                      className={`flex h-10 w-10 items-center justify-center rounded-full transition-colors ${state === RecorderState.PLAYING
                         ? 'bg-transparent text-red-500 dark:text-red-400'
                         : 'text-slate-800 dark:text-neutral-100'
-                    } `}
-                    initial={{ opacity: 0, filter: 'blur(4px)', scale: 0.25 }}
-                    animate={{ opacity: 1, filter: 'blur(0)', scale: 1 }}
-                    exit={{ opacity: 0, filter: 'blur(4px)', scale: 0.25 }}
-                  >
-                    {state === RecorderState.PLAYING ? (
-                      <Square size={22} fill="currentColor" />
-                    ) : (
-                      <Play size={22} fill="currentColor" />
-                    )}
-                  </motion.button>
-                  <span className="flex items-center gap-0.5 justify-center text-[20px] font-bold text-[#282828] tabular-nums transition-colors dark:text-neutral-100">
-                    <AnimatedNumber
-                      value={
-                        state === RecorderState.PLAYING
-                          ? playbackTime
-                          : duration
-                      }
-                    />
-                    <motion.span layout>s</motion.span>
-                  </span>
-                </motion.div>
-              )}
+                        } `}
+                      initial={{ opacity: 0, filter: 'blur(4px)', scale: 0.25 }}
+                      animate={{ opacity: 1, filter: 'blur(0)', scale: 1 }}
+                      exit={{ opacity: 0, filter: 'blur(4px)', scale: 0.25 }}
+                    >
+                      {state === RecorderState.PLAYING ? (
+                        <Square size={22} fill="currentColor" />
+                      ) : (
+                        <Play size={22} fill="currentColor" />
+                      )}
+                    </motion.button>
+                    <span className="flex items-center gap-0.5 justify-center text-[20px] font-bold text-[#282828] tabular-nums transition-colors dark:text-neutral-100">
+                      <AnimatedNumber
+                        value={
+                          state === RecorderState.PLAYING
+                            ? playbackTime
+                            : duration
+                        }
+                      />
+                      <motion.span layout>s</motion.span>
+                    </span>
+                  </motion.div>
+                )}
             </AnimatePresence>
           </motion.div>
 
@@ -266,50 +267,50 @@ export const VoiceNote: React.FC<VoiceNoteRecorderProps> = ({
             {(state === RecorderState.RECORDING ||
               state === RecorderState.REVIEWING ||
               state === RecorderState.PLAYING) && (
-              <motion.button
-                initial={{ opacity: 0, filter: 'blur(4px)', x: -95 }}
-                animate={{ opacity: 1, filter: 'blur(0)', x: 0 }}
-                exit={{ opacity: 0, filter: 'blur(4px)', x: -95 }}
-                className={actionBtnClass}
-              >
-                <AnimatePresence mode="popLayout">
-                  <motion.div
-                    key={
-                      state === RecorderState.RECORDING
-                        ? 'check-btn'
-                        : state === RecorderState.REVIEWING ||
+                <motion.button
+                  initial={{ opacity: 0, filter: 'blur(4px)', x: -95 }}
+                  animate={{ opacity: 1, filter: 'blur(0)', x: 0 }}
+                  exit={{ opacity: 0, filter: 'blur(4px)', x: -95 }}
+                  className={actionBtnClass}
+                >
+                  <AnimatePresence mode="popLayout">
+                    <motion.div
+                      key={
+                        state === RecorderState.RECORDING
+                          ? 'check-btn'
+                          : state === RecorderState.REVIEWING ||
                             state === RecorderState.PLAYING
-                          ? 'send-btn'
-                          : 'cancel-btn'
-                    }
-                    initial={{ opacity: 0, filter: 'blur(4px)', scale: 0.25 }}
-                    animate={{ opacity: 1, filter: 'blur(0)', scale: 1 }}
-                    exit={{ opacity: 0, filter: 'blur(4px)', scale: 0.25 }}
-                    onClick={
-                      state === RecorderState.RECORDING
-                        ? stopRecording
-                        : state === RecorderState.PLAYING
-                        ? startRecording : handleSend
-                    }
-                  >
-                    {state === RecorderState.RECORDING && (
-                      <FaCheck
-                        size={26}
-                        className="text-slate-700 dark:text-neutral-100"
-                      />
-                    )}
+                            ? 'send-btn'
+                            : 'cancel-btn'
+                      }
+                      initial={{ opacity: 0, filter: 'blur(4px)', scale: 0.25 }}
+                      animate={{ opacity: 1, filter: 'blur(0)', scale: 1 }}
+                      exit={{ opacity: 0, filter: 'blur(4px)', scale: 0.25 }}
+                      onClick={
+                        state === RecorderState.RECORDING
+                          ? stopRecording
+                          : state === RecorderState.PLAYING
+                            ? startRecording : handleSend
+                      }
+                    >
+                      {state === RecorderState.RECORDING && (
+                        <FaCheck
+                          size={26}
+                          className="text-slate-700 dark:text-neutral-100"
+                        />
+                      )}
 
-                    {(state === RecorderState.REVIEWING ||
-                      state === RecorderState.PLAYING) && (
-                      <RiSendPlaneFill
-                        size={26}
-                        className="text-[#272727] dark:text-neutral-100"
-                      />
-                    )}
-                  </motion.div>
-                </AnimatePresence>
-              </motion.button>
-            )}
+                      {(state === RecorderState.REVIEWING ||
+                        state === RecorderState.PLAYING) && (
+                          <RiSendPlaneFill
+                            size={26}
+                            className="text-[#272727] dark:text-neutral-100"
+                          />
+                        )}
+                    </motion.div>
+                  </AnimatePresence>
+                </motion.button>
+              )}
           </AnimatePresence>
         </MotionConfig>
       </div>
@@ -359,15 +360,11 @@ export function AnimatedNumber({ value, className }: AnimatedNumberProps) {
 
   const digits = value.toString().split('');
 
-  const digitTicksRef = React.useRef<number[]>([]);
-  const prevDigitsRef = React.useRef<string[]>([]);
-
-  const prevDigits = prevDigitsRef.current;
-  const prevTicks = digitTicksRef.current;
+  const [prevDigits, setPrevDigits] = React.useState<string[]>([]);
+  const [prevTicks, setPrevTicks] = React.useState<number[]>([]);
 
   const len = digits.length;
-  const prevLen = prevDigits.length;
-  const lenDiff = len - prevLen;
+  const lenDiff = len - prevDigits.length;
 
   const nextTicks = digits.map((digit, i) => {
     const prevI = i - lenDiff;
@@ -376,8 +373,10 @@ export function AnimatedNumber({ value, className }: AnimatedNumberProps) {
     return digit !== prevDigit ? (prevTick ?? 0) + 1 : (prevTick ?? 0);
   });
 
-  digitTicksRef.current = nextTicks;
-  prevDigitsRef.current = digits;
+  React.useEffect(() => {
+    setPrevTicks(nextTicks);
+    setPrevDigits(digits);
+  }, [digits, nextTicks]);
 
   return (
     <div

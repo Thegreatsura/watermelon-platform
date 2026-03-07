@@ -1,6 +1,6 @@
 'use client';
 
-import { useRef, useState, useEffect, type FC } from 'react';
+import { useRef, useState, useEffect, useCallback, type FC } from 'react';
 import {
   motion,
   useMotionValue,
@@ -35,7 +35,7 @@ const AnimatedNumber: FC<AnimatedNumberProps> = ({ value }) => {
     });
 
     return controls.stop;
-  }, [value]);
+  }, [value, display]);
 
   return <>{display}</>;
 };
@@ -83,7 +83,7 @@ export const ScrubSlider: FC<ScrubSliderProps> = ({
   }, [tickCount, initialValue, x]);
 
 
-  const updateValue = (clientX: number) => {
+  const updateValue = useCallback((clientX: number) => {
     if (!step) return;
 
     let posX = clientX - sliderLeft - padding;
@@ -95,7 +95,7 @@ export const ScrubSlider: FC<ScrubSliderProps> = ({
 
     setValue(snappedIndex);
     x.set(snappedX + padding);
-  };
+  }, [step, sliderLeft, sliderWidth, x]);
 
   useEffect(() => {
     const move = (e: MouseEvent) => {
@@ -112,7 +112,7 @@ export const ScrubSlider: FC<ScrubSliderProps> = ({
       window.removeEventListener('mousemove', move);
       window.removeEventListener('mouseup', up);
     };
-  }, [isDragging, step, sliderLeft, sliderWidth]);
+  }, [isDragging, updateValue]);
 
 
   useEffect(() => {
@@ -130,7 +130,7 @@ export const ScrubSlider: FC<ScrubSliderProps> = ({
       window.removeEventListener('touchmove', move);
       window.removeEventListener('touchend', end);
     };
-  }, [isDragging, step, sliderLeft, sliderWidth]);
+  }, [isDragging, updateValue]);
 
   return (
     <div className="flex w-full flex-col items-center justify-center dark:bg-zinc-950">

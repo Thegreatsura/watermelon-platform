@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import {
     motion,
     AnimatePresence,
@@ -58,24 +58,22 @@ export const FeatureTour: React.FC<FeatureTourProps> = ({
     const containerRef = useRef<HTMLDivElement>(null);
     const [currentIndex, setCurrentIndex] = useState(0);
 
-    if (!steps || steps.length === 0) return null;
 
-    const goToStep = (index: number) => {
-        if (index === currentIndex) return;
-        setCurrentIndex(index);
-    };
+    const goToStep = useCallback((index: number) => {
+        setCurrentIndex((prev) => (index === prev ? prev : index));
+    }, []);
 
-    const goNext = () => {
+    const goNext = useCallback(() => {
         setCurrentIndex((prev) =>
             prev === steps.length - 1 ? (loop ? 0 : prev) : prev + 1
         );
-    };
+    }, [loop, steps.length]);
 
-    const goPrev = () => {
+    const goPrev = useCallback(() => {
         setCurrentIndex((prev) =>
             prev === 0 ? (loop ? steps.length - 1 : prev) : prev - 1
         );
-    };
+    }, [loop, steps.length]);
 
     useEffect(() => {
         const handleKeyDown = (e: KeyboardEvent) => {
@@ -85,7 +83,7 @@ export const FeatureTour: React.FC<FeatureTourProps> = ({
         };
         window.addEventListener("keydown", handleKeyDown);
         return () => window.removeEventListener("keydown", handleKeyDown);
-    }, [steps.length, loop, onClose]);
+    }, [goNext, goPrev, onClose]);
 
     useEffect(() => {
         const btn = containerRef.current?.querySelector("button");
@@ -93,6 +91,8 @@ export const FeatureTour: React.FC<FeatureTourProps> = ({
     }, []);
 
     const currentStep = steps[currentIndex];
+
+    if (!steps || steps.length === 0) return null;
 
     return (
         <div

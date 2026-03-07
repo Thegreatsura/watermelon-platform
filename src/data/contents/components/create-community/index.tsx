@@ -29,9 +29,11 @@ export const CreateCommunity: React.FC<CreateCommunityProps> = ({
 
   useEffect(() => {
     if (initialData) {
-      if (initialData.communityName) setCommunityName(initialData.communityName);
-      if (initialData.pricing) setPricing(initialData.pricing);
-      if (initialData.isApplicationRequired !== undefined) setIsApplicationRequired(initialData.isApplicationRequired);
+      requestAnimationFrame(() => {
+        if (initialData.communityName) setCommunityName(initialData.communityName);
+        if (initialData.pricing) setPricing(initialData.pricing);
+        if (initialData.isApplicationRequired !== undefined) setIsApplicationRequired(initialData.isApplicationRequired);
+      });
     }
   }, [initialData]);
 
@@ -116,8 +118,8 @@ export const CreateCommunity: React.FC<CreateCommunityProps> = ({
                       key={option}
                       onClick={() => setPricing(option)}
                       className={`relative z-10 py-3.5 text-[11px] sm:text-[12px] font-normal tracking-widest transition-colors duration-300 ${pricing === option
-                          ? 'text-gray-900 dark:text-[#EDEDED]'
-                          : 'text-gray-400 dark:text-[#EDEDED]/80'
+                        ? 'text-gray-900 dark:text-[#EDEDED]'
+                        : 'text-gray-400 dark:text-[#EDEDED]/80'
                         }`}
                     >
                       {option}
@@ -146,16 +148,16 @@ export const CreateCommunity: React.FC<CreateCommunityProps> = ({
                 <button title='switch'
                   onClick={() => setIsApplicationRequired(!isApplicationRequired)}
                   className={`w-10 h-6 rounded-full transition-colors duration-300 relative ${isApplicationRequired
-                      ? 'bg-black dark:bg-white/80'
-                      : 'bg-gray-200 dark:bg-[#333333]'
+                    ? 'bg-black dark:bg-white/80'
+                    : 'bg-gray-200 dark:bg-[#333333]'
                     }`}
                 >
                   <motion.div
                     animate={{ x: isApplicationRequired ? 19 : 2 }}
                     transition={{ type: "spring", stiffness: 500, damping: 30 }}
                     className={`absolute top-0.5 w-5 h-5 rounded-full transition-colors ${isApplicationRequired
-                        ? 'bg-white dark:bg-[#333333]'
-                        : 'bg-white'
+                      ? 'bg-white dark:bg-[#333333]'
+                      : 'bg-white'
                       }`}
                   />
                 </button>

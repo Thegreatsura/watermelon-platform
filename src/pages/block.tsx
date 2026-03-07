@@ -34,14 +34,15 @@ export default function BlockPage() {
   // Load file codes
   useEffect(() => {
     if (!item) return;
-    setLoadingFiles(true);
+    const loadFiles = async () => {
+      setLoadingFiles(true);
 
-    Promise.all(
-      item.files.map(async (file) => {
-        const code = await file.code();
-        return { name: file.name, code };
-      })
-    ).then((results) => {
+      const results = await Promise.all(
+        item.files.map(async (file) => {
+          const code = await file.code();
+          return { name: file.name, code };
+        })
+      );
       const codeMap: Record<string, string> = {};
       results.forEach(({ name, code }) => {
         codeMap[name] = code;
@@ -52,8 +53,10 @@ export default function BlockPage() {
       if (results.length > 0 && !selectedFile) {
         setSelectedFile(results[0].name);
       }
-    });
-  }, [item]);
+    };
+
+    loadFiles();
+  }, [item, selectedFile]);
 
   useEffect(() => {
     if (!item) return;

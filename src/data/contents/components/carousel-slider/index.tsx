@@ -56,23 +56,26 @@ const DEFAULT_SLIDES: Slide[] = [
 
 const variants: Variants = {
   enter: (direction: number) => ({
-    x: direction > 0 ? 260 : -260,
-    scale: 0.9,
+    x: direction > 0 ? 200 : -200,
+    filter: 'brightness(2)',
+    scale: 0.75,
     opacity: 0,
-    rotate: direction > 0 ? 8 : -8,
+    rotate: direction > 0 ? 30 : -30,
   }),
   center: {
     x: 0,
+    filter: 'brightness(1)',
     scale: 1,
     opacity: 1,
     rotate: -3,
     zIndex: 1,
   },
   exit: (direction: number) => ({
-    x: direction > 0 ? -260 : 260,
-    scale: 0.85,
+    x: direction > 0 ? -200 : 200,
+    filter: 'brightness(2)',
+    scale: 0.75,
     opacity: 0,
-    rotate: direction > 0 ? -18 : 18,
+    rotate: direction > 0 ? -30 : 30,
     zIndex: 0,
   }),
 };
@@ -94,7 +97,7 @@ export const CarouselSlider: React.FC<CarouselSliderProps> = ({
   const [direction, setDirection] = useState(1);
 
   const dragX = useMotionValue(0);
-  const rotate = useTransform(dragX, [-200, 200], [-12, 12]);
+  const rotate = useTransform(dragX, [-200, 200], [-18, 18]);
 
   const paginate = (newDirection: number) => {
     setDirection(newDirection);
@@ -109,7 +112,7 @@ export const CarouselSlider: React.FC<CarouselSliderProps> = ({
   return (
     <div className="flex flex-col items-center justify-center">
       {/* Slider */}
-      <div className="relative w-48 sm:w-3xs aspect-square flex items-center justify-center -rotate-[6deg]">
+      <div className="relative w-40 sm:w-3xs aspect-square flex items-center justify-center -rotate-[6deg]">
         <AnimatePresence custom={direction} mode="wait">
           <motion.div
             key={index}
@@ -119,7 +122,7 @@ export const CarouselSlider: React.FC<CarouselSliderProps> = ({
             animate="center"
             exit="exit"
             transition={{
-              x: { type: "spring", stiffness: 280, damping: 28 },
+              x: { type: "spring", bounce: 0.2, duration: 0.5 },
               scale: { duration: 0.35 },
               opacity: { duration: 0.25 },
             }}

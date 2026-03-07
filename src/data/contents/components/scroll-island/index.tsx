@@ -47,7 +47,7 @@ export function ScrollIsland({ topics }: ScrollIslandProps) {
   }, []);
 
   useEffect(() => {
-    setMounted(true);
+    requestAnimationFrame(() => setMounted(true));
 
     const el = contentRef.current;
     if (!el) return;
@@ -205,11 +205,10 @@ export function ScrollIsland({ topics }: ScrollIslandProps) {
           <div
             key={topic.id}
             id={topic.id}
-            className={`mb-20 scroll-mt-32 rounded-2xl p-2 transition-all duration-500 ${
-              activeTopicId === topic.id
+            className={`mb-20 scroll-mt-32 rounded-2xl p-2 transition-all duration-500 ${activeTopicId === topic.id
                 ? 'animate-flash bg-zinc-100 dark:bg-zinc-900'
                 : ''
-            }`}
+              }`}
           >
             <h4 className="mb-6 text-3xl font-bold text-zinc-900 dark:text-zinc-50">
               {topic.title}

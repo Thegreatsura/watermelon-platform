@@ -32,7 +32,9 @@ export const AddCashDisclosure: React.FC<CashDisclosureProps> = ({
   const [displayBalance, setDisplayBalance] = useState(initialBalance);
 
   useEffect(() => {
-    if (!isProcessing && !isDone) setDisplayBalance(initialBalance);
+    if (!isProcessing && !isDone) {
+      setTimeout(() => setDisplayBalance(initialBalance), 0);
+    }
   }, [initialBalance, isProcessing, isDone]);
 
   const handleOpen = () => setIsOpen(true);
@@ -64,9 +66,9 @@ export const AddCashDisclosure: React.FC<CashDisclosureProps> = ({
             <motion.div
               key="collapsed"
               layoutId="add-cash-disclosure"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
               transition={{
                 opacity: { duration: 0.3 },
               }}
@@ -182,19 +184,17 @@ export const AddCashDisclosure: React.FC<CashDisclosureProps> = ({
                         <div
                           key={card.id}
                           onClick={() => setSelectedCard(card.id)}
-                          className={`flex cursor-pointer items-center justify-between rounded-xl border-[1.5px] p-3 transition-all sm:p-4 ${
-                            isSelected
+                          className={`flex cursor-pointer items-center justify-between rounded-xl border-[1.5px] p-3 transition-all sm:p-4 ${isSelected
                               ? 'border-[#010103] ring-1 ring-[#010103] dark:border-white dark:bg-white/5 dark:ring-white'
                               : 'border-[#ECECEC] bg-[#F6F5FA] hover:border-gray-300 dark:border-white/5 dark:bg-white/2 dark:hover:border-white/20'
-                          }`}
+                            }`}
                         >
                           <div className="flex items-center gap-2 sm:gap-3">
                             <div
-                              className={`flex h-4 w-4 items-center justify-center rounded-full border-2 transition-colors sm:h-5 sm:w-5 ${
-                                isSelected
+                              className={`flex h-4 w-4 items-center justify-center rounded-full border-2 transition-colors sm:h-5 sm:w-5 ${isSelected
                                   ? 'border-[#010103] dark:border-white'
                                   : 'border-[#ECECEC] dark:border-white/10'
-                              }`}
+                                }`}
                             >
                               {isSelected && (
                                 <div className="h-2 w-2 rounded-full bg-[#010103] sm:h-2.5 sm:w-2.5 dark:bg-white" />
@@ -226,11 +226,10 @@ export const AddCashDisclosure: React.FC<CashDisclosureProps> = ({
                         <button
                           key={amount}
                           onClick={() => setSelectedAmount(amount)}
-                          className={`flex-1 rounded-lg border-[1.5px] py-2 text-[11px] font-semibold transition-all sm:text-sm ${
-                            isSelected
+                          className={`flex-1 rounded-lg border-[1.5px] py-2 text-[11px] font-semibold transition-all sm:text-sm ${isSelected
                               ? 'border-[#000000] bg-[#fefefe] text-[#000000] ring-1 ring-[#000000] dark:border-white dark:bg-white dark:text-black'
                               : 'border-[#ECECEC] bg-[#F6F5FA] text-[#000000] hover:border-[#dedbdb] dark:border-white/10 dark:bg-white/5 dark:text-gray-400 dark:hover:border-white/20'
-                          }`}
+                            }`}
                         >
                           ${amount}
                         </button>

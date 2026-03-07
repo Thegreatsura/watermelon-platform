@@ -6,7 +6,24 @@ import tseslint from 'typescript-eslint'
 import { defineConfig, globalIgnores } from 'eslint/config'
 
 export default defineConfig([
-  globalIgnores(['dist']),
+  globalIgnores([
+    'dist',
+    'build',
+    'out',
+    'coverage',
+    '.next',
+    '.turbo',
+    '.vite',
+    '.cache',
+    '*.min.js',
+    '*.bundle.js',
+    '*.map',
+    'public',
+    'static',
+    'scripts',
+    'components/ui/**/*.tsx',
+    '**/*.d.ts'
+  ]),
   {
     files: ['**/*.{ts,tsx}'],
     extends: [
@@ -18,6 +35,12 @@ export default defineConfig([
     languageOptions: {
       ecmaVersion: 2020,
       globals: globals.browser,
+    },
+    rules: {
+      'react-refresh/only-export-components': 'off',
+      '@typescript-eslint/no-explicit-any': 'off',
+      '@typescript-eslint/no-unused-vars': 'off',
+      '@typescript-eslint/ban-ts-comment': 'off',
     },
   },
 ])

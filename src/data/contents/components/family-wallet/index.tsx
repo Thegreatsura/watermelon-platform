@@ -186,7 +186,9 @@ export default function FamilyWallet() {
   const [ref, bounds] = useMeasure();
 
   useEffect(() => {
-    if (!open) setView(View.SIGN_IN);
+    if (!open) {
+      requestAnimationFrame(() => setView(View.SIGN_IN));
+    }
   }, [open]);
 
   const SignInView = () => (

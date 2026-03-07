@@ -147,6 +147,7 @@ export const ComposeEmailCard: FC<ComposeEmailCardProps> = ({ data, onSend, onCl
                                         opacity: 1,
                                         y: 0,
                                         scale: 1,
+                                        // eslint-disable-next-line react-hooks/refs
                                         left: getSafeToolbarX(toolbarPos.x),
                                     }}
                                     exit={{ opacity: 0, scale: 0.95 }}

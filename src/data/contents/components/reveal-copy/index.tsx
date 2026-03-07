@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { FaCopy } from 'react-icons/fa';
 import { BsEyeFill } from 'react-icons/bs';
@@ -23,9 +23,16 @@ export const RevealAndCopy = ({
 
   const parts = cardNumber.split(' ');
 
+  const resetAll = useCallback(() => {
+    setRevealed(false);
+    setCopied(false);
+    setTimerActive(false);
+  }, []);
+
   useEffect(() => {
     if (!revealed) return;
 
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setTimerActive(true);
 
     const timer = setTimeout(() => {
@@ -33,7 +40,7 @@ export const RevealAndCopy = ({
     }, revealDuration);
 
     return () => clearTimeout(timer);
-  }, [revealed, copied, revealDuration]);
+  }, [revealed, copied, revealDuration, resetAll]);
 
   useEffect(() => {
     if (!copied) return;
@@ -43,13 +50,7 @@ export const RevealAndCopy = ({
     }, copiedDuration);
 
     return () => clearTimeout(timer);
-  }, [copied, copiedDuration]);
-
-  const resetAll = () => {
-    setRevealed(false);
-    setCopied(false);
-    setTimerActive(false);
-  };
+  }, [copied, copiedDuration, resetAll]);
 
   const handleCopy = async () => {
     if (copied) return;
@@ -171,8 +172,8 @@ export const RevealAndCopy = ({
                 animate={{ scale: 1, opacity: 1 }}
                 exit={{ scale: 0.85, opacity: 0 }}
                 className={`relative flex h-full w-full items-center justify-center rounded-2xl transition-colors duration-300 ${copied
-                    ? 'bg-[#2DBE50] text-white'
-                    : 'bg-[#CAF9D5] text-[#2DBE50] dark:bg-emerald-900/30 dark:text-emerald-400'
+                  ? 'bg-[#2DBE50] text-white'
+                  : 'bg-[#CAF9D5] text-[#2DBE50] dark:bg-emerald-900/30 dark:text-emerald-400'
                   }`}
               >
                 {timerActive && !copied && (

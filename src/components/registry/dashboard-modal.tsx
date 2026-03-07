@@ -38,17 +38,18 @@ export function DashboardModal({ item, onClose }: DashboardModalProps) {
   useEffect(() => {
     if (!item) return;
     let cancelled = false;
-    setLoadingFiles(true);
-    setFileCodes({});
-    setSelectedFile(null);
+    const loadFiles = async () => {
+      setLoadingFiles(true);
+      setFileCodes({});
+      setSelectedFile(null);
 
-    Promise.all(
-      item.files.map(async (file) => {
-        const code = await file.code();
-        return { name: file.name, code };
-      })
-    )
-      .then((results) => {
+      try {
+        const results = await Promise.all(
+          item.files.map(async (file) => {
+            const code = await file.code();
+            return { name: file.name, code };
+          })
+        );
         if (cancelled) return;
         const codeMap: Record<string, string> = {};
         results.forEach(({ name, code }) => {
@@ -57,11 +58,14 @@ export function DashboardModal({ item, onClose }: DashboardModalProps) {
         setFileCodes(codeMap);
         setLoadingFiles(false);
         setSelectedFile(results[0]?.name ?? null);
-      })
-      .catch(() => {
+      } catch {
         if (cancelled) return;
         setLoadingFiles(false);
-      });
+      }
+    };
+
+    loadFiles();
+
 
     return () => {
       cancelled = true;

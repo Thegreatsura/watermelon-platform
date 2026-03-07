@@ -27,7 +27,7 @@ export const StepIndicator = ({
 
   const measureRefs = useRef<(HTMLDivElement | null)[]>([]);
   const buttonRefs = useRef<(HTMLButtonElement | null)[]>([]);
-  const isEntering = useRef(true);
+  const [isEntering, setIsEntering] = useState(true);
   const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const calculatePosition = (index: number) => {
@@ -70,14 +70,14 @@ export const StepIndicator = ({
     };
 
     if (activeIndex === null) {
-      isEntering.current = true;
+      setIsEntering(true);
       if (tooltipDelay > 0) {
         timeoutRef.current = setTimeout(performUpdate, tooltipDelay);
       } else {
         performUpdate();
       }
     } else {
-      isEntering.current = false;
+      setIsEntering(false);
       performUpdate();
     }
   };
@@ -86,7 +86,7 @@ export const StepIndicator = ({
     if (timeoutRef.current) clearTimeout(timeoutRef.current);
     setActiveIndex(null);
     setCoords({ clipPath: '', translateX: 0 });
-    isEntering.current = true;
+    setIsEntering(true);
   };
 
   return (
@@ -114,10 +114,10 @@ export const StepIndicator = ({
                   transition={{
                     type: 'spring',
                     bounce: 0,
-                    duration: isEntering.current ? 0 : 0.4,
+                    duration: isEntering ? 0 : 0.4,
                   }}
                   onUpdate={() => {
-                    if (isEntering.current) isEntering.current = false;
+                    if (isEntering) setIsEntering(false);
                   }}
                 >
                   <div className="inline-flex items-center justify-center">

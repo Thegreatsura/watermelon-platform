@@ -60,6 +60,76 @@ const GAP = 200;
 const DRAG_BUFFER = 80;
 const VELOCITY_THRESHOLD = 500;
 
+const WigglingCard = ({ card, i, x }: any) => {
+  const Icon = card.icon;
+  const center = -(i * (CARD_WIDTH + GAP));
+
+  const distance = useTransform(x, (v: number) => v - center);
+
+  const rotate = useTransform(
+    distance,
+    [-CARD_WIDTH, -CARD_WIDTH * 0.1, 0, CARD_WIDTH * 0.1, CARD_WIDTH],
+    [10, 10, 0, -10, -10],
+  );
+
+  const blur = useTransform(
+    distance,
+    [-CARD_WIDTH, -CARD_WIDTH * 0.2, 0, CARD_WIDTH * 0.2, CARD_WIDTH],
+    [4, 2, 0, 2, 4],
+  );
+
+  const opacity = useTransform(
+    distance,
+    [-CARD_WIDTH, -CARD_WIDTH * 0.2, 0, CARD_WIDTH * 0.2, CARD_WIDTH],
+    [0, 0.8, 1, 0.8, 0],
+  );
+
+  const filter = useMotionTemplate`blur(${blur}px)`;
+
+  return (
+    <motion.div
+      key={card.id}
+      style={{
+        opacity,
+        rotate,
+        filter,
+        minWidth: CARD_WIDTH,
+      }}
+      className="relative flex h-80 flex-col justify-between rounded-[40px] border border-neutral-200 bg-white p-6 dark:border-neutral-800 dark:bg-neutral-900"
+    >
+      <div className="flex flex-col gap-10">
+        <div className="flex h-20 w-20 items-center justify-center rounded-2xl bg-neutral-100 dark:bg-neutral-800">
+          <Icon
+            className="h-14 w-14 text-neutral-900 dark:text-neutral-100"
+            strokeWidth={1.5}
+          />
+        </div>
+
+        <div className="flex flex-col gap-1.5">
+          <div className="flex w-fit items-center rounded-2xl bg-neutral-200 px-3 py-0.5 text-lg font-medium text-neutral-600 dark:bg-neutral-800 dark:text-neutral-300">
+            <FaArrowUpLong className="mr-1 h-3 w-3" />
+            {card.percentage}
+          </div>
+
+          <h2 className="text-[42px] font-bold text-neutral-900 dark:text-neutral-100">
+            {card.value}
+          </h2>
+
+          <p className="text-[20px] font-medium text-neutral-700 dark:text-neutral-300">
+            {card.label}
+          </p>
+        </div>
+      </div>
+
+      <div className="absolute right-7 bottom-9">
+        <div className="flex h-12 w-12 items-center justify-center rounded-full bg-neutral-200 dark:bg-neutral-800">
+          <ArrowUpRight className="h-6 w-6 text-neutral-900 dark:text-neutral-100" />
+        </div>
+      </div>
+    </motion.div>
+  );
+};
+
 export function WigglingCards({ cards }: { cards?: CardData[] }) {
   const data = cards ?? DEFAULT_CARDS;
 
@@ -103,75 +173,9 @@ export function WigglingCards({ cards }: { cards?: CardData[] }) {
           }}
           onDragEnd={handleDragEnd}
         >
-          {data.map((card, i) => {
-            const Icon = card.icon;
-            const center = -(i * (CARD_WIDTH + GAP));
-
-            const distance = useTransform(x, (v) => v - center);
-
-            const rotate = useTransform(
-              distance,
-              [-CARD_WIDTH, -CARD_WIDTH * 0.1, 0, CARD_WIDTH * 0.1, CARD_WIDTH],
-              [10, 10, 0, -10, -10],
-            );
-
-            const blur = useTransform(
-              distance,
-              [-CARD_WIDTH, -CARD_WIDTH * 0.2, 0, CARD_WIDTH * 0.2, CARD_WIDTH],
-              [4, 2, 0, 2, 4],
-            );
-
-            const opacity = useTransform(
-              distance,
-              [-CARD_WIDTH, -CARD_WIDTH * 0.2, 0, CARD_WIDTH * 0.2, CARD_WIDTH],
-              [0, 0.8, 1, 0.8, 0],
-            );
-
-            const filter = useMotionTemplate`blur(${blur}px)`;
-
-            return (
-              <motion.div
-                key={card.id}
-                style={{
-                  opacity,
-                  rotate,
-                  filter,
-                  minWidth: CARD_WIDTH,
-                }}
-                className="relative flex h-80 flex-col justify-between rounded-[40px] border border-neutral-200 bg-white p-6 dark:border-neutral-800 dark:bg-neutral-900"
-              >
-                <div className="flex flex-col gap-10">
-                  <div className="flex h-20 w-20 items-center justify-center rounded-2xl bg-neutral-100 dark:bg-neutral-800">
-                    <Icon
-                      className="h-14 w-14 text-neutral-900 dark:text-neutral-100"
-                      strokeWidth={1.5}
-                    />
-                  </div>
-
-                  <div className="flex flex-col gap-1.5">
-                    <div className="flex w-fit items-center rounded-2xl bg-neutral-200 px-3 py-0.5 text-lg font-medium text-neutral-600 dark:bg-neutral-800 dark:text-neutral-300">
-                      <FaArrowUpLong className="mr-1 h-3 w-3" />
-                      {card.percentage}
-                    </div>
-
-                    <h2 className="text-[42px] font-bold text-neutral-900 dark:text-neutral-100">
-                      {card.value}
-                    </h2>
-
-                    <p className="text-[20px] font-medium text-neutral-700 dark:text-neutral-300">
-                      {card.label}
-                    </p>
-                  </div>
-                </div>
-
-                <div className="absolute right-7 bottom-9">
-                  <div className="flex h-12 w-12 items-center justify-center rounded-full bg-neutral-200 dark:bg-neutral-800">
-                    <ArrowUpRight className="h-6 w-6 text-neutral-900 dark:text-neutral-100" />
-                  </div>
-                </div>
-              </motion.div>
-            );
-          })}
+          {data.map((card, i) => (
+            <WigglingCard key={card.id} card={card} i={i} x={x} />
+          ))}
         </motion.div>
       </div>
 
@@ -180,11 +184,10 @@ export function WigglingCards({ cards }: { cards?: CardData[] }) {
           <button
             key={i}
             onClick={() => setIndex(i)}
-            className={`h-3 w-3 rounded-full transition-colors duration-200 ease-out ${
-              i === index
-                ? 'bg-neutral-500 dark:bg-neutral-400'
-                : 'bg-neutral-300 dark:bg-neutral-700'
-            }`}
+            className={`h-3 w-3 rounded-full transition-colors duration-200 ease-out ${i === index
+              ? 'bg-neutral-500 dark:bg-neutral-400'
+              : 'bg-neutral-300 dark:bg-neutral-700'
+              }`}
           />
         ))}
       </div>

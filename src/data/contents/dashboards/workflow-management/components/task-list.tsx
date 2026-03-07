@@ -23,21 +23,7 @@ export function TaskList() {
   const { tasks, selectedTaskId, selectTask, toggleSubTask } = useTaskStore();
 
 
-  const EmptyState = () => (
-    <div className="flex flex-col items-center justify-center h-[400px] px-6 text-center">
-      <div className="size-12 rounded-full bg-muted flex items-center justify-center mb-4">
-        <Inbox className="size-6 text-muted-foreground/60" />
-      </div>
-      <h3 className="text-sm font-medium text-foreground">No tasks found</h3>
-      <p className="text-xs text-muted-foreground mt-1 mb-4">
-        Try adjusting your filters or create a new task to get started.
-      </p>
-      <Button variant="outline" size="sm" className="h-8 gap-2 text-xs">
-        <Plus className="size-3.5" />
-        New Task
-      </Button>
-    </div>
-  );
+
 
   return (
     <div className="flex flex-col h-full bg-foreground/5 dark:bg-black overflow-hidden">
@@ -45,7 +31,19 @@ export function TaskList() {
         <ScrollArea className="flex-1 min-h-0 w-full">
           <div className="p-2.5 space-y-1">
             {tasks.length === 0 ? (
-              <EmptyState />
+              <div className="flex flex-col items-center justify-center h-[400px] px-6 text-center">
+                <div className="size-12 rounded-full bg-muted flex items-center justify-center mb-4">
+                  <Inbox className="size-6 text-muted-foreground/60" />
+                </div>
+                <h3 className="text-sm font-medium text-foreground">No tasks found</h3>
+                <p className="text-xs text-muted-foreground mt-1 mb-4">
+                  Try adjusting your filters or create a new task to get started.
+                </p>
+                <Button variant="outline" size="sm" className="h-8 gap-2 text-xs">
+                  <Plus className="size-3.5" />
+                  New Task
+                </Button>
+              </div>
             ) : (
               tasks.map((task) => (
                 <div key={task.id} className="flex flex-col">

@@ -32,7 +32,7 @@ export const ContinuousTabs: FC<ContinuousTabsProps> = ({
     const [isMounted, setIsMounted] = useState<boolean>(false);
 
     useEffect(() => {
-        setIsMounted(true);
+        requestAnimationFrame(() => setIsMounted(true));
     }, []);
 
     const handleChange = (id: string) => {

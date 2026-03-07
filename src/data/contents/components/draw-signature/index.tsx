@@ -38,12 +38,13 @@ export const DrawSignatureComponent: React.FC<DrawSignatureComponentProps> = ({
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setMounted(true);
   }, []);
 
   useEffect(() => {
     onStepChange?.(step);
-  }, [step]);
+  }, [step, onStepChange]);
 
   useEffect(() => {
     if (step === 'drawing' && canvasRef.current) {
@@ -135,7 +136,7 @@ export const DrawSignatureComponent: React.FC<DrawSignatureComponentProps> = ({
         className={cn(
           'relative z-10 flex items-center justify-center overflow-hidden border-4 border-dashed border-transparent transition-colors duration-400 ease-out',
           step === 'drawing' &&
-            'border-4 border-dashed border-neutral-300 dark:border-neutral-700',
+          'border-4 border-dashed border-neutral-300 dark:border-neutral-700',
         )}
         style={{
           borderRadius: 32,

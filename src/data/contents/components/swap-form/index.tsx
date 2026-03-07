@@ -53,8 +53,8 @@ export const SwapForm: FC<SwapFormProps> = ({
     const variants: Variants = {
         initial: {
             opacity: 0,
-            y: 12,
-            scale: 0.98,
+            y: -30,
+            scale: 0.97,
             filter: "blur(4px)",
         },
         animate: {
@@ -65,8 +65,8 @@ export const SwapForm: FC<SwapFormProps> = ({
         },
         exit: {
             opacity: 0,
-            y: -12,
-            scale: 0.98,
+            y: -30,
+            scale: 0.97,
             filter: "blur(4px)",
         },
     };
@@ -80,10 +80,8 @@ export const SwapForm: FC<SwapFormProps> = ({
                 animate="animate"
                 exit="exit"
                 transition={{
-                    type: "spring",
-                    stiffness: 220,
-                    damping: 26,
-                    mass: 0.9,
+                    ease: "easeIn",
+                    duration: 0.3,
                 }}
                 className="w-xs sm:w-sm bg-[#F6F5FA] dark:bg-zinc-900 shadow-[0_10px_20px_rgba(0,0,0,0.08)] rounded-[32px] overflow-hidden border-[1.5px] border-[#E6E6EF] dark:border-zinc-800 transition-colors"
             >

@@ -46,7 +46,7 @@ export const TooltipVerticalNavbar = ({
   const measureRefs = useRef<(HTMLDivElement | null)[]>([]);
   const buttonRefs = useRef<(HTMLButtonElement | null)[]>([]);
 
-  const isEntering = useRef(true);
+  const [isEntering, setIsEntering] = useState(true);
   const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const calculatePosition = (index: number) => {
@@ -83,7 +83,7 @@ export const TooltipVerticalNavbar = ({
 
     if (activeIndex === null) {
       if (timeoutRef.current) clearTimeout(timeoutRef.current);
-      isEntering.current = true;
+      setIsEntering(true);
 
       timeoutRef.current = setTimeout(() => {
         setCoords(newCoords);
@@ -99,7 +99,7 @@ export const TooltipVerticalNavbar = ({
     if (timeoutRef.current) clearTimeout(timeoutRef.current);
     setActiveIndex(null);
     setCoords({ clipPath: '', translateY: 0 });
-    isEntering.current = true;
+    setIsEntering(true);
   };
 
   return (
@@ -123,11 +123,11 @@ export const TooltipVerticalNavbar = ({
                 transition={{
                   type: 'spring',
                   bounce: 0,
-                  duration: isEntering.current ? 0 : 0.4,
+                  duration: isEntering ? 0 : 0.4,
                 }}
                 onUpdate={() => {
-                  if (isEntering.current) {
-                    isEntering.current = false;
+                  if (isEntering) {
+                    setIsEntering(false);
                   }
                 }}
               >

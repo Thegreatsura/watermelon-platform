@@ -37,14 +37,15 @@ export function BlockModal({ item, onClose }: BlockModalProps) {
   // Load file codes when item changes
   useEffect(() => {
     if (!item) return;
-    setLoadingFiles(true);
+    const loadFiles = async () => {
+      setLoadingFiles(true);
+      const results = await Promise.all(
+        item.files.map(async (file) => {
+          const code = await file.code();
+          return { name: file.name, code };
+        })
+      );
 
-    Promise.all(
-      item.files.map(async (file) => {
-        const code = await file.code();
-        return { name: file.name, code };
-      })
-    ).then((results) => {
       const codeMap: Record<string, string> = {};
       results.forEach(({ name, code }) => {
         codeMap[name] = code;
@@ -55,8 +56,11 @@ export function BlockModal({ item, onClose }: BlockModalProps) {
       if (results.length > 0 && !selectedFile) {
         setSelectedFile(results[0].name);
       }
-    });
-  }, [item]);
+    };
+
+    loadFiles();
+
+  }, [item, selectedFile]);
 
   useEffect(() => {
     if (!item) return;

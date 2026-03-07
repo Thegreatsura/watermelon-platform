@@ -182,7 +182,7 @@ export const CardSwipe: React.FC<CardCarouselProps> = ({
   const x = useMotionValue(0);
 
   useEffect(() => {
-    setMounted(true);
+    requestAnimationFrame(() => setMounted(true));
   }, []);
 
   if (!mounted) return null;

@@ -28,7 +28,7 @@ const DIGIT_SPRING = {
 
 function Digit({ value, place }: { value: number; place: number }) {
     const digit = Math.floor(value / place) % 10;
-    const mv = useMemo(() => motionValue(digit), []);
+    const mv = useMemo(() => motionValue(digit), [digit]);
     const spring = useSpring(mv, DIGIT_SPRING);
 
     useEffect(() => {
@@ -139,10 +139,10 @@ export const KnobSlider: React.FC<KnobSliderProps> = ({
     const innerSize = size * 0.68;
 
     /* Blur intensity */
-    const prev = useRef(value);
-    const blur = Math.min(10, Math.abs(value - prev.current));
+    const [prev, setPrev] = useState(value);
+    const blur = Math.min(10, Math.abs(value - prev));
     useEffect(() => {
-        prev.current = value;
+        setPrev(value);
     }, [value]);
 
     /* Convert pointer → snapped value */

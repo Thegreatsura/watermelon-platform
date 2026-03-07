@@ -42,7 +42,7 @@ export const DraggableToolbar: React.FC<DraggableToolbarProps> = ({
             x.set(width - 64);
             y.set(height / 2);
         }
-    }, []);
+    }, [x, y, containerRef]);
 
     // Monitoring X for side switching
     useEffect(() => {
@@ -74,7 +74,7 @@ export const DraggableToolbar: React.FC<DraggableToolbarProps> = ({
             }
         });
         return () => unsubscribe();
-    }, [isDragging, x, y]);
+    }, [isDragging, x, y, containerRef, closeZoneRef]);
 
     const handleDragEnd = (_event: any, _info: any) => {
         setIsDragging(false);

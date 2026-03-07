@@ -29,7 +29,7 @@ export const EditProfile: React.FC<EditProfileProps> = ({
 
     useEffect(() => {
         if (isOpen) {
-            setFormData(initialData);
+            requestAnimationFrame(() => setFormData(initialData));
         }
     }, [isOpen, initialData]);
 

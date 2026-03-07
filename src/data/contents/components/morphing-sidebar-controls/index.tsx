@@ -4,10 +4,10 @@ import {
   PlayIcon,
   PlusSignIcon,
   ZapIcon,
-} from "@hugeicons/core-free-icons";
-import { HugeiconsIcon } from "@hugeicons/react";
-import { useState } from "react";
-import { motion, AnimatePresence } from "motion/react";
+} from '@hugeicons/core-free-icons';
+import { HugeiconsIcon } from '@hugeicons/react';
+import { useState } from 'react';
+import { motion, AnimatePresence } from 'motion/react';
 
 export interface MorphingSidebarControlsProps {
   title?: string;
@@ -32,27 +32,27 @@ export interface MorphingSidebarControlsProps {
 }
 
 export default function MorphingSidebarControls({
-  title = "Configuration",
+  title = 'Configuration',
   configOptions = [
-    { label: "Width", value: "300" },
-    { label: "Height", value: "300" },
+    { label: 'Width', value: '300' },
+    { label: 'Height', value: '300' },
   ],
-  primaryFeatureName = "Visual Change",
-  secondaryFeatureName = "Transition",
-  asymmetricOptionsName = "Asymmetric",
-  tabs = ["Insertion", "Removal"],
-  types = ["Spring", "Cubic"],
+  primaryFeatureName = 'Visual Change',
+  secondaryFeatureName = 'Transition',
+  asymmetricOptionsName = 'Asymmetric',
+  tabs = ['Insertion', 'Removal'],
+  types = ['Spring', 'Cubic'],
   easeOptions,
   sliderConfigs = [
     {
-      name: "Opacity",
-      insertion: ["0", "1"],
-      removal: ["1", "0"],
+      name: 'Opacity',
+      insertion: ['0', '1'],
+      removal: ['1', '0'],
     },
     {
-      name: "Blur",
-      insertion: ["16", "0"],
-      removal: ["0", "16"],
+      name: 'Blur',
+      insertion: ['16', '0'],
+      removal: ['0', '16'],
     },
   ],
   onAddProperty,
@@ -66,7 +66,7 @@ export default function MorphingSidebarControls({
   const [isTransition, setIsTransition] = useState(false);
   const [activeTab, setActiveTab] = useState<string>(tabs[0]);
   const [activeType, setActiveType] = useState<string>(types[0]);
-  const [activeEase, setActiveEase] = useState<string>("Smooth");
+  const [activeEase, setActiveEase] = useState<string>('Smooth');
   const [isMotion, setIsMotion] = useState(false);
 
   const handleFeatureToggle = () => {
@@ -97,54 +97,55 @@ export default function MorphingSidebarControls({
   };
 
   const resolvedEaseOptions = easeOptions || [
-    { icons: <SmoothCurve />, title: "Smooth" },
-    { icons: <Bouncy />, title: "Bouncy" },
-    { icons: <Snappy />, title: "Snappy" },
-    { icons: <Custom />, title: "Custom" },
+    { icons: <SmoothCurve />, title: 'Smooth' },
+    { icons: <Bouncy />, title: 'Bouncy' },
+    { icons: <Snappy />, title: 'Snappy' },
+    { icons: <Custom />, title: 'Custom' },
   ];
 
   return (
-    <div className="bg-neutral-100 dark:bg-neutral-900/50 rounded-3xl p-3 w-[350px] flex flex-col gap-3 transition-colors duration-300">
-      <div className="w-full p-2 flex items-center justify-between gap-1">
-        <div className="w-full flex items-center justify-between">
+    <div className="flex w-[350px] flex-col gap-3 rounded-3xl bg-neutral-100 p-3 transition-colors duration-300 dark:bg-neutral-900/50">
+      <div className="flex w-full items-center justify-between gap-1 p-2">
+        <div className="flex w-full items-center justify-between">
           <AnimatePresence mode="popLayout">
             {isMotion && (
               <motion.div
                 layoutId="icon"
-                key="icon"
-                initial={{ opacity: 0, rotate: 45, filter: "blur(4px)" }}
-                animate={{ opacity: 1, rotate: 0, filter: "blur(0px)" }}
-                exit={{ opacity: 0, rotate: 45, filter: "blur(4px)" }}
-                transition={{ type: "spring", bounce: 0.25, duration: 0.5 }}
+                key="left-button"
+                initial={{ opacity: 0, rotate: 45, filter: 'blur(4px)' }}
+                animate={{ opacity: 1, rotate: 0, filter: 'blur(0px)' }}
+                exit={{ opacity: 0, rotate: 45, filter: 'blur(4px)' }}
+                transition={{ type: 'spring', bounce: 0.25, duration: 0.5 }}
                 onClick={() => setIsMotion(!isMotion)}
-                className="p-2 bg-neutral-900 rounded-full cursor-pointer"
+                className="cursor-pointer rounded-full bg-neutral-900 p-2"
               >
                 <HugeiconsIcon
                   icon={ArrowLeft02Icon}
-                  className="size-4 rounded-full text-neutral-100 fill-neutral-50"
+                  className="size-4 rounded-full fill-neutral-50 text-neutral-100"
                 />
               </motion.div>
             )}
 
             {!isMotion && (
               <motion.p
+                key="title"
                 initial={{
                   opacity: 0,
-                  filter: "blur(4px)",
+                  filter: 'blur(4px)',
                   x: -20,
                 }}
                 animate={{
                   opacity: 1,
-                  filter: "blur(0px)",
+                  filter: 'blur(0px)',
                   x: 0,
                 }}
                 exit={{
                   opacity: 0,
-                  filter: "blur(4px)",
+                  filter: 'blur(4px)',
                   x: -20,
                 }}
-                transition={{ type: "spring", bounce: 0.25, duration: 0.5 }}
-                className="text-neutral-1000 dark:text-neutral-400 font-semibold tracking-tight"
+                transition={{ type: 'spring', bounce: 0.25, duration: 0.5 }}
+                className="text-neutral-1000 font-semibold tracking-tight dark:text-neutral-400"
               >
                 {title}
               </motion.p>
@@ -152,23 +153,24 @@ export default function MorphingSidebarControls({
 
             {isMotion && (
               <motion.p
+                key="motion-text"
                 initial={{
                   opacity: 0,
-                  filter: "blur(4px)",
+                  filter: 'blur(4px)',
                   x: 10,
                 }}
                 animate={{
                   opacity: 1,
-                  filter: "blur(0px)",
+                  filter: 'blur(0px)',
                   x: 0,
                 }}
                 exit={{
                   opacity: 0,
-                  filter: "blur(4px)",
+                  filter: 'blur(4px)',
                   x: 10,
                 }}
-                transition={{ type: "spring", bounce: 0.3, duration: 0.5 }}
-                className="text-neutral-1000 dark:text-neutral-400 font-semibold tracking-tight mr-24"
+                transition={{ type: 'spring', bounce: 0.3, duration: 0.5 }}
+                className="text-neutral-1000 mr-24 font-semibold tracking-tight dark:text-neutral-400"
               >
                 Motion
               </motion.p>
@@ -177,26 +179,26 @@ export default function MorphingSidebarControls({
             {!isMotion && (
               <motion.div
                 layoutId="icon"
-                key="icon"
-                initial={{ opacity: 0, rotate: 45, filter: "blur(4px)" }}
-                animate={{ opacity: 1, rotate: 0, filter: "blur(0px)" }}
-                exit={{ opacity: 0, rotate: 45, filter: "blur(4px)" }}
-                transition={{ type: "spring", bounce: 0.25, duration: 0.5 }}
+                key="right-button"
+                initial={{ opacity: 0, rotate: 45, filter: 'blur(4px)' }}
+                animate={{ opacity: 1, rotate: 0, filter: 'blur(0px)' }}
+                exit={{ opacity: 0, rotate: 45, filter: 'blur(4px)' }}
+                transition={{ type: 'spring', bounce: 0.25, duration: 0.5 }}
                 onClick={() => setIsMotion(!isMotion)}
-                className="p-2 bg-neutral-900 rounded-full cursor-pointer"
+                className="cursor-pointer rounded-full bg-neutral-900 p-2"
               >
                 <HugeiconsIcon
                   icon={ZapIcon}
-                  className="size-4 rounded-full text-neutral-100 fill-neutral-50 "
+                  className="size-4 rounded-full fill-neutral-50 text-neutral-100"
                 />
               </motion.div>
             )}
           </AnimatePresence>
         </div>
-        <div className="p-2 bg-neutral-900 rounded-full cursor-pointer">
+        <div className="cursor-pointer rounded-full bg-neutral-900 p-2">
           <HugeiconsIcon
             icon={PlayIcon}
-            className="size-4 rounded-full text-neutral-100 fill-neutral-50"
+            className="size-4 rounded-full fill-neutral-50 text-neutral-100"
           />
         </div>
       </div>
@@ -205,23 +207,23 @@ export default function MorphingSidebarControls({
         {!isMotion && (
           <motion.div
             key="config-panel"
-            initial={{ opacity: 0, y: 50, filter: "blur(4px)" }}
-            animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-            exit={{ opacity: 0, y: 50, filter: "blur(4px)" }}
-            transition={{ type: "spring", bounce: 0.25, duration: 0.5 }}
-            className="w-full h-full flex flex-col gap-3"
+            initial={{ opacity: 0, y: 50, filter: 'blur(4px)' }}
+            animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+            exit={{ opacity: 0, y: 50, filter: 'blur(4px)' }}
+            transition={{ type: 'spring', bounce: 0.25, duration: 0.5 }}
+            className="flex h-full w-full flex-col gap-3"
           >
-            <div className="w-full p-3 flex flex-col items-center gap-3 bg-neutral-200 dark:bg-neutral-900 rounded-3xl transition-colors duration-300">
+            <div className="flex w-full flex-col items-center gap-3 rounded-3xl bg-neutral-200 p-3 transition-colors duration-300 dark:bg-neutral-900">
               <div className="flex w-full items-center gap-12">
                 {configOptions.slice(0, 2).map((option, idx) => (
                   <div
                     key={idx}
-                    className="px-4 py-3 w-full bg-neutral-100 dark:bg-neutral-800 rounded-2xl flex items-center justify-between gap-3 transition-colors duration-300"
+                    className="flex w-full items-center justify-between gap-3 rounded-2xl bg-neutral-100 px-4 py-3 transition-colors duration-300 dark:bg-neutral-800"
                   >
-                    <p className="text-neutral-1000 dark:text-neutral-400 font-semibold tracking-tight">
+                    <p className="text-neutral-1000 font-semibold tracking-tight dark:text-neutral-400">
                       {option.label}
                     </p>
-                    <p className="text-neutral-1000 dark:text-neutral-300 font-semibold tracking-tight">
+                    <p className="text-neutral-1000 font-semibold tracking-tight dark:text-neutral-300">
                       {option.value}
                     </p>
                   </div>
@@ -229,13 +231,13 @@ export default function MorphingSidebarControls({
               </div>
             </div>
 
-            <div className="w-full flex flex-col items-center gap-3 bg-neutral-200 dark:bg-neutral-900 rounded-3xl p-1 transition-colors duration-300">
-              <div className="w-full flex flex-col items-center p-3">
+            <div className="flex w-full flex-col items-center gap-3 rounded-3xl bg-neutral-200 p-1 transition-colors duration-300 dark:bg-neutral-900">
+              <div className="flex w-full flex-col items-center p-3">
                 <div
                   onClick={handleFeatureToggle}
-                  className="w-full px-4 py-3 bg-neutral-100 dark:bg-neutral-800 rounded-2xl flex items-center justify-between gap-3 relative z-30 cursor-pointer transition-colors duration-300"
+                  className="relative z-30 flex w-full cursor-pointer items-center justify-between gap-3 rounded-2xl bg-neutral-100 px-4 py-3 transition-colors duration-300 dark:bg-neutral-800"
                 >
-                  <div className="relative h-6 flex-1 flex items-center">
+                  <div className="relative flex h-6 flex-1 items-center">
                     <AnimatePresence mode="popLayout">
                       <motion.div
                         key={
@@ -243,7 +245,7 @@ export default function MorphingSidebarControls({
                             ? secondaryFeatureName
                             : primaryFeatureName
                         }
-                        className="absolute flex text-neutral-700 dark:text-neutral-200 font-semibold tracking-tight"
+                        className="absolute flex font-semibold tracking-tight text-neutral-700 dark:text-neutral-200"
                         initial="hidden"
                         animate="visible"
                         exit="exit"
@@ -260,7 +262,7 @@ export default function MorphingSidebarControls({
                           ? secondaryFeatureName
                           : primaryFeatureName
                         )
-                          .split("")
+                          .split('')
                           .map((char, index) => (
                             <motion.span
                               key={index}
@@ -268,17 +270,17 @@ export default function MorphingSidebarControls({
                                 hidden: {
                                   opacity: 0,
                                   y: 10,
-                                  filter: "blur(1px)",
+                                  filter: 'blur(1px)',
                                 },
                                 visible: {
                                   opacity: 1,
                                   y: 0,
-                                  filter: "blur(0px)",
+                                  filter: 'blur(0px)',
                                 },
                                 exit: {
                                   opacity: 0,
                                   y: -10,
-                                  filter: "blur(1px)",
+                                  filter: 'blur(1px)',
                                 },
                               }}
                               className="whitespace-pre"
@@ -299,42 +301,42 @@ export default function MorphingSidebarControls({
                       initial={{
                         height: 0,
                         opacity: 0,
-                        filter: "blur(4px)",
+                        filter: 'blur(4px)',
                         y: -50,
                       }}
                       animate={{
-                        height: "auto",
+                        height: 'auto',
                         opacity: 1,
-                        filter: "blur(0px)",
+                        filter: 'blur(0px)',
                         y: 0,
                       }}
                       exit={{
                         height: 0,
                         opacity: 0,
-                        filter: "blur(4px)",
+                        filter: 'blur(4px)',
                         y: -50,
                       }}
-                      transition={{ duration: 0.3, ease: "easeOut" }}
+                      transition={{ duration: 0.3, ease: 'easeOut' }}
                       className="w-full overflow-hidden"
                     >
-                      <div className="w-full px-4 py-3 bg-neutral-100 dark:bg-neutral-800 rounded-2xl flex items-center justify-between gap-3 mt-3 transition-colors duration-300">
-                        <p className="text-neutral-700 dark:text-neutral-200 font-semibold tracking-tight">
+                      <div className="mt-3 flex w-full items-center justify-between gap-3 rounded-2xl bg-neutral-100 px-4 py-3 transition-colors duration-300 dark:bg-neutral-800">
+                        <p className="font-semibold tracking-tight text-neutral-700 dark:text-neutral-200">
                           {asymmetricOptionsName}
                         </p>
                         <button
                           onClick={handleAsymmetricToggle}
-                          className={`flex w-12 h-7 p-0.5 rounded-full transition-colors duration-300 ease-in-out cursor-pointer shadow-inner ${
+                          className={`flex h-7 w-12 cursor-pointer rounded-full p-0.5 shadow-inner transition-colors duration-300 ease-in-out ${
                             isAsymmetric
-                              ? "bg-neutral-800 dark:bg-neutral-100"
-                              : "bg-neutral-300 dark:bg-neutral-600"
+                              ? 'bg-neutral-800 dark:bg-neutral-100'
+                              : 'bg-neutral-300 dark:bg-neutral-600'
                           }`}
                         >
                           <motion.div
                             layout
                             initial={{ x: 0 }}
                             animate={{ x: isAsymmetric ? 20 : 0 }}
-                            transition={{ duration: 0.2, ease: "easeInOut" }}
-                            className="size-6 bg-white dark:bg-neutral-900 rounded-full shadow-sm"
+                            transition={{ duration: 0.2, ease: 'easeInOut' }}
+                            className="size-6 rounded-full bg-white shadow-sm dark:bg-neutral-900"
                           />
                         </button>
                       </div>
@@ -343,7 +345,7 @@ export default function MorphingSidebarControls({
                 </AnimatePresence>
               </div>
 
-              <div className="w-full rounded-2xl bg-neutral-100 dark:bg-neutral-800 flex flex-col items-center p-3 transition-colors duration-300">
+              <div className="flex w-full flex-col items-center rounded-2xl bg-neutral-100 p-3 transition-colors duration-300 dark:bg-neutral-800">
                 <AnimatePresence>
                   {isAsymmetric && (
                     <motion.div
@@ -351,40 +353,40 @@ export default function MorphingSidebarControls({
                       initial={{
                         height: 0,
                         opacity: 0,
-                        filter: "blur(4px)",
+                        filter: 'blur(4px)',
                         y: -50,
                       }}
                       animate={{
-                        height: "auto",
+                        height: 'auto',
                         opacity: 1,
-                        filter: "blur(0px)",
+                        filter: 'blur(0px)',
                         y: 0,
                       }}
                       exit={{
                         height: 0,
                         opacity: 0,
-                        filter: "blur(4px)",
+                        filter: 'blur(4px)',
                         y: -50,
                       }}
                       transition={{
-                        type: "spring",
+                        type: 'spring',
                         bounce: 0.45,
                         duration: 0.8,
                       }}
                       className="w-full overflow-hidden"
                     >
-                      <div className="p-0.5 bg-neutral-200 dark:bg-neutral-900 rounded-2xl w-full flex items-center justify-between relative z-20 mb-3 transition-colors duration-300">
+                      <div className="relative z-20 mb-3 flex w-full items-center justify-between rounded-2xl bg-neutral-200 p-0.5 transition-colors duration-300 dark:bg-neutral-900">
                         <button
                           onClick={() => handleTabChange(tabs[0])}
-                          className="relative text-neutral-700 dark:text-neutral-200 font-semibold tracking-tight py-2 w-full text-center z-10"
+                          className="relative z-10 w-full py-2 text-center font-semibold tracking-tight text-neutral-700 dark:text-neutral-200"
                         >
                           {tabs[0]}
                           {activeTab === tabs[0] && (
                             <motion.span
                               layoutId="progressive-disclosure-tab"
-                              className="absolute inset-0 bg-neutral-100 dark:bg-neutral-800 rounded-xl -z-10 shadow-sm"
+                              className="absolute inset-0 -z-10 rounded-xl bg-neutral-100 shadow-sm dark:bg-neutral-800"
                               transition={{
-                                type: "spring",
+                                type: 'spring',
                                 bounce: 0.4,
                                 duration: 0.5,
                               }}
@@ -393,15 +395,15 @@ export default function MorphingSidebarControls({
                         </button>
                         <button
                           onClick={() => handleTabChange(tabs[1])}
-                          className="relative text-neutral-700 dark:text-neutral-200 font-semibold tracking-tight py-2 w-full text-center z-10"
+                          className="relative z-10 w-full py-2 text-center font-semibold tracking-tight text-neutral-700 dark:text-neutral-200"
                         >
                           {tabs[1]}
                           {activeTab === tabs[1] && (
                             <motion.span
                               layoutId="progressive-disclosure-tab"
-                              className="absolute inset-0 bg-neutral-100 dark:bg-neutral-800 rounded-xl -z-10 shadow-sm"
+                              className="absolute inset-0 -z-10 rounded-xl bg-neutral-100 shadow-sm dark:bg-neutral-800"
                               transition={{
-                                type: "spring",
+                                type: 'spring',
                                 bounce: 0.4,
                                 duration: 0.5,
                               }}
@@ -414,16 +416,25 @@ export default function MorphingSidebarControls({
                 </AnimatePresence>
 
                 {sliderConfigs.map((config, idx) => {
-                  const val1 = activeTab === tabs[0] ? config.insertion[0] : config.removal[0];
-                  const val2 = activeTab === tabs[0] ? config.insertion[1] : config.removal[1];
-                  
+                  const val1 =
+                    activeTab === tabs[0]
+                      ? config.insertion[0]
+                      : config.removal[0];
+                  const val2 =
+                    activeTab === tabs[0]
+                      ? config.insertion[1]
+                      : config.removal[1];
+
                   return (
-                    <div key={idx} className="flex justify-between items-center w-full px-1 mb-3">
-                      <p className="text-zinc-500 dark:text-zinc-400 tracking-tight font-semibold">
+                    <div
+                      key={idx}
+                      className="mb-3 flex w-full items-center justify-between px-1"
+                    >
+                      <p className="font-semibold tracking-tight text-zinc-500 dark:text-zinc-400">
                         {config.name}
                       </p>
-                      <div className="h-full w-[175px] bg-neutral-200 dark:bg-neutral-900 flex items-center justify-around rounded-2xl px-5 py-2 transition-colors duration-300">
-                        <div className="relative w-6 h-6 flex items-center justify-center">
+                      <div className="flex h-full w-[175px] items-center justify-around rounded-2xl bg-neutral-200 px-5 py-2 transition-colors duration-300 dark:bg-neutral-900">
+                        <div className="relative flex h-6 w-6 items-center justify-center">
                           <AnimatePresence mode="popLayout">
                             <motion.p
                               key={`${config.name}-left-${val1}`}
@@ -431,7 +442,7 @@ export default function MorphingSidebarControls({
                               animate={{ opacity: 1, y: 0 }}
                               exit={{ opacity: 0, y: 10 }}
                               transition={{ duration: 0.2 }}
-                              className="absolute text-neutral-700 dark:text-neutral-200 font-semibold tracking-tight"
+                              className="absolute font-semibold tracking-tight text-neutral-700 dark:text-neutral-200"
                             >
                               {val1}
                             </motion.p>
@@ -443,7 +454,7 @@ export default function MorphingSidebarControls({
                           className="text-neutral-700 dark:text-neutral-400"
                         />
 
-                        <div className="relative w-6 h-6 flex items-center justify-center">
+                        <div className="relative flex h-6 w-6 items-center justify-center">
                           <AnimatePresence mode="popLayout">
                             <motion.p
                               key={`${config.name}-right-${val2}`}
@@ -451,7 +462,7 @@ export default function MorphingSidebarControls({
                               animate={{ opacity: 1, y: 0 }}
                               exit={{ opacity: 0, y: 10 }}
                               transition={{ duration: 0.2 }}
-                              className="absolute text-neutral-700 dark:text-neutral-200 font-semibold tracking-tight"
+                              className="absolute font-semibold tracking-tight text-neutral-700 dark:text-neutral-200"
                             >
                               {val2}
                             </motion.p>
@@ -464,12 +475,12 @@ export default function MorphingSidebarControls({
 
                 <button
                   onClick={onAddProperty}
-                  className="w-full flex items-center justify-center gap-2 px-5 py-2.5 text-center rounded-2xl bg-neutral-900 dark:bg-neutral-100 text-neutral-100 dark:text-neutral-900 font-semibold tracking-tight mt-2 transition-colors duration-300"
+                  className="mt-2 flex w-full items-center justify-center gap-2 rounded-2xl bg-neutral-900 px-5 py-2.5 text-center font-semibold tracking-tight text-neutral-100 transition-colors duration-300 dark:bg-neutral-100 dark:text-neutral-900"
                 >
                   <HugeiconsIcon
                     icon={PlusSignIcon}
-                    className="size-5 inline-block"
-                  />{" "}
+                    className="inline-block size-5"
+                  />{' '}
                   Add Property
                 </button>
               </div>
@@ -480,11 +491,11 @@ export default function MorphingSidebarControls({
         {isMotion && (
           <motion.div
             key="motion-panel"
-            initial={{ opacity: 0, y: 50, filter: "blur(4px)" }}
-            animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-            exit={{ opacity: 0, y: 50, filter: "blur(4px)" }}
-            transition={{ type: "spring", bounce: 0.25, duration: 0.5 }}
-            className="w-full h-full flex flex-col gap-3 items-center"
+            initial={{ opacity: 0, y: 50, filter: 'blur(4px)' }}
+            animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+            exit={{ opacity: 0, y: 50, filter: 'blur(4px)' }}
+            transition={{ type: 'spring', bounce: 0.25, duration: 0.5 }}
+            className="flex h-full w-full flex-col items-center gap-3"
           >
             <AnimatePresence mode="popLayout">
               <motion.div
@@ -492,36 +503,36 @@ export default function MorphingSidebarControls({
                 initial={{
                   height: 0,
                   opacity: 0,
-                  filter: "blur(4px)",
+                  filter: 'blur(4px)',
                   y: -50,
                 }}
                 animate={{
-                  height: "auto",
+                  height: 'auto',
                   opacity: 1,
-                  filter: "blur(0px)",
+                  filter: 'blur(0px)',
                   y: 0,
                 }}
                 exit={{
                   height: 0,
                   opacity: 0,
-                  filter: "blur(4px)",
+                  filter: 'blur(4px)',
                   y: -50,
                 }}
-                transition={{ type: "spring", bounce: 0.45, duration: 0.8 }}
+                transition={{ type: 'spring', bounce: 0.45, duration: 0.8 }}
                 className="w-full overflow-hidden"
               >
-                <div className="p-0.5 bg-neutral-200 dark:bg-neutral-900 rounded-2xl w-full flex items-center justify-between relative z-20 mb-3 transition-colors duration-300">
+                <div className="relative z-20 mb-3 flex w-full items-center justify-between rounded-2xl bg-neutral-200 p-0.5 transition-colors duration-300 dark:bg-neutral-900">
                   <button
                     onClick={() => handleTypeChange(types[0])}
-                    className="relative text-neutral-700 dark:text-neutral-200 font-semibold tracking-tight py-2 w-full text-center z-10"
+                    className="relative z-10 w-full py-2 text-center font-semibold tracking-tight text-neutral-700 dark:text-neutral-200"
                   >
                     {types[0]}
                     {activeType === types[0] && (
                       <motion.span
                         layoutId="progressive-disclosure-tab"
-                        className="absolute inset-0 bg-neutral-100 dark:bg-neutral-800 rounded-xl -z-10 shadow-sm"
+                        className="absolute inset-0 -z-10 rounded-xl bg-neutral-100 shadow-sm dark:bg-neutral-800"
                         transition={{
-                          type: "spring",
+                          type: 'spring',
                           bounce: 0.4,
                           duration: 0.5,
                         }}
@@ -530,15 +541,15 @@ export default function MorphingSidebarControls({
                   </button>
                   <button
                     onClick={() => handleTypeChange(types[1])}
-                    className="relative text-neutral-700 dark:text-neutral-200 font-semibold tracking-tight py-2 w-full text-center z-10"
+                    className="relative z-10 w-full py-2 text-center font-semibold tracking-tight text-neutral-700 dark:text-neutral-200"
                   >
                     {types[1]}
                     {activeType === types[1] && (
                       <motion.span
                         layoutId="progressive-disclosure-tab"
-                        className="absolute inset-0 bg-neutral-100 dark:bg-neutral-800 rounded-xl -z-10 shadow-sm"
+                        className="absolute inset-0 -z-10 rounded-xl bg-neutral-100 shadow-sm dark:bg-neutral-800"
                         transition={{
-                          type: "spring",
+                          type: 'spring',
                           bounce: 0.4,
                           duration: 0.5,
                         }}
@@ -548,24 +559,24 @@ export default function MorphingSidebarControls({
                 </div>
               </motion.div>
             </AnimatePresence>
-            <div className="grid grid-cols-2 gap-2 w-full">
+            <div className="grid w-full grid-cols-2 gap-2">
               {resolvedEaseOptions.map((item) => {
                 const isActive = activeEase === item.title;
                 return (
                   <div
                     key={item.title}
                     onClick={() => handleEaseChange(item.title)}
-                    className={`group w-full aspect-square rounded-[36px] flex flex-col items-center justify-between p-4 cursor-pointer transition-all duration-300 active:scale-[0.98] ${
+                    className={`group flex aspect-square w-full cursor-pointer flex-col items-center justify-between rounded-[36px] p-4 transition-all duration-300 active:scale-[0.98] ${
                       isActive
-                        ? "bg-neutral-300 dark:bg-neutral-700/80 shadow-sm text-neutral-900 dark:text-neutral-100 border-[6px]"
-                        : "bg-neutral-200 dark:bg-neutral-800 hover:bg-neutral-300/50 dark:hover:bg-neutral-700/50 text-neutral-1000 dark:text-neutral-400 hover:text-neutral-700 dark:hover:text-neutral-300"
+                        ? 'border-[6px] bg-neutral-300 text-neutral-900 shadow-sm dark:bg-neutral-700/80 dark:text-neutral-100'
+                        : 'text-neutral-1000 bg-neutral-200 hover:bg-neutral-300/50 hover:text-neutral-700 dark:bg-neutral-800 dark:text-neutral-400 dark:hover:bg-neutral-700/50 dark:hover:text-neutral-300'
                     }`}
                   >
-                    <div className="flex-1 flex items-center justify-center w-full relative transition-colors duration-300 p-2 scale-[1.10]">
+                    <div className="relative flex w-full flex-1 scale-[1.10] items-center justify-center p-2 transition-colors duration-300">
                       {item.icons}
                     </div>
                     <p
-                      className={`font-semibold tracking-tight text-center w-full transition-colors duration-300 ${isActive ? "text-[15px]" : "text-sm"}`}
+                      className={`w-full text-center font-semibold tracking-tight transition-colors duration-300 ${isActive ? 'text-[15px]' : 'text-sm'}`}
                     >
                       {item.title}
                     </p>
@@ -593,7 +604,7 @@ const UnfoldMore = ({ onClick }: { onClick?: () => void }) => {
       strokeWidth="2"
       strokeLinecap="round"
       strokeLinejoin="round"
-      className="lucide lucide-chevrons-up-down-icon lucide-chevrons-up-down text-neutral-700 dark:text-neutral-400 cursor-pointer"
+      className="lucide lucide-chevrons-up-down-icon lucide-chevrons-up-down cursor-pointer text-neutral-700 dark:text-neutral-400"
     >
       <path d="m7 15 5 5 5-5" />
       <path d="m7 9 5-5 5 5" />
@@ -607,7 +618,7 @@ const SmoothCurve = () => {
       viewBox="0 0 259 86"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
-      className="w-[110px] h-auto text-current"
+      className="h-auto w-[110px] text-current"
     >
       <path
         d="M153.002 15.5012C104.002 22.5 127.002 69 74.5026 78.5015C28.0407 86.9103 6.00195 41.5015 6.00195 41.5015"
@@ -632,7 +643,7 @@ const Bouncy = () => {
       viewBox="0 0 320 280"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
-      className="w-[80px] h-auto text-current"
+      className="h-auto w-[80px] text-current"
     >
       <path
         d="M6 255.946C6 255.946 7.10863 157.446 76.3574 157.446C150.857 157.446 150.857 255.946 150.857 255.946"
@@ -663,7 +674,7 @@ const Snappy = () => {
       viewBox="0 0 316 164"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
-      className="w-[96px] h-auto text-current"
+      className="h-auto w-[96px] text-current"
     >
       <circle cx="229.5" cy="90" r="33" fill="currentColor" />
       <path
@@ -700,7 +711,7 @@ const Custom = () => {
       viewBox="0 0 300 300"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
-      className="w-[68px] h-auto text-current"
+      className="h-auto w-[68px] text-current"
     >
       <circle cx="151.5" cy="164.5" r="62.5" fill="currentColor" />
       <path

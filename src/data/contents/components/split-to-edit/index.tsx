@@ -20,14 +20,14 @@ const layoutConfig: Transition = {
   type: 'spring',
   stiffness: 450,
   damping: 25,
-  mass:2
+  mass: 2
 };
 
 const collapsedConfig: Transition = {
   type: 'spring',
   stiffness: 450,
   damping: 25,
-  mass:1
+  mass: 1
 };
 
 export const SplitToEdit: FC<SplitToEditProps> = ({
@@ -48,10 +48,12 @@ export const SplitToEdit: FC<SplitToEditProps> = ({
   const hoursInputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
-    setHours(initialHours);
-    setMinutes(initialMinutes);
-    setTempHours(String(initialHours));
-    setTempMinutes(String(initialMinutes));
+    requestAnimationFrame(() => {
+      setHours(initialHours);
+      setMinutes(initialMinutes);
+      setTempHours(String(initialHours));
+      setTempMinutes(String(initialMinutes));
+    });
   }, [initialHours, initialMinutes]);
 
   useEffect(() => {

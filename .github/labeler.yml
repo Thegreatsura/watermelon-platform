@@ -2,35 +2,41 @@
 
 components:
   - any:
-    - 'src/components/**/*'
-    - 'src/data/contents/components/**/*'
+    - changed-files:
+      - any-glob-to-any-file: 'src/components/**/*'
+      - any-glob-to-any-file: 'src/data/contents/components/**/*'
 
 blocks:
   - any:
-    - 'src/data/contents/blocks/**/*'
+    - changed-files:
+      - any-glob-to-any-file: 'src/data/contents/blocks/**/*'
 
 dashboards:
   - any:
-    - 'src/data/contents/dashboards/**/*'
+    - changed-files:
+      - any-glob-to-any-file: 'src/data/contents/dashboards/**/*'
 
 documentation:
   - any:
-    - 'README.md'
-    - 'CONTRIBUTING.md'
-    - 'CODE_OF_CONDUCT.md'
-    - 'SECURITY.md'
-    - 'AI_POLICY.md'
-    - 'CHANGELOG.md'
-    - 'docs/**/*'
+    - changed-files:
+      - any-glob-to-any-file: 'README.md'
+      - any-glob-to-any-file: 'CONTRIBUTING.md'
+      - any-glob-to-any-file: 'CODE_OF_CONDUCT.md'
+      - any-glob-to-any-file: 'SECURITY.md'
+      - any-glob-to-any-file: 'AI_POLICY.md'
+      - any-glob-to-any-file: 'CHANGELOG.md'
+      - any-glob-to-any-file: 'docs/**/*'
 
 ci-cd:
   - any:
-    - '.github/**/*'
-    - 'package.json'
-    - 'bun.lockb'
+    - changed-files:
+      - any-glob-to-any-file: '.github/**/*'
+      - any-glob-to-any-file: 'package.json'
+      - any-glob-to-any-file: 'bun.lockb'
 
 website:
   - any:
-    - 'src/pages/**/*'
-    - 'src/lib/**/*'
-    - 'index.html'
+    - changed-files:
+      - any-glob-to-any-file: 'src/pages/**/*'
+      - any-glob-to-any-file: 'src/lib/**/*'
+      - any-glob-to-any-file: 'index.html'

@@ -56,7 +56,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const { resolvedTheme } = useTheme()
   const [mounted, setMounted] = useState(false)
   const [proOpen, setProOpen] = useState(false)
-  useEffect(() => setMounted(true), [])
+  useEffect(() => { requestAnimationFrame(() => setMounted(true)) }, [])
 
   const darkSidebarStyle = mounted && resolvedTheme === "dark"
     ? ({

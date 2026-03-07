@@ -9,7 +9,8 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "sitemap": "bun run scripts/generate-sitemap.ts",
-    "deploy": "bun run build && bun run sitemap && npx wrangler deploy"
+    "deploy": "bun run build && bun run sitemap && npx wrangler deploy",
+    "prepare": "husky"
   },
   "dependencies": {
     "@base-ui/react": "^1.2.0",
@@ -20,7 +21,7 @@
     "@hugeicons/core-free-icons": "^3.1.1",
     "@hugeicons/react": "^1.1.5",
     "@mdx-js/react": "^3.1.1",
-    "@number-flow/react": "^0.5.12",
+    "@number-flow/react": "^0.6.0",
     "@posthog/react": "^1.8.0",
     "@tabler/icons-react": "^3.37.1",
     "@tailwindcss/vite": "^4.1.18",
@@ -77,6 +78,7 @@
     "glob": "^13.0.5",
     "globals": "^16.5.0",
     "gray-matter": "^4.0.3",
+    "husky": "^9.1.7",
     "prettier": "^3.8.1",
     "prettier-plugin-tailwindcss": "^0.7.2",
     "react-snap": "^1.23.0",

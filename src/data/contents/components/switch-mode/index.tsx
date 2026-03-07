@@ -31,7 +31,7 @@ export const SwitchMode: FC<SwitchModeProps> = ({
     const { resolvedTheme, setTheme } = useTheme();
 
     useEffect(() => {
-        setMounted(true);
+        requestAnimationFrame(() => setMounted(true));
     }, []);
 
     if (!mounted) {

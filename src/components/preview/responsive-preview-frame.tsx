@@ -209,7 +209,7 @@ export function ResponsivePreviewFrame({
       rootObserver.disconnect();
       headObserver.disconnect();
     };
-  }, [mountNode]);
+  }, [mountNode, previewUrl]);
 
   const frameClasses = cn(
     'bg-background border shadow-sm overflow-hidden transition-all duration-300 ease-in-out',

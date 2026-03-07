@@ -49,7 +49,7 @@ export const FloatingDisclosure = ({ items }: FloatingDisclosureProps) => {
 
   useEffect(() => {
     console.log(bounds);
-  }, [isOpen]);
+  }, [isOpen, bounds]);
 
   return (
     <MotionConfig

@@ -50,15 +50,11 @@ export function Stepper({
   const current = isControlled ? value! : internal;
   const digits = current.toString().split('');
 
-  const digitTicksRef = React.useRef<number[]>([]);
-  const prevDigitsRef = React.useRef<string[]>([]);
-
-  const prevDigits = prevDigitsRef.current;
-  const prevTicks = digitTicksRef.current;
+  const [prevDigits, setPrevDigits] = React.useState<string[]>([]);
+  const [prevTicks, setPrevTicks] = React.useState<number[]>([]);
 
   const len = digits.length;
-  const prevLen = prevDigits.length;
-  const lenDiff = len - prevLen;
+  const lenDiff = len - prevDigits.length;
 
   const nextTicks = digits.map((digit, i) => {
     const prevI = i - lenDiff;
@@ -68,8 +64,10 @@ export function Stepper({
     return digit !== prevDigit ? (prevTick ?? 0) + 1 : (prevTick ?? 0);
   });
 
-  digitTicksRef.current = nextTicks;
-  prevDigitsRef.current = digits;
+  React.useEffect(() => {
+    setPrevTicks(nextTicks);
+    setPrevDigits(digits);
+  }, [digits, nextTicks]);
 
   const step = (dir: number) => {
     const next = Math.min(max, Math.max(min, current + dir));

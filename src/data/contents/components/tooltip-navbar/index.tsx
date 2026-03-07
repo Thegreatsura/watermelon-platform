@@ -70,8 +70,8 @@ export const TooltipNavbar = ({ items = DEFAULT_ITEMS, tooltipDelay = 300 }: Too
   const measureRefs = useRef<(HTMLDivElement | null)[]>([]);
   const buttonRefs = useRef<(HTMLButtonElement | null)[]>([]);
 
-  const isEntering = useRef(true);
- const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const [isEntering, setIsEntering] = useState(true);
+  const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const calculatePosition = (index: number) => {
     const activeLabel = measureRefs.current[index];
@@ -107,7 +107,7 @@ export const TooltipNavbar = ({ items = DEFAULT_ITEMS, tooltipDelay = 300 }: Too
 
     if (activeIndex === null) {
       if (timeoutRef.current) clearTimeout(timeoutRef.current);
-      isEntering.current = true;
+      setIsEntering(true);
 
       timeoutRef.current = setTimeout(() => {
         setCoords(newCoords);
@@ -123,7 +123,7 @@ export const TooltipNavbar = ({ items = DEFAULT_ITEMS, tooltipDelay = 300 }: Too
     if (timeoutRef.current) clearTimeout(timeoutRef.current);
     setActiveIndex(null);
     setCoords({ clipPath: '', translateX: 0 });
-    isEntering.current = true;
+    setIsEntering(true);
   };
 
   return (
@@ -149,11 +149,11 @@ export const TooltipNavbar = ({ items = DEFAULT_ITEMS, tooltipDelay = 300 }: Too
                     type: 'spring',
                     bounce: 0,
 
-                    duration: isEntering.current ? 0 : 0.4,
+                    duration: isEntering ? 0 : 0.4,
                   }}
                   onUpdate={() => {
-                    if (isEntering.current) {
-                      isEntering.current = false;
+                    if (isEntering) {
+                      setIsEntering(false);
                     }
                   }}
                 >

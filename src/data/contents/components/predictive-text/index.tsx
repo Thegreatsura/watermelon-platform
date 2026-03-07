@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect, useRef, useCallback } from 'react';
+import React, { useState, useEffect, useRef, useCallback, useMemo } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { ArrowUp, ImageIcon, Mic } from 'lucide-react';
 
@@ -23,7 +23,7 @@ export const PredictiveText: React.FC<PredictiveInputProps> = ({
   className = ""
 }) => {
   const [text, setText] = useState("");
-  const [suggestions, setSuggestions] = useState<string[]>([]);
+
   const [activeSuggestionIndex, setActiveSuggestionIndex] = useState<number>(-1);
   const [wordFrequency, setWordFrequency] = useState<Record<string, number>>({});
   const inputRef = useRef<HTMLInputElement>(null);
@@ -37,23 +37,26 @@ export const PredictiveText: React.FC<PredictiveInputProps> = ({
     return Array.from(new Set([...freqWords, ...dictionary]));
   }, [dictionary, wordFrequency]);
 
-  useEffect(() => {
+  // Derive lastWord and suggestions during render
+  const lastWord = useMemo(() => {
     const words = text.split(/\s+/);
-    const lastWord = words[words.length - 1].toLowerCase();
+    return words[words.length - 1].toLowerCase();
+  }, [text]);
 
+  const suggestions = useMemo(() => {
     if (lastWord.length > 0) {
       const dict = enrichedDictionary();
-      const matches = dict
+      return dict
         .filter(word => word.toLowerCase().startsWith(lastWord) && word.toLowerCase() !== lastWord)
         .slice(0, 3);
-      setSuggestions(matches);
-    } else {
-      setSuggestions([]);
     }
+    return [];
+  }, [lastWord, enrichedDictionary]);
 
-    // Reset active suggestion whenever text changes via typing
-    setActiveSuggestionIndex(-1);
-  }, [text, enrichedDictionary]);
+  // Reset active suggestion whenever text changes via typing
+  useEffect(() => {
+    requestAnimationFrame(() => setActiveSuggestionIndex(-1));
+  }, [text]);
 
   const applySuggestion = useCallback((suggestion: string) => {
     const words = text.split(/\s+/);
@@ -79,7 +82,6 @@ export const PredictiveText: React.FC<PredictiveInputProps> = ({
 
     onSend?.(text);
     setText("");
-    setSuggestions([]);
   }, [text, onSend]);
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -120,10 +122,7 @@ export const PredictiveText: React.FC<PredictiveInputProps> = ({
       }
 
       case "Escape": {
-        if (suggestions.length > 0) {
-          e.preventDefault();
-          setSuggestions([]);
-        } else if (text.length > 0) {
+        if (text.length > 0) {
           e.preventDefault();
           setText("");
         }
