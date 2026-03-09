@@ -29,6 +29,7 @@ import {
 
 const transactions = [
   {
+    id: "TX-A1B2C3",
     customer: "Pratik Singh",
     amount: "₹24,999",
     status: "Success",
@@ -36,6 +37,7 @@ const transactions = [
     time: "3 mins ago",
   },
   {
+    id: "TX-D4E5F6",
     customer: "Sarah Johnson",
     amount: "₹38,500",
     status: "Refunded",
@@ -43,6 +45,7 @@ const transactions = [
     time: "1 hour ago",
   },
   {
+    id: "TX-G7H8I9",
     customer: "Mark Lee",
     amount: "₹19,999",
     status: "Failed",
@@ -50,6 +53,7 @@ const transactions = [
     time: "2 hours ago",
   },
   {
+    id: "TX-J0K1L2",
     customer: "Emily Davis",
     amount: "₹29,999",
     status: "Refunded",
@@ -57,6 +61,7 @@ const transactions = [
     time: "5 mins ago",
   },
   {
+    id: "TX-M3N4O5",
     customer: "Michael Brown",
     amount: "₹41,999",
     status: "Success",
@@ -142,7 +147,7 @@ export function TransactionsTable() {
                       <DialogHeader>
                         <DialogTitle className="text-xl tracking-tight">Transaction Details</DialogTitle>
                         <DialogDescription className="font-mono text-xs mt-1">
-                          ID: TX-{Math.random().toString(36).substring(7).toUpperCase()}
+                          ID: {tx.id}
                         </DialogDescription>
                       </DialogHeader>
                     </div>
