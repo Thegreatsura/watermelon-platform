@@ -46,7 +46,7 @@ export function FailedPayments() {
         </div>
       </CardHeader>
 
-      <CardContent className="bg-white dark:bg-zinc-900 p-2 rounded-none overflow-hidden ">
+      <CardContent className="bg-white dark:bg-zinc-900 p-2 rounded-none overflow-hidden flex-1">
         <div className="">
           {data.map((item, i) => (
             <div
@@ -70,8 +70,8 @@ export function FailedPayments() {
           ))}
         </div>
       </CardContent>
-      <CardFooter className="bg-white dark:bg-zinc-900 flex-1 px-3 pb-2 ">
-        <div className=" flex justify-between items-center text-xs text-muted-foreground w-full">
+      <CardFooter className="bg-white dark:bg-zinc-900 px-4 pb-4 pt-0">
+        <div className="flex justify-between items-center text-xs text-muted-foreground w-full">
           <button className="text-muted-foreground text-sm font-medium hover:text-foreground transition-colors">
             3 of 3
           </button>
