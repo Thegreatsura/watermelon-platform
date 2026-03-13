@@ -6,7 +6,7 @@ import { cn } from "@/lib/utils";
 export const socialItems = {
   title: "Follow Us on",
   items: [
-    { title: "X", href: "https://x.com/watermelonshHQ", icon: <HugeiconsIcon icon={NewTwitterIcon} size={18} /> },
+    { title: "X", href: "https://x.com/@watermelonui", icon: <HugeiconsIcon icon={NewTwitterIcon} size={18} /> },
     { title: "GitHub", href: "https://github.com/watermeloncorp", icon: <HugeiconsIcon icon={GithubIcon} size={18} /> },
     { title: "LinkedIn", href: "https://www.linkedin.com/company/watermelon-corp", icon: <HugeiconsIcon icon={Linkedin01Icon} size={18} /> },
   ],
