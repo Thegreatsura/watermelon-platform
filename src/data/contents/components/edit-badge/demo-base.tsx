@@ -1,4 +1,4 @@
-import {EditBadge} from ".";
+import {EditBadge} from "./base";
 
 export default function EditBadgeDemo() {
   return (

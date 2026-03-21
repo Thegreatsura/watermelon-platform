@@ -1,4 +1,4 @@
-import { SlotPicker } from '.';
+import { SlotPicker } from './base';
 
 const MOCK_DAYS = [
   { id: 'mon', label: 'Monday', enabled: false, slots: [] },

@@ -1,5 +1,5 @@
 'use client';
-import LayeredProgressiveDisclosure from '.';
+import LayeredProgressiveDisclosure from './base';
 
 export default function LayeredProgressiveDisclosureDemo() {
   return (

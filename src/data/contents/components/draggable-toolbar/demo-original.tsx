@@ -1,5 +1,5 @@
 
-import { DraggableToolbar } from '.';
+import { DraggableToolbar } from './original';
 
 const DraggableToolbarDemo = () => {
     return (

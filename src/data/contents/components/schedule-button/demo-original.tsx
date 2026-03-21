@@ -1,4 +1,4 @@
-import { ScheduleButton } from '.';
+import { ScheduleButton } from './original';
 
 function ScheduleButtonDemo() {
   return (

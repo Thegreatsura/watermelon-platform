@@ -1,4 +1,4 @@
-import { CarouselSlider } from '.'
+import { CarouselSlider } from './original'
 
 const slides = [
     { id: 1, img: "https://prourls.link/ORXBVr" },

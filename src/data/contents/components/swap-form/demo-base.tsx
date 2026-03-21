@@ -1,7 +1,7 @@
 "use client"
 
 import { useState } from 'react'
-import { SwapForm } from '.'
+import { SwapForm } from './base'
 
 function SwapFormDemo() {
     const [isSignIn, setIsSignIn] = useState(true);

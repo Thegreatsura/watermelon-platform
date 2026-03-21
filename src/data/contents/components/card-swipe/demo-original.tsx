@@ -6,7 +6,7 @@ import {
     SwimmingIcon,
 } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from '@hugeicons/react';
-import { CardSwipe } from '.';
+import { CardSwipe } from './original';
 
 const items = [
     {

@@ -1,6 +1,6 @@
 "use client";
 
-import { DebugPanel } from "./index";
+import { DebugPanel } from "./original";
 
 export default function DebugPanelDemo() {
     return (
