@@ -1,5 +1,5 @@
 'use client';
-import { MacOSSidebar } from '.';
+import { MacOSSidebar } from './base';
 
 const DEMO_ITEMS = ['Canvas 1', 'Canvas 2', 'Canvas 3', 'Canvas 4', 'Canvas 5'];
 

@@ -1,4 +1,4 @@
-import { FloatingInput } from ".";
+import { FloatingInput } from "./base";
 
 export default function FloatingInputDemo() {
   return (

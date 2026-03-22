@@ -1,6 +1,6 @@
-"use client";
+'use client';
 
-import { DrawSignatureComponent } from '.';
+import { DrawSignatureComponent } from './original';
 
 const DrawSignatureDemo = () => {
   return (

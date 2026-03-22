@@ -1,4 +1,4 @@
-import { FloatingDisclosure } from './index';
+import { FloatingDisclosure } from './base';
 import { BsFileTextFill } from 'react-icons/bs';
 import { FaBell } from 'react-icons/fa6';
 import { TbFileFilled } from 'react-icons/tb';

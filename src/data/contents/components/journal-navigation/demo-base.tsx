@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { JournalNavigation } from './index';
+import { JournalNavigation } from './base';
 
 const items = [
   {

@@ -1,4 +1,4 @@
-import ChangeablePricingSection, { type Plan } from '.';
+import ChangeablePricingSection, { type Plan } from './original';
 
 const demoPlans: Plan[] = [
   {
@@ -48,7 +48,7 @@ const demoPlans: Plan[] = [
 
 export default function ChangeablePricingSectionDemo() {
   return (
-    <div className="relative flex max-h-screen flex-col items-center justify-center gap-10 bg-background p-10 transition-colors duration-300 dark:bg-neutral-950">
+    <div className="bg-background relative flex max-h-screen flex-col items-center justify-center gap-10 p-10 transition-colors duration-300 dark:bg-neutral-950">
       <ChangeablePricingSection
         plans={demoPlans}
         defaultPlanId="business"

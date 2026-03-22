@@ -1,6 +1,6 @@
 'use client';
 
-import { CommandSearch, type CommandItem } from '.';
+import { CommandSearch, type CommandItem } from './base';
 import {
   User,
   Bell,
