@@ -1,5 +1,5 @@
 
-import { LabeledProgressIndicator } from ".";
+import { LabeledProgressIndicator } from "./original";
 
 const labels = [
   'almost there',

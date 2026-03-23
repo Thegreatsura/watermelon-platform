@@ -1,4 +1,4 @@
-import { FeedbackAction } from './index';
+import { FeedbackAction } from './original';
 
 export default function FeedbackActionDemo() {
   const handleSyncRetry = () => {

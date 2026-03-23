@@ -1,13 +1,13 @@
 import React from 'react';
-import { PredictiveText } from './index';
+import { PredictiveText } from './base';
 
 const PredictiveTextDemo: React.FC = () => {
   const handleSend = (val: string) => {
-    console.log("Sent message:", val);
+    console.log('Sent message:', val);
   };
 
   return (
-    <PredictiveText 
+    <PredictiveText
       onSend={handleSend}
       placeholder="Try typing 'Sunny' or 'What'"
     />

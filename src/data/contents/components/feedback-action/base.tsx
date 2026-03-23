@@ -1,3 +1,5 @@
+'use client';
+
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence, MotionConfig } from 'motion/react';
 import { LuCircleDotDashed } from 'react-icons/lu';
@@ -33,7 +35,7 @@ export const FeedbackAction: React.FC<InlineFeedbackProps> = ({
   }, [status]);
 
   return (
-    <div className="flex min-h-full items-center justify-center bg-transparent p-4 dark:bg-neutral-950">
+    <div className="theme-injected flex min-h-full items-center justify-center bg-transparent p-4">
       <div className="flex h-14 items-center gap-3">
         <MotionConfig
           transition={{ type: 'spring', bounce: 0.25, duration: 0.6 }}
@@ -43,14 +45,8 @@ export const FeedbackAction: React.FC<InlineFeedbackProps> = ({
             layout
             initial={false}
             className={cn(
-              'relative z-20 flex items-center justify-center overflow-hidden border px-6 py-4',
-              status === 'error'
-                ? 'border-neutral-200 bg-neutral-100 dark:border-neutral-800 dark:bg-neutral-900'
-                : 'border-neutral-200 bg-neutral-100 dark:border-neutral-800 dark:bg-neutral-900',
+              'border-border bg-muted relative z-20 flex items-center justify-center overflow-hidden rounded-lg border px-6 py-4',
             )}
-            style={{
-              borderRadius: 32,
-            }}
           >
             <motion.div
               initial={{ opacity: 0, filter: 'blur(8px)' }}
@@ -71,15 +67,13 @@ export const FeedbackAction: React.FC<InlineFeedbackProps> = ({
                   {status === 'error' ? (
                     <TbAlertOctagonFilled
                       size={26}
-                      className={cn('text-red-500 dark:text-red-500')}
+                      className={cn('text-destructive')}
                     />
                   ) : (
                     <LuCircleDotDashed
                       size={26}
                       strokeWidth={2.8}
-                      className={cn(
-                        'animate-spin text-neutral-700 dark:text-neutral-200',
-                      )}
+                      className={cn('text-foreground animate-spin')}
                     />
                   )}
                 </motion.div>
@@ -89,9 +83,7 @@ export const FeedbackAction: React.FC<InlineFeedbackProps> = ({
                 text={status === 'error' ? errorMessage : loadingMessage}
                 className={cn(
                   'text-xl font-semibold',
-                  status === 'error'
-                    ? 'text-red-500'
-                    : 'text-neutral-700 dark:text-neutral-200',
+                  status === 'error' ? 'text-destructive' : 'text-foreground',
                 )}
               />
             </motion.div>
@@ -113,7 +105,7 @@ export const FeedbackAction: React.FC<InlineFeedbackProps> = ({
                 whileTap={{ scale: 0.94 }}
                 onClick={handleRetry}
                 className={cn(
-                  'z-10 flex h-14 w-14 items-center justify-center rounded-full bg-neutral-900 text-white dark:bg-neutral-100 dark:text-black',
+                  'bg-primary text-primary-foreground z-10 flex h-14 w-14 items-center justify-center rounded-lg',
                 )}
               >
                 <FaArrowRotateRight size={22} />

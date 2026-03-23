@@ -1,5 +1,5 @@
 import { LuTent } from 'react-icons/lu';
-import { ListStack } from '.';
+import { ListStack } from './base';
 import { FaFireFlameCurved, FaSailboat } from 'react-icons/fa6';
 
 

@@ -1,4 +1,4 @@
-import { QuickFeedback } from "./index";
+import { QuickFeedback } from "./base";
 
 export default function QuickFeedbackDemo() {
   return (

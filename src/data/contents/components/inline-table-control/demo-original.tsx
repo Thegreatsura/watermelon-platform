@@ -1,4 +1,4 @@
-import  {InlineTableControl}  from './index';
+import  {InlineTableControl}  from './original';
 
 const data = [
   { id: '1', expense: 'Rent', method: 'Bank Transfer', amount: '1200' },

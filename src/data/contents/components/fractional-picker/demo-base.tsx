@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { FractionalPicker } from ".";
+import { FractionalPicker } from "./base";
 
 export default function FractionalPickerDemo() {
   const [value, setValue] = useState(24);
