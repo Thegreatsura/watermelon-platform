@@ -58,7 +58,7 @@ export default function ComponentPage() {
     return () => {
       isActive = false;
     };
-  }, [item?.slug, activeVariant]);
+  }, [item, activeVariant]);
 
   // 2. Fetch Base/Original Code (Depends ONLY on the item)
   useEffect(() => {
@@ -75,7 +75,7 @@ export default function ComponentPage() {
     return () => {
       isActive = false;
     };
-  }, [item?.slug]);
+  }, [item]);
 
   useEffect(() => {
     if (!item) return;
@@ -119,7 +119,7 @@ export default function ComponentPage() {
       {isMobile && (
         <>
           {/* Header */}
-          <div className="bg-background relative px-4 pt-4 pb-3">
+          <div className="bg-background relative border-b px-4 pt-4 pb-3">
             <div className="text-muted-foreground mb-2 flex gap-2 text-xs">
               <Link to="/">Components</Link>
               <span>/</span>
@@ -128,33 +128,32 @@ export default function ComponentPage() {
 
             <div className="mb-2 flex items-center justify-between">
               <h1 className="text-xl font-semibold">{item.name}</h1>
-              {item.componentNumber && (
-                <span className="bg-muted text-muted-foreground rounded-sm px-2 py-0.5 text-xs font-medium backdrop-blur-md">
-                  {item.componentNumber}
-                </span>
-              )}
+              <div className="flex items-center gap-2">
+                <button
+                  onClick={() => setIsCodeOpen(true)}
+                  aria-label="Open source code drawer"
+                  className="bg-muted hover:bg-accent flex size-7.5 items-center justify-center rounded-md border transition-colors md:size-10"
+                >
+                  <HugeiconsIcon icon={SourceCodeIcon} size={16} />
+                </button>
+                <ThemeToggle />
+                {item.componentNumber && (
+                  <span className="bg-muted text-muted-foreground ml-2 rounded-sm px-2 py-0.5 text-xs font-medium backdrop-blur-md">
+                    {item.componentNumber}
+                  </span>
+                )}
+              </div>
             </div>
             <p className="text-muted-foreground text-sm">{item.description}</p>
           </div>
 
           {/* Preview */}
-          <div className="bg-muted/5 relative flex min-h-[60dvh] items-center justify-center border-y">
-            <div className="absolute top-3 right-3 z-10 flex gap-2">
-              <button
-                onClick={() => setIsCodeOpen(true)}
-                aria-label="Open source code drawer"
-                className="bg-background rounded-md border px-3 py-1.5 text-xs"
-              >
-                <HugeiconsIcon icon={SourceCodeIcon} size={14} />
-              </button>
-              <ThemeToggle />
-            </div>
-
+          <div className="bg-muted/5 relative flex min-h-[50dvh] items-center justify-center border-b">
             <div
               className={
                 activeVariant === 'base'
-                  ? 'theme-injected flex w-full items-center justify-center'
-                  : 'flex w-full items-center justify-center'
+                  ? 'theme-injected flex w-full items-center justify-center p-8 pb-12'
+                  : 'flex w-full items-center justify-center p-8 pb-12'
               }
             >
               <ActiveComponent key={reloadKey} />
