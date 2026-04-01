@@ -33,7 +33,7 @@ const BlockPage = lazy(() => import("@/pages/block"));
 const ChangelogPage = lazy(() => import("@/pages/changelog"));
 const NotFoundPage = lazy(() => import("@/pages/not-found"));
 const PreviewPage = lazy(() => import("@/pages/preview"));
-const UiComponentsPage = lazy(() => import("@/pages/components"));
+// const UiComponentsPage = lazy(() => import("@/pages/components"));
 const UiCategoryPage = lazy(() => import("@/pages/component-category"));
 
 export function AppRoutes() {
