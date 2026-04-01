@@ -87,29 +87,37 @@ const GlowEllipse = (props?: React.SVGProps<SVGSVGElement>) => {
   );
 };
 
-const data = [190, 130, 145, 190, 145, 120, 170];
+const data = [61, 130, 70, 85, 130, 70, 30, 80];
 
 function ChartsCard() {
   const [hovered, setHovered] = useState(false);
 
+  const chartWidth = 300;
+  const chartHeight = 140;
+  const barWidth = 30;
+
   const containerVariants: Variants = {
-    initial: { transition: { staggerChildren: 0.08, staggerDirection: -1 } },
+    initial: {
+      transition: { staggerChildren: 0.08, staggerDirection: -1 },
+    },
     hover: {
-      transition: {
-        staggerChildren: 0.08,
-      },
+      transition: { staggerChildren: 0.08 },
     },
   };
 
   const barVariants: Variants = {
-    initial: { scaleY: 0.75 },
-    hover: {
-      scaleY: 1,
+    initial: (value: number) => ({
+      height: value * 0.75,
+      y: chartHeight - value * 0.75,
+    }),
+    hover: (value: number) => ({
+      height: value,
+      y: chartHeight - value,
       transition: {
         duration: 0.45,
         ease: 'easeOut',
       },
-    },
+    }),
   };
 
   return (
@@ -122,64 +130,72 @@ function ChartsCard() {
       animate={hovered ? 'hover' : 'initial'}
       className="col-span-1 row-span-1 md:col-span-4 md:row-span-2"
     >
-      <Card className="flex h-full flex-col gap-0 overflow-hidden rounded-3xl border border-white/15 bg-transparent p-0 text-white shadow-none ring-0">
-        <CardHeader className="flex flex-col gap-4 p-6 md:p-8">
+      <Card className="flex  flex-col gap-0 overflow-hidden rounded-3xl border border-white/15 bg-transparent p-0 text-white shadow-none ring-0">
+        <CardHeader className="flex flex-col gap-1 p-4">
           <CardDescription className="m-0">
             <div className="flex items-center gap-2">
-              <div className="h-10 w-10 rounded-lg bg-black" >
-                <PatternIcon className="size-10" />
+              <div className="h-10 w-10 rounded-lg bg-black">
+                <PatternIcon className="size-full" />
               </div>
-              <span className="text-md text-neutral-400">
+              <span className="text-sm text-neutral-400">
                 Monthly Growth Report
               </span>
             </div>
           </CardDescription>
 
-          <CardTitle className="text-xl leading-tight font-semibold text-neutral-300 md:text-2xl">
+          <CardTitle className="text-xl leading-tight font-semibold text-neutral-300">
             Access powerful data to help grow your business
           </CardTitle>
         </CardHeader>
 
-        <CardContent className="relative ml-6 w-full flex-1 overflow-hidden rounded-tl-2xl border-t border-l border-white/10 [mask-image:linear-gradient(to_right,black_80%,transparent_100%)] p-6">
+        <CardContent className="relative ml-4 w-full flex-1 gap-0 overflow-hidden rounded-tl-2xl border-t border-l border-white/10 [mask-image:linear-gradient(to_right,black_70%,transparent_100%)] px-4 pt-4 pb-2">
           <motion.div className="absolute top-0 left-0 h-48 w-48 -translate-x-1/2 rounded-full bg-white opacity-5 blur-2xl md:size-120" />
 
-          <div className="flex items-center justify-between">
+          <div className="flex items-center justify-between leading-tight">
             <div className="flex flex-col">
-              <span className="text-xs font-normal text-neutral-400">
+              <span className="text-[9px] font-normal text-neutral-400">
                 Monthly Income
               </span>
-              <div className="text-2xl font-normal md:text-3xl">$ 68,700</div>
+              <div className="text-xl font-normal">$ 68,700</div>
             </div>
 
-            <span className="rounded-full border border-white/20 px-2 py-1 text-[10px] whitespace-nowrap text-neutral-400 md:text-xs">
+            <span className="rounded-full border border-white/20 px-2 py-1 text-sm bg-gray-400/30 whitespace-nowrap text-neutral-400 md:text-xs -translate-x-6">
               Last 28 days
             </span>
           </div>
 
-          <motion.div
+          <motion.svg
+            viewBox={`0 0 ${chartWidth} ${chartHeight}`}
             variants={containerVariants}
-            className="mt-8 flex items-end justify-between gap-2 md:mt-16 md:gap-4"
+            initial="initial"
+            animate={hovered ? 'hover' : 'initial'}
           >
-            {data.map((height, i) => (
-              <div key={i} className="flex flex-1 flex-col items-center gap-2">
-                <motion.div
+            {data.map((value, i) => {
+              const x = 30 + i * barWidth;
+
+              return (
+                <motion.rect
+                  key={i}
+                  custom={value}
                   variants={barVariants}
-                  className={`w-full origin-bottom rounded-sm ${
+                  transition={{ duration: 0.25, ease: [0.65, 0, 0.35, 1] }}
+                  x={x}
+                  width={barWidth - 6}
+                  rx={2}
+                  className={
                     i === 2 || i === 6 || i === 3
-                      ? 'bg-[#60438E]'
-                      : 'bg-[#ACB1DA]'
-                  }`}
-                  style={{ height: `${height}px` }}
+                      ? 'fill-[#60438E]'
+                      : 'fill-[#ACB1DA]'
+                  }
                 />
-              </div>
-            ))}
-          </motion.div>
+              );
+            })}
+          </motion.svg>
         </CardContent>
       </Card>
     </motion.div>
   );
 }
-
 function NewsletterCard({ itemVariants }: { itemVariants: Variants }) {
   const controls = useAnimation();
   const handles = useAnimation();
@@ -220,44 +236,44 @@ function NewsletterCard({ itemVariants }: { itemVariants: Variants }) {
       className="col-span-1 row-span-1 md:col-span-4 md:row-span-2"
     >
       <Card className="flex h-full flex-col gap-0 overflow-hidden rounded-3xl border border-white/15 bg-neutral-900/20 p-0 text-white shadow-none ring-0">
-        <CardHeader className="flex flex-col p-6">
+        <CardHeader className="flex flex-col px-4 pt-4">
           <CardDescription className="m-0">
-            <div className="mb-4 flex items-center gap-3">
-              <div className="h-8 w-8 rounded-lg bg-black" >
+            <div className="mb-2 flex items-center gap-4">
+              <div className="h-8 w-8 rounded-lg bg-black">
                 <PatternIcon4 className="size-10" />
               </div>
-              <span className="text-md text-neutral-400">
+              <span className="text-sm text-neutral-400">
                 Customize Newsletter
               </span>
             </div>
           </CardDescription>
 
-          <CardTitle className="mb-4 max-w-md text-xl font-semibold md:mb-8 md:text-2xl">
+          <CardTitle className="mb-2 max-w-md text-lg font-semibold">
             We made it simple to create weekly newsletters
           </CardTitle>
         </CardHeader>
 
-        <CardContent className="min-h-[350px] flex-1 translate-x-10 rounded-t-xl border border-white/5 bg-[#16121e] p-0">
+        <CardContent className="  translate-x-4 rounded-t-xl border border-white/5 bg-gray-900/10 p-0">
           <div className="flex gap-1 p-2">
             <div className="h-1.5 w-1.5 rounded-full bg-neutral-600" />
             <div className="h-1.5 w-1.5 rounded-full bg-neutral-600" />
             <div className="h-1.5 w-1.5 rounded-full bg-neutral-600" />
           </div>
 
-          <div className="h-[1px] w-full bg-neutral-600/10" />
+          <div className="h-px w-full bg-gray-400/20" />
 
-          <div className="h-full px-6 py-4">
-            <div className="space-y-3 opacity-60">
-              <div className="border-b border-white/5 pb-2 text-[10px]">
+          <div className="h-full px-4 py-2">
+            <div className="space-y-3">
+              <div className="border-b border-gray-400/20 text-[10px] text-gray-300">
                 To: All Contact
               </div>
 
-              <div className="border-b border-white/5 pb-2 text-[10px]">
+              <div className="border-b border-gray-400/20 text-[10px] text-gray-300">
                 Subject: Exciting updates are on the way!!
               </div>
             </div>
 
-            <div className="mt-6 flex h-full flex-col gap-4 rounded-3xl border border-white/10 p-4 md:mt-10">
+            <div className="mt-2 flex h-full flex-col gap-4 rounded-t-3xl border border-white/10 p-4">
               <div className="relative inline-block self-start">
                 <span className="text-md px-3 py-2 text-purple-500">
                   Monthly updates
@@ -284,15 +300,15 @@ function NewsletterCard({ itemVariants }: { itemVariants: Variants }) {
                 ))}
               </div>
               <div className="flex h-full items-center justify-start">
-                <div className="mt-2 flex max-w-[320px] items-center gap-4 rounded-lg bg-[#241d30] p-2 md:mt-16">
-                  <span className="text-[9px] text-neutral-400">
+                <div className="mb-6 flex max-w-full items-center gap-4 rounded-lg bg-[#241d30] px-2 py-0.5">
+                  <span className="text-[10px] text-neutral-400">
                     Font: Plus Jakarta Sans
                   </span>
                   <div className="size-6 rounded bg-purple-600" />
-                  <div className="py-2 w-24 rounded bg-black/20 md:w-32  gap-2 text-neutral-400 flex items-center justify-center" >
-                   <IoIosSearch className="size-6" />
-                   <TbBellRingingFilled className="size-6" />
-                   <IoChatbubbleEllipsesSharp className="size-6" />
+                  <div className="flex w-16 items-center justify-center gap-2 rounded bg-black/20 py-2 text-neutral-400 md:w-24">
+                    <IoIosSearch className="size-4" />
+                    <TbBellRingingFilled className="size-4" />
+                    <IoChatbubbleEllipsesSharp className="size-4" />
                   </div>
                 </div>
               </div>
@@ -336,31 +352,31 @@ function IntegrationCard({ itemVariants }: { itemVariants: Variants }) {
       onTap={() => setTimeout(handleHoverEnd, 1500)}
       className="col-span-1 row-span-1 md:col-span-4"
     >
-      <Card className="h-full gap-0 overflow-hidden rounded-3xl border border-white/15 bg-neutral-900/20 p-0 text-white shadow-none ring-0">
-        <CardHeader className="p-6">
+      <Card className="md:h-[180px] h-[220px] gap-0 overflow-hidden rounded-3xl border border-white/15 bg-neutral-900/20 p-0 text-white shadow-none ring-0">
+        <CardHeader className="p-4">
           <CardDescription className="m-0">
-            <div className="mb-4 flex items-center gap-3">
-              <div className="h-8 w-8 rounded-lg bg-black" >
+            <div className="mb-2 flex items-center gap-3">
+              <div className="h-8 w-8 rounded-lg bg-black">
                 <PatternIcon2 className="size-10" />
               </div>
-              <span className="text-md text-neutral-200">
+              <span className="text-sm text-neutral-200">
                 Awesome Integration
               </span>
             </div>
           </CardDescription>
 
-          <CardTitle className="mb-6 text-xl font-semibold md:text-2xl">
+          <CardTitle className="text-lg font-semibold ">
             Work with your favorite tools
           </CardTitle>
         </CardHeader>
 
-        <CardContent className="grid max-h-[120px] scale-120 grid-cols-4 gap-2 p-0 sm:grid-cols-6">
+        <CardContent className="grid  md:scale-120 grid-cols-4 gap-2 p-0 sm:grid-cols-6">
           <div className="hidden aspect-square rounded-xl bg-white/10 sm:block" />
 
           {icons.map((Icon, i) => (
             <motion.div
               key={i}
-              className="flex aspect-square items-center justify-center rounded-xl border border-white/5 bg-white/20"
+              className="flex  aspect-square items-center justify-center rounded-xl border border-white/5 bg-white/20"
             >
               <motion.div
                 custom={i}
@@ -368,7 +384,7 @@ function IntegrationCard({ itemVariants }: { itemVariants: Variants }) {
                 initial="hidden"
                 animate={controls}
               >
-                <Icon className="size-8 text-white md:size-10" />
+                <Icon className="size-6 text-white md:size-10" />
               </motion.div>
             </motion.div>
           ))}
@@ -407,7 +423,7 @@ const BentoGrid17 = () => {
   return (
     <div className="relative min-h-screen overflow-x-hidden bg-[#0f0c14] text-white md:p-8">
       <motion.div
-        className="relative mx-auto grid max-w-6xl grid-cols-1 gap-6 p-4 font-sans sm:p-10 md:auto-rows-[minmax(200px,_auto)] md:grid-cols-8"
+        className="relative mx-auto grid max-w-3xl grid-cols-1 gap-2 font-sans  md:auto-rows-auto md:grid-cols-8 p-4"
         variants={containerVariants}
         initial="hidden"
         animate="visible"
@@ -422,11 +438,11 @@ const BentoGrid17 = () => {
           variants={itemVariants}
           className="col-span-1 row-span-1 md:col-span-4"
         >
-          <Card className="flex h-full min-h-[220px] flex-col justify-between gap-0 rounded-3xl border border-white/15 bg-transparent p-0 text-white shadow-none ring-0">
+          <Card className="flex  flex-col justify-between gap-0 rounded-3xl border border-white/15 bg-transparent p-0 text-white shadow-none ring-0">
             <CardHeader className="p-6">
               <CardDescription className="m-0">
-                <div className="mb-4 flex items-center gap-3">
-                  <div className="h-8 w-8 rounded-lg bg-black" >
+                <div className="mb-2 flex items-center gap-3">
+                  <div className="h-8 w-8 rounded-lg bg-black">
                     <PatternIcon3 className="size-10" />
                   </div>
                   <span className="text-md text-neutral-400">
@@ -434,16 +450,20 @@ const BentoGrid17 = () => {
                   </span>
                 </div>
               </CardDescription>
-              <CardTitle className="text-xl font-semibold md:text-2xl">
+              <CardTitle className="text-lg font-bold">
                 24/7 fast team support
               </CardTitle>
             </CardHeader>
 
             <CardFooter className="relative flex items-end justify-end gap-1 border-none bg-transparent p-6 pt-0">
-              <div className="h-10 w-10 flex-shrink-0 rounded-full bg-neutral-200 flex items-center justify-center" >
-                <img src="https://assets.watermelon.sh/avatar-17.png" alt="watermelon-logo" className="size-8" />
+              <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full bg-neutral-200">
+                <img
+                  src="https://assets.watermelon.sh/avatar-17.png"
+                  alt="watermelon-logo"
+                  className="size-8"
+                />
               </div>
-              <div className="md:text-md rounded-t-2xl rounded-br-2xl border border-white/5 bg-neutral-800/20 px-4 py-2 text-sm">
+              <div className="md:text-md rounded-t-2xl rounded-br-2xl border border-white/5 bg-gray-300/20 px-4 py-2 text-sm">
                 Hey! there i am here to help. 👋
               </div>
             </CardFooter>
@@ -521,7 +541,6 @@ const PatternIcon2 = ({ className }: IconProps) => {
     </svg>
   );
 };
-
 
 const PatternIcon3 = ({ className }: IconProps) => {
   return (
