@@ -39,7 +39,7 @@ const cardContainer =
   'rounded-2xl border transition-colors bg-neutral-100 border-neutral-200 dark:bg-neutral-800 dark:border-neutral-700';
 
 const primaryButton =
-  'h-11 w-28 rounded-2xl font-medium bg-neutral-900 text-white dark:bg-white dark:text-black';
+  'h-11 w-full rounded-2xl font-medium bg-neutral-900 text-white dark:bg-white dark:text-black';
 
 const Header = ({
   title,
@@ -52,19 +52,19 @@ const Header = ({
   onClose: () => void;
   id: string;
 }) => (
-  <div className="mb-6 flex items-center justify-between">
-    <div className="flex items-center gap-3">
+  <div className="mb-6 flex items-center justify-between gap-3">
+    <div className="flex min-w-0 items-center gap-3">
       <motion.div
         layoutId={`icon-${id}`}
         transition={{ type: 'spring', bounce: 0.3, duration: 0.7 }}
-        className="flex h-11 w-11 items-center justify-center rounded-xl border border-neutral-200 bg-neutral-100 text-neutral-400 dark:border-neutral-700 dark:bg-neutral-800 dark:text-neutral-400"
+        className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-neutral-200 bg-neutral-100 text-neutral-400 dark:border-neutral-700 dark:bg-neutral-800 dark:text-neutral-400"
       >
         <Icon size={22} strokeWidth={1.4} />
       </motion.div>
       <motion.h2
         layoutId={`title-${id}`}
         transition={{ type: 'spring', bounce: 0.3, duration: 0.7 }}
-        className="text-base font-medium text-neutral-600 dark:text-neutral-200"
+        className="truncate text-base font-medium text-neutral-600 dark:text-neutral-200"
       >
         {title}
       </motion.h2>
@@ -72,7 +72,7 @@ const Header = ({
 
     <button
       onClick={onClose}
-      className="flex h-9 w-9 items-center justify-center rounded-full bg-neutral-100 text-neutral-500 dark:bg-neutral-800 dark:text-neutral-400"
+      className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-neutral-100 text-neutral-500 dark:bg-neutral-800 dark:text-neutral-400"
     >
       <X size={20} strokeWidth={3} />
     </button>
@@ -157,7 +157,7 @@ const CardView = ({ cards, onClose, onProceed }: any) => {
         transition={{ type: 'spring', bounce: 0.4, duration: 0.7 }}
         className=""
       >
-        <div className="mb-4 flex items-center justify-between">
+        <div className="mb-4 flex flex-wrap items-center justify-between gap-2">
           <span className="text-sm text-neutral-500 dark:text-neutral-400">
             Available Cards
           </span>
@@ -267,7 +267,7 @@ export const SendMoney: React.FC<SendMoneyProps> = ({
     <div className="flex min-h-[60vh] w-full items-center justify-center bg-transparent p-4">
       <motion.div
         layout
-        className="w-full max-w-96 rounded-3xl border border-neutral-200 bg-white p-6 shadow-lg dark:border-neutral-800 dark:bg-neutral-900"
+        className="w-full max-w-[400px] rounded-3xl border border-neutral-200 bg-white p-5 shadow-lg transition-all sm:p-6 dark:border-neutral-800 dark:bg-neutral-900"
       >
         <AnimatePresence mode="wait">
           {!view ? (
@@ -306,13 +306,13 @@ export const SendMoney: React.FC<SendMoneyProps> = ({
                   <button
                     key={opt.id}
                     onClick={() => setView(opt.id as PaymentType)}
-                    className="flex w-full items-center gap-4 rounded-2xl p-4 transition hover:bg-neutral-100 dark:hover:bg-neutral-800"
+                    className="flex w-full items-start sm:items-center gap-3 rounded-2xl p-3 transition hover:bg-neutral-100 sm:gap-4 sm:p-4 dark:hover:bg-neutral-800"
                   >
                     <motion.div
                       layoutId={`icon-${opt.id}`}
-                      className="flex h-12 w-12 items-center justify-center rounded-xl border border-neutral-200 bg-neutral-100 text-neutral-400 dark:border-neutral-700 dark:bg-neutral-800 dark:text-neutral-400"
+                      className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-neutral-200 bg-neutral-100 text-neutral-400 dark:border-neutral-700 dark:bg-neutral-800 dark:text-neutral-400 sm:h-12 sm:w-12"
                     >
-                      <opt.icon size={24} />
+                      <opt.icon size={22} className="sm:size-6" />
                     </motion.div>
                     <div className="text-left">
                       <motion.p

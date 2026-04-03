@@ -2,7 +2,7 @@ import MorphingSidebarControls from './base';
 
 export default function MorphingSidebarControlsDemo() {
   return (
-    <div className="bg-background relative flex max-h-screen items-center justify-center p-10 transition-colors duration-300 dark:bg-neutral-950">
+    <div className="relative flex max-h-screen items-center justify-center p-10">
       <MorphingSidebarControls
         title="Configuration"
         configOptions={[

@@ -37,7 +37,7 @@ const cardContainer =
   'rounded-2xl border transition-colors bg-muted border-border';
 
 const primaryButton =
-  'h-11 w-28 rounded-2xl font-medium bg-primary text-primary-foreground';
+  'h-11 w-full rounded-2xl font-medium bg-primary text-primary-foreground';
 
 const Header = ({
   title,
@@ -50,19 +50,19 @@ const Header = ({
   onClose: () => void;
   id: string;
 }) => (
-  <div className="mb-6 flex items-center justify-between">
-    <div className="flex items-center gap-3">
+  <div className="mb-6 flex items-center justify-between gap-3">
+    <div className="flex min-w-0 items-center gap-3">
       <motion.div
         layoutId={`icon-${id}`}
         transition={{ type: 'spring', bounce: 0.3, duration: 0.7 }}
-        className="border-border bg-muted text-muted-foreground flex h-11 w-11 items-center justify-center rounded-lg border"
+        className="border-border bg-muted text-muted-foreground flex h-11 w-11 shrink-0 items-center justify-center rounded-lg border"
       >
         <Icon size={22} strokeWidth={1.4} />
       </motion.div>
       <motion.h2
         layoutId={`title-${id}`}
         transition={{ type: 'spring', bounce: 0.3, duration: 0.7 }}
-        className="text-muted-foreground text-base font-medium"
+        className="truncate text-base font-medium"
       >
         {title}
       </motion.h2>
@@ -70,7 +70,7 @@ const Header = ({
 
     <button
       onClick={onClose}
-      className="bg-muted text-muted-foreground flex h-9 w-9 items-center justify-center rounded-lg"
+      className="bg-muted text-muted-foreground flex h-9 w-9 shrink-0 items-center justify-center rounded-lg"
     >
       <X size={20} strokeWidth={3} />
     </button>
@@ -151,7 +151,7 @@ const CardView = ({ cards, onClose, onProceed }: any) => {
         exit={{ opacity: 0, filter: 'blur(4px)', y: -20 }}
         transition={{ type: 'spring', bounce: 0.4, duration: 0.7 }}
       >
-        <div className="mb-4 flex items-center justify-between">
+        <div className="mb-4 flex flex-wrap items-center justify-between gap-2">
           <span className="text-muted-foreground text-sm">Available Cards</span>
           <button className="border-border text-muted-foreground flex items-center gap-2 rounded-lg border px-3 py-1 text-sm">
             <MdOutlineAddCard size={18} />
@@ -254,7 +254,7 @@ export const SendMoney: React.FC<SendMoneyProps> = ({
     <div className="theme-injected flex min-h-[60vh] w-full items-center justify-center bg-transparent p-4">
       <motion.div
         layout
-        className="border-border bg-background w-full max-w-96 rounded-lg border p-6 shadow-lg"
+        className="border-border bg-background w-full max-w-[400px] rounded-lg border p-5 shadow-lg transition-all sm:p-6"
       >
         <AnimatePresence mode="wait">
           {!view ? (
@@ -293,13 +293,13 @@ export const SendMoney: React.FC<SendMoneyProps> = ({
                   <button
                     key={opt.id}
                     onClick={() => setView(opt.id as PaymentType)}
-                    className="hover:bg-accent/5 flex w-full items-center gap-4 rounded-lg p-4 transition"
+                    className="hover:bg-accent/5 flex w-full items-center gap-3 rounded-lg p-3 transition sm:gap-4 sm:p-4"
                   >
                     <motion.div
                       layoutId={`icon-${opt.id}`}
-                      className="border-border bg-muted text-muted-foreground flex h-12 w-12 items-center justify-center rounded-lg border"
+                      className="border-border bg-muted text-muted-foreground flex h-11 w-11 shrink-0 items-center justify-center rounded-lg border sm:h-12 sm:w-12"
                     >
-                      <opt.icon size={24} />
+                      <opt.icon size={22} className="sm:size-6" />
                     </motion.div>
                     <div className="text-left">
                       <motion.p

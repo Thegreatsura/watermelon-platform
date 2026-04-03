@@ -172,7 +172,7 @@ export const InlineTableControl: React.FC<InlineTableControlProps> = ({
                       className={`group grid cursor-default grid-cols-[1fr_auto_40px] items-center rounded-lg px-4 py-4 transition-all duration-300 sm:grid-cols-[1.2fr_1fr_0.8fr_40px] sm:rounded-none sm:px-6 sm:py-5 ${
                         editingId
                           ? ''
-                          : 'border-border bg-muted/50 hover:bg-muted border opacity-100 sm:border-none sm:bg-transparent'
+                          : 'border-border bg-muted/50 hover:bg-muted border opacity-100 sm:border-none sm:bg-transparent dark:border-white/[0.03] dark:bg-zinc-900/40 dark:hover:bg-zinc-800/60'
                       }`}
                     >
                       <motion.div className="flex flex-col">

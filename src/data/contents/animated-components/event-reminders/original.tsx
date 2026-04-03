@@ -156,7 +156,7 @@ export const EventReminders: React.FC<EventRemindersProps> = ({
         {/* Header */}
         <div className="mb-6 flex items-start justify-between gap-3">
           <div className="min-w-0 flex-1">
-            <h2 className="truncate text-lg font-bold text-neutral-900 sm:text-xl dark:text-white">
+            <h2 className="leading-tight text-lg font-bold text-neutral-900 sm:text-xl dark:text-white">
               {title}
             </h2>
 
@@ -261,9 +261,9 @@ export const EventReminders: React.FC<EventRemindersProps> = ({
                   </motion.div>
 
                   {/* Value + Unit */}
-                  <div className="flex gap-2">
+                  <div className="flex flex-wrap sm:flex-nowrap items-center gap-2 relative">
                     <div
-                      className={`${basePill} flex flex-1 items-center justify-between px-2 py-1`}
+                      className={`${basePill} flex flex-1 min-w-[120px] items-center justify-between px-2 py-1`}
                     >
                       <button
                         onClick={() =>
@@ -293,7 +293,7 @@ export const EventReminders: React.FC<EventRemindersProps> = ({
                     <motion.div
                       layout
                       onClick={() => toggleUnit(reminder.id, reminder.unit)}
-                      className={`${basePill} flex flex-[1.2] cursor-pointer items-center justify-between px-4 py-2`}
+                      className={`${basePill} flex flex-[1.4] min-w-[120px] cursor-pointer items-center justify-between px-4 py-2`}
                     >
                       <AnimatedWord word={reminder.unit} />
                       <div className="flex flex-col -space-y-1 text-neutral-400">
@@ -304,7 +304,7 @@ export const EventReminders: React.FC<EventRemindersProps> = ({
 
                     <button
                       onClick={() => removeReminder(reminder.id)}
-                      className="rounded-full border border-neutral-200 p-3 text-neutral-500 transition-colors hover:bg-neutral-100 hover:text-red-500 dark:border-neutral-700 dark:text-neutral-400 dark:hover:bg-neutral-800"
+                      className="shrink-0 rounded-full border border-neutral-200 p-2.5 sm:p-3 text-neutral-500 transition-colors hover:bg-neutral-100 hover:text-red-500 dark:border-neutral-700 dark:text-neutral-400 dark:hover:bg-neutral-800"
                     >
                       <X size={18} strokeWidth={2.5} />
                     </button>

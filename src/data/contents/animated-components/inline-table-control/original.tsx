@@ -172,7 +172,7 @@ export const InlineTableControl: React.FC<InlineTableControlProps> = ({
                       className={`group grid cursor-default grid-cols-[1fr_auto_40px] items-center rounded-2xl px-4 py-4 transition-all duration-300 sm:grid-cols-[1.2fr_1fr_0.8fr_40px] sm:rounded-none sm:px-6 sm:py-5 ${
                         editingId
                           ? ''
-                          : 'border border-neutral-100 bg-neutral-50/50 opacity-100 hover:bg-neutral-50 sm:border-none sm:bg-transparent dark:border-neutral-800 dark:hover:bg-neutral-800'
+                          : 'border border-neutral-100 bg-neutral-50/50 opacity-100 hover:bg-neutral-50 sm:border-none sm:bg-transparent dark:border-white/[0.03] dark:bg-zinc-900/40 dark:hover:bg-zinc-800/60'
                       }`}
                     >
                       <motion.div className="flex flex-col">
@@ -184,7 +184,7 @@ export const InlineTableControl: React.FC<InlineTableControlProps> = ({
                           <motion.span
                             layout="position"
                             transition={layoutTransition}
-                            className="dark:text-neutral-100"
+                            className="dark:text-zinc-100"
                           >
                             {item.expense}
                           </motion.span>
@@ -197,7 +197,7 @@ export const InlineTableControl: React.FC<InlineTableControlProps> = ({
                           <motion.span
                             layout="position"
                             transition={layoutTransition}
-                            className="dark:text-neutral-400"
+                            className="dark:text-zinc-500"
                           >
                             {item.method}
                           </motion.span>
@@ -212,7 +212,7 @@ export const InlineTableControl: React.FC<InlineTableControlProps> = ({
                         <motion.span
                           layout="position"
                           transition={layoutTransition}
-                          className="dark:text-neutral-400"
+                          className="dark:text-zinc-500"
                         >
                           {item.method}
                         </motion.span>
@@ -226,9 +226,9 @@ export const InlineTableControl: React.FC<InlineTableControlProps> = ({
                         <motion.span
                           layout="position"
                           transition={layoutTransition}
-                          className="flex items-center dark:text-neutral-300"
+                          className="flex items-center dark:text-zinc-300"
                         >
-                          <span className="mr-0.5 text-neutral-400 dark:text-neutral-600">
+                          <span className="mr-0.5 text-neutral-400 dark:text-zinc-600">
                             $
                           </span>
                           {item.amount}

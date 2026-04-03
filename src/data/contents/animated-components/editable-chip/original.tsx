@@ -52,7 +52,6 @@ export const EditableChip: FC<EditableChipProps> = ({
   };
 
   return (
-    <div className="flex flex-col items-center justify-center bg-[#FEFEFE] p-4 font-sans dark:bg-zinc-950">
       <motion.div layout>
         <div
           className={cn(
@@ -117,6 +116,5 @@ export const EditableChip: FC<EditableChipProps> = ({
           </AnimatePresence>
         </div>
       </motion.div>
-    </div>
   );
 };

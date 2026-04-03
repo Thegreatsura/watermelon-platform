@@ -35,85 +35,83 @@ export const FeedbackAction: React.FC<InlineFeedbackProps> = ({
   }, [status]);
 
   return (
-    <div className="theme-injected flex min-h-full items-center justify-center bg-transparent p-4">
-      <div className="flex h-14 items-center gap-3">
-        <MotionConfig
-          transition={{ type: 'spring', bounce: 0.25, duration: 0.6 }}
+    <div className="theme-injected flex h-14 items-center gap-3">
+      <MotionConfig
+        transition={{ type: 'spring', bounce: 0.25, duration: 0.6 }}
+      >
+        <motion.div
+          animate={{ width: 'auto' }}
+          layout
+          initial={false}
+          className={cn(
+            'border-border bg-muted relative z-20 flex items-center justify-center overflow-hidden rounded-lg border px-6 py-4',
+          )}
         >
           <motion.div
-            animate={{ width: 'auto' }}
-            layout
-            initial={false}
-            className={cn(
-              'border-border bg-muted relative z-20 flex items-center justify-center overflow-hidden rounded-lg border px-6 py-4',
-            )}
+            initial={{ opacity: 0, filter: 'blur(8px)' }}
+            animate={{ opacity: 1, filter: 'blur(0px)' }}
+            exit={{ opacity: 0, filter: 'blur(8px)' }}
+            transition={{ type: 'spring', stiffness: 300, damping: 24 }}
+            className="flex items-center gap-2"
           >
-            <motion.div
-              initial={{ opacity: 0, filter: 'blur(8px)' }}
-              animate={{ opacity: 1, filter: 'blur(0px)' }}
-              exit={{ opacity: 0, filter: 'blur(8px)' }}
-              transition={{ type: 'spring', stiffness: 300, damping: 24 }}
-              className="flex items-center gap-2"
-            >
-              <AnimatePresence mode="popLayout">
-                <motion.div
-                  layout
-                  key={status}
-                  initial={{ opacity: 0, scale: 0.25, filter: 'blur(2px)' }}
-                  animate={{ opacity: 1, scale: 1, filter: 'blur(0px)' }}
-                  exit={{ opacity: 0, scale: 0.25, filter: 'blur(2px)' }}
-                  transition={{ type: 'spring', bounce: 0, duration: 0.3 }}
-                >
-                  {status === 'error' ? (
-                    <TbAlertOctagonFilled
-                      size={26}
-                      className={cn('text-destructive')}
-                    />
-                  ) : (
-                    <LuCircleDotDashed
-                      size={26}
-                      strokeWidth={2.8}
-                      className={cn('text-foreground animate-spin')}
-                    />
-                  )}
-                </motion.div>
-              </AnimatePresence>
-
-              <AnimatedText
-                text={status === 'error' ? errorMessage : loadingMessage}
-                className={cn(
-                  'text-xl font-semibold',
-                  status === 'error' ? 'text-destructive' : 'text-foreground',
-                )}
-              />
-            </motion.div>
-          </motion.div>
-
-          <AnimatePresence mode="popLayout">
-            {status === 'error' && (
-              <motion.button
-                initial={{
-                  opacity: 0,
-                  x: -55,
-                  filter: 'blur(4px)',
-                  scale: 0.8,
-                }}
-                animate={{ opacity: 1, x: 0, filter: 'blur(0px)', scale: 1 }}
-                exit={{ opacity: 1, x: -55, filter: 'blur(4px)', scale: 0.8 }}
-                transition={{ type: 'spring', stiffness: 260, damping: 20 }}
-                whileHover={{ scale: 1.06 }}
-                whileTap={{ scale: 0.94 }}
-                onClick={handleRetry}
-                className={cn(
-                  'bg-primary text-primary-foreground z-10 flex h-14 w-14 items-center justify-center rounded-lg',
-                )}
+            <AnimatePresence mode="popLayout">
+              <motion.div
+                layout
+                key={status}
+                initial={{ opacity: 0, scale: 0.25, filter: 'blur(2px)' }}
+                animate={{ opacity: 1, scale: 1, filter: 'blur(0px)' }}
+                exit={{ opacity: 0, scale: 0.25, filter: 'blur(2px)' }}
+                transition={{ type: 'spring', bounce: 0, duration: 0.3 }}
               >
-                <FaArrowRotateRight size={22} />
-              </motion.button>
-            )}
-          </AnimatePresence>
-        </MotionConfig>
-      </div>
+                {status === 'error' ? (
+                  <TbAlertOctagonFilled
+                    size={26}
+                    className={cn('text-destructive')}
+                  />
+                ) : (
+                  <LuCircleDotDashed
+                    size={26}
+                    strokeWidth={2.8}
+                    className={cn('text-foreground animate-spin')}
+                  />
+                )}
+              </motion.div>
+            </AnimatePresence>
+
+            <AnimatedText
+              text={status === 'error' ? errorMessage : loadingMessage}
+              className={cn(
+                'text-xl font-semibold',
+                status === 'error' ? 'text-destructive' : 'text-foreground',
+              )}
+            />
+          </motion.div>
+        </motion.div>
+
+        <AnimatePresence mode="popLayout">
+          {status === 'error' && (
+            <motion.button
+              initial={{
+                opacity: 0,
+                x: -55,
+                filter: 'blur(4px)',
+                scale: 0.8,
+              }}
+              animate={{ opacity: 1, x: 0, filter: 'blur(0px)', scale: 1 }}
+              exit={{ opacity: 1, x: -55, filter: 'blur(4px)', scale: 0.8 }}
+              transition={{ type: 'spring', stiffness: 260, damping: 20 }}
+              whileHover={{ scale: 1.06 }}
+              whileTap={{ scale: 0.94 }}
+              onClick={handleRetry}
+              className={cn(
+                'bg-primary text-primary-foreground z-10 flex h-14 w-14 items-center justify-center rounded-lg',
+              )}
+            >
+              <FaArrowRotateRight size={22} />
+            </motion.button>
+          )}
+        </AnimatePresence>
+      </MotionConfig>
     </div>
   );
 };

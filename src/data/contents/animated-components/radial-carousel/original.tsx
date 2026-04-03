@@ -33,6 +33,7 @@ export const RadialCarousel: React.FC<RadialCarouselProps> = ({
   const [isExpanded, setIsExpanded] = useState(false);
   const [activeIndex, setActiveIndex] = useState(0);
 
+  const [isPanning, setIsPanning] = useState(false);
   const [responsiveSizes, setResponsiveSizes] = useState({
     radius,
     thumbnailSize,
@@ -43,11 +44,17 @@ export const RadialCarousel: React.FC<RadialCarouselProps> = ({
     const updateSizes = () => {
       const width = window.innerWidth;
 
-      if (width < 640) {
+      if (width < 400) {
+        setResponsiveSizes({
+          radius: Math.min(radius, 110),
+          thumbnailSize: Math.min(thumbnailSize, 70),
+          centerSize: Math.min(centerSize, 260),
+        });
+      } else if (width < 640) {
         setResponsiveSizes({
           radius: Math.min(radius, 140),
           thumbnailSize: Math.min(thumbnailSize, 80),
-          centerSize: Math.min(centerSize, 280),
+          centerSize: Math.min(centerSize, 300),
         });
       } else if (width < 1024) {
         setResponsiveSizes({
@@ -68,8 +75,8 @@ export const RadialCarousel: React.FC<RadialCarouselProps> = ({
   const rotation = useMotionValue(0);
 
   const smoothRotation = useSpring(rotation, {
-    bounce: 0.3,
-    duration: 0.2
+    bounce: 0.15,
+    duration: 0.1,
   });
 
   const toggleExpand = useCallback(() => {
@@ -87,7 +94,7 @@ export const RadialCarousel: React.FC<RadialCarouselProps> = ({
   };
 
   return (
-    <div className="relative flex h-[350px] w-full touch-none items-center justify-center overflow-visible select-none sm:h-[450px]">
+    <div className="relative flex h-[350px] w-full touch-pan-y items-center justify-center overflow-visible select-none sm:h-[450px]">
       <AnimatePresence mode="popLayout">
         {!isExpanded ? (
           <motion.div
@@ -134,7 +141,11 @@ export const RadialCarousel: React.FC<RadialCarouselProps> = ({
             initial="collapsed"
             animate="expanded"
             exit="collapsed"
-            className="relative flex h-full w-full cursor-grab items-center justify-center active:cursor-grabbing"
+            className={`relative flex h-full w-full cursor-grab items-center justify-center active:cursor-grabbing ${
+              isPanning ? 'touch-none' : 'touch-pan-y'
+            }`}
+            onPanStart={() => setIsPanning(true)}
+            onPanEnd={() => setIsPanning(false)}
             onPan={(_, info) => {
               rotation.set(rotation.get() + info.delta.x * 0.5);
             }}

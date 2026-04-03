@@ -37,7 +37,7 @@ export const ViewOnMap: React.FC<ViewOnMapProps> = ({
 
   return (
     <div className="theme-injected transition-colors duration-500">
-      <div className=" flex min-h-full w-full flex-col items-center justify-center px-4">
+      <div className="flex min-h-full w-full flex-col items-center justify-center px-4">
         <div
           className={`relative flex w-full items-center justify-center ${className}`}
         >
@@ -77,8 +77,8 @@ export const ViewOnMap: React.FC<ViewOnMapProps> = ({
               <motion.div
                 key="map"
                 layoutId="map-container"
-                className="bg-muted relative aspect-square w-[92vw] max-w-95 overflow-hidden shadow-lg transition-colors duration-300"
-                style={{ borderRadius: 8 }}
+                className="bg-muted relative aspect-square w-[calc(100vw-64px)] overflow-hidden shadow-lg transition-colors duration-300 sm:w-[380px]"
+                style={{ borderRadius: 32 }}
                 transition={springConfig}
               >
                 <motion.div

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   motion,
   useMotionValue,
@@ -54,33 +54,30 @@ const DEFAULT_CARDS: CardData[] = [
   },
 ];
 
-const CARD_WIDTH = 320;
-const GAP = 200;
-
-const DRAG_BUFFER = 80;
+const DRAG_BUFFER = 60;
 const VELOCITY_THRESHOLD = 500;
 
-const WigglingCard = ({ card, i, x }: any) => {
+const WigglingCard = ({ card, i, x, cardWidth, gap }: any) => {
   const Icon = card.icon;
-  const center = -(i * (CARD_WIDTH + GAP));
+  const center = -(i * (cardWidth + gap));
 
   const distance = useTransform(x, (v: number) => v - center);
 
   const rotate = useTransform(
     distance,
-    [-CARD_WIDTH, -CARD_WIDTH * 0.1, 0, CARD_WIDTH * 0.1, CARD_WIDTH],
+    [-cardWidth, -cardWidth * 0.1, 0, cardWidth * 0.1, cardWidth],
     [10, 10, 0, -10, -10],
   );
 
   const blur = useTransform(
     distance,
-    [-CARD_WIDTH, -CARD_WIDTH * 0.2, 0, CARD_WIDTH * 0.2, CARD_WIDTH],
+    [-cardWidth, -cardWidth * 0.2, 0, cardWidth * 0.2, cardWidth],
     [4, 2, 0, 2, 4],
   );
 
   const opacity = useTransform(
     distance,
-    [-CARD_WIDTH, -CARD_WIDTH * 0.2, 0, CARD_WIDTH * 0.2, CARD_WIDTH],
+    [-cardWidth, -cardWidth * 0.2, 0, cardWidth * 0.2, cardWidth],
     [0, 0.8, 1, 0.8, 0],
   );
 
@@ -93,34 +90,37 @@ const WigglingCard = ({ card, i, x }: any) => {
         opacity,
         rotate,
         filter,
-        minWidth: CARD_WIDTH,
+        minWidth: cardWidth,
       }}
-      className="theme-injected border-border bg-card relative shadow-sm flex h-80 flex-col justify-between rounded-lg border p-6"
+      className="theme-injected border-border bg-card relative shadow-sm flex h-72 flex-col justify-between rounded-xl border p-5 sm:h-80 sm:rounded-2xl sm:p-6"
     >
-      <div className="flex flex-col gap-10">
-        <div className="bg-muted flex h-20 w-20 items-center justify-center rounded-lg">
-          <Icon className="text-card-foreground h-14 w-14" strokeWidth={1.5} />
+      <div className="flex flex-col gap-6 sm:gap-10">
+        <div className="bg-muted flex h-16 w-16 items-center justify-center rounded-xl sm:h-20 sm:w-20">
+          <Icon
+            className="text-card-foreground h-10 w-10 sm:h-14 sm:w-14"
+            strokeWidth={1.5}
+          />
         </div>
 
         <div className="flex flex-col gap-1.5">
-          <div className="bg-muted text-muted-foreground flex w-fit items-center rounded-lg px-3 py-0.5 text-lg font-medium">
+          <div className="bg-muted text-muted-foreground flex w-fit items-center rounded-lg px-3 py-0.5 text-base font-medium sm:text-lg">
             <FaArrowUpLong className="mr-1 h-3 w-3" />
             {card.percentage}
           </div>
 
-          <h2 className="text-card-foreground text-[42px] font-bold">
+          <h2 className="text-card-foreground text-3xl font-bold sm:text-[42px]">
             {card.value}
           </h2>
 
-          <p className="text-muted-foreground text-[20px] font-medium">
+          <p className="text-muted-foreground text-lg font-medium sm:text-[20px]">
             {card.label}
           </p>
         </div>
       </div>
 
-      <div className="absolute right-7 bottom-9">
-        <div className="bg-muted flex h-12 w-12 items-center justify-center rounded-lg">
-          <ArrowUpRight className="text-muted-foreground h-6 w-6" />
+      <div className="absolute right-6 bottom-7 sm:right-7 sm:bottom-9">
+        <div className="bg-muted flex h-10 w-10 items-center justify-center rounded-lg sm:h-12 sm:w-12">
+          <ArrowUpRight className="text-muted-foreground h-5 w-5 sm:h-6 sm:w-6" />
         </div>
       </div>
     </motion.div>
@@ -129,10 +129,32 @@ const WigglingCard = ({ card, i, x }: any) => {
 
 export function WigglingCards({ cards }: { cards?: CardData[] }) {
   const data = cards ?? DEFAULT_CARDS;
-
   const [index, setIndex] = useState(1);
+  const [dimensions, setDimensions] = useState({ cardWidth: 320, gap: 200 });
 
-  const x = useMotionValue(-(index * (CARD_WIDTH + GAP)));
+  useEffect(() => {
+    const updateDimensions = () => {
+      const width = window.innerWidth;
+      if (width < 640) {
+        setDimensions({
+          cardWidth: Math.min(width - 64, 300),
+          gap: 40,
+        });
+      } else {
+        setDimensions({
+          cardWidth: 320,
+          gap: 200,
+        });
+      }
+    };
+
+    updateDimensions();
+    window.addEventListener('resize', updateDimensions);
+    return () => window.removeEventListener('resize', updateDimensions);
+  }, []);
+
+  const { cardWidth, gap } = dimensions;
+  const x = useMotionValue(-(index * (cardWidth + gap)));
 
   const handleDragEnd = (_: any, info: PanInfo) => {
     const offset = info.offset.x;
@@ -146,22 +168,22 @@ export function WigglingCards({ cards }: { cards?: CardData[] }) {
   };
 
   return (
-    <div className="flex flex-col items-center">
-      <div className="w-[360px]">
+    <div className="flex flex-col items-center py-10">
+      <div style={{ width: cardWidth + 40 }} className="relative mt-2">
         <motion.div
-          className="flex gap-4"
+          className="flex touch-pan-y"
           drag="x"
           dragConstraints={{
-            left: -(data.length - 1) * (CARD_WIDTH + GAP),
+            left: -(data.length - 1) * (cardWidth + gap),
             right: 0,
           }}
           style={{
             x,
-            gap: `${GAP}px`,
+            gap: `${gap}px`,
             perspective: 1000,
           }}
           animate={{
-            x: -(index * (CARD_WIDTH + GAP)),
+            x: -(index * (cardWidth + gap)),
           }}
           transition={{
             type: 'spring',
@@ -171,7 +193,14 @@ export function WigglingCards({ cards }: { cards?: CardData[] }) {
           onDragEnd={handleDragEnd}
         >
           {data.map((card, i) => (
-            <WigglingCard key={card.id} card={card} i={i} x={x} />
+            <WigglingCard
+              key={card.id}
+              card={card}
+              i={i}
+              x={x}
+              cardWidth={cardWidth}
+              gap={gap}
+            />
           ))}
         </motion.div>
       </div>

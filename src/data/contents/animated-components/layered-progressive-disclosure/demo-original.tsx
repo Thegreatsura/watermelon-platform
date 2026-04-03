@@ -3,7 +3,7 @@ import LayeredProgressiveDisclosure from './original';
 
 export default function LayeredProgressiveDisclosureDemo() {
   return (
-    <div className="bg-background flex items-center justify-center p-10 transition-colors duration-300 dark:bg-neutral-950">
+    <div className="flex items-center justify-center p-10 transition-colors duration-300">
       <LayeredProgressiveDisclosure
         title="Configuration"
         configOptions={[

@@ -75,7 +75,7 @@ export const AddCashDisclosure: React.FC<CashDisclosureProps> = ({
               style={{
                 borderRadius: 24,
               }}
-              className="flex w-100 max-w-100 items-center justify-between gap-10 border border-[#ECECEC] bg-white p-3 dark:border-white/5 dark:bg-[#1C1C1E] overflow-hidden"
+              className="flex w-xs sm:w-sm items-center justify-between gap-4 sm:gap-10 border border-[#ECECEC] bg-white p-3 dark:border-white/5 dark:bg-[#1C1C1E] overflow-hidden"
             >
               <div className="flex items-center gap-2 sm:gap-3">
                 <motion.div
@@ -122,7 +122,7 @@ export const AddCashDisclosure: React.FC<CashDisclosureProps> = ({
               transition={{
                 opacity: { duration: 0.3 },
               }}
-              className="flex w-100 max-w-100 flex-col border border-[#ECECEC] bg-white py-3 dark:border-white/5 dark:bg-[#1C1C1E] overflow-hidden"
+              className="flex w-xs sm:w-sm flex-col border border-[#ECECEC] bg-white py-3 dark:border-white/5 dark:bg-[#1C1C1E] overflow-hidden"
               style={{
                 borderRadius: 24,
               }}

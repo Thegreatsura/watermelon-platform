@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   motion,
   useMotionValue,
@@ -54,33 +54,30 @@ const DEFAULT_CARDS: CardData[] = [
   },
 ];
 
-const CARD_WIDTH = 320;
-const GAP = 200;
-
-const DRAG_BUFFER = 80;
+const DRAG_BUFFER = 60;
 const VELOCITY_THRESHOLD = 500;
 
-const WigglingCard = ({ card, i, x }: any) => {
+const WigglingCard = ({ card, i, x, cardWidth, gap }: any) => {
   const Icon = card.icon;
-  const center = -(i * (CARD_WIDTH + GAP));
+  const center = -(i * (cardWidth + gap));
 
   const distance = useTransform(x, (v: number) => v - center);
 
   const rotate = useTransform(
     distance,
-    [-CARD_WIDTH, -CARD_WIDTH * 0.1, 0, CARD_WIDTH * 0.1, CARD_WIDTH],
+    [-cardWidth, -cardWidth * 0.1, 0, cardWidth * 0.1, cardWidth],
     [10, 10, 0, -10, -10],
   );
 
   const blur = useTransform(
     distance,
-    [-CARD_WIDTH, -CARD_WIDTH * 0.2, 0, CARD_WIDTH * 0.2, CARD_WIDTH],
+    [-cardWidth, -cardWidth * 0.2, 0, cardWidth * 0.2, cardWidth],
     [4, 2, 0, 2, 4],
   );
 
   const opacity = useTransform(
     distance,
-    [-CARD_WIDTH, -CARD_WIDTH * 0.2, 0, CARD_WIDTH * 0.2, CARD_WIDTH],
+    [-cardWidth, -cardWidth * 0.2, 0, cardWidth * 0.2, cardWidth],
     [0, 0.8, 1, 0.8, 0],
   );
 
@@ -93,37 +90,37 @@ const WigglingCard = ({ card, i, x }: any) => {
         opacity,
         rotate,
         filter,
-        minWidth: CARD_WIDTH,
+        minWidth: cardWidth,
       }}
-      className="relative flex h-80 flex-col justify-between rounded-[40px] border border-neutral-200 bg-white p-6 dark:border-neutral-800 dark:bg-neutral-900"
+      className="relative flex h-72 flex-col justify-between rounded-[32px] border border-neutral-200 bg-white p-5 sm:h-80 sm:rounded-[40px] sm:p-6 dark:border-neutral-800 dark:bg-neutral-900"
     >
-      <div className="flex flex-col gap-10">
-        <div className="flex h-20 w-20 items-center justify-center rounded-2xl bg-neutral-100 dark:bg-neutral-800">
+      <div className="flex flex-col gap-6 sm:gap-10">
+        <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-neutral-100 sm:h-20 sm:w-20 dark:bg-neutral-800">
           <Icon
-            className="h-14 w-14 text-neutral-900 dark:text-neutral-100"
+            className="h-10 w-10 text-neutral-900 sm:h-14 sm:w-14 dark:text-neutral-100"
             strokeWidth={1.5}
           />
         </div>
 
         <div className="flex flex-col gap-1.5">
-          <div className="flex w-fit items-center rounded-2xl bg-neutral-200 px-3 py-0.5 text-lg font-medium text-neutral-600 dark:bg-neutral-800 dark:text-neutral-300">
+          <div className="flex w-fit items-center rounded-2xl bg-neutral-200 px-3 py-0.5 text-base font-medium text-neutral-600 sm:text-lg dark:bg-neutral-800 dark:text-neutral-300">
             <FaArrowUpLong className="mr-1 h-3 w-3" />
             {card.percentage}
           </div>
 
-          <h2 className="text-[42px] font-bold text-neutral-900 dark:text-neutral-100">
+          <h2 className="text-3xl font-bold text-neutral-900 sm:text-[42px] dark:text-neutral-100">
             {card.value}
           </h2>
 
-          <p className="text-[20px] font-medium text-neutral-700 dark:text-neutral-300">
+          <p className="text-lg font-medium text-neutral-700 sm:text-[20px] dark:text-neutral-300">
             {card.label}
           </p>
         </div>
       </div>
 
-      <div className="absolute right-7 bottom-9">
-        <div className="flex h-12 w-12 items-center justify-center rounded-full bg-neutral-200 dark:bg-neutral-800">
-          <ArrowUpRight className="h-6 w-6 text-neutral-900 dark:text-neutral-100" />
+      <div className="absolute right-6 bottom-7 sm:right-7 sm:bottom-9">
+        <div className="flex h-10 w-10 items-center justify-center rounded-full bg-neutral-200 sm:h-12 sm:w-12 dark:bg-neutral-800">
+          <ArrowUpRight className="h-5 w-5 text-neutral-900 sm:h-6 sm:w-6 dark:text-neutral-100" />
         </div>
       </div>
     </motion.div>
@@ -132,10 +129,32 @@ const WigglingCard = ({ card, i, x }: any) => {
 
 export function WigglingCards({ cards }: { cards?: CardData[] }) {
   const data = cards ?? DEFAULT_CARDS;
-
   const [index, setIndex] = useState(1);
+  const [dimensions, setDimensions] = useState({ cardWidth: 320, gap: 200 });
 
-  const x = useMotionValue(-(index * (CARD_WIDTH + GAP)));
+  useEffect(() => {
+    const updateDimensions = () => {
+      const width = window.innerWidth;
+      if (width < 640) {
+        setDimensions({
+          cardWidth: Math.min(width - 64, 300),
+          gap: 40,
+        });
+      } else {
+        setDimensions({
+          cardWidth: 320,
+          gap: 200,
+        });
+      }
+    };
+
+    updateDimensions();
+    window.addEventListener('resize', updateDimensions);
+    return () => window.removeEventListener('resize', updateDimensions);
+  }, []);
+
+  const { cardWidth, gap } = dimensions;
+  const x = useMotionValue(-(index * (cardWidth + gap)));
 
   const handleDragEnd = (_: any, info: PanInfo) => {
     const offset = info.offset.x;
@@ -149,22 +168,22 @@ export function WigglingCards({ cards }: { cards?: CardData[] }) {
   };
 
   return (
-    <div className="flex flex-col items-center">
-      <div className="w-[360px]">
+    <div className="flex flex-col items-center py-10">
+      <div style={{ width: cardWidth + 40 }} className="relative mt-2">
         <motion.div
-          className="flex gap-4"
+          className="flex touch-pan-y"
           drag="x"
           dragConstraints={{
-            left: -(data.length - 1) * (CARD_WIDTH + GAP),
+            left: -(data.length - 1) * (cardWidth + gap),
             right: 0,
           }}
           style={{
             x,
-            gap: `${GAP}px`,
+            gap: `${gap}px`,
             perspective: 1000,
           }}
           animate={{
-            x: -(index * (CARD_WIDTH + GAP)),
+            x: -(index * (cardWidth + gap)),
           }}
           transition={{
             type: 'spring',
@@ -174,7 +193,14 @@ export function WigglingCards({ cards }: { cards?: CardData[] }) {
           onDragEnd={handleDragEnd}
         >
           {data.map((card, i) => (
-            <WigglingCard key={card.id} card={card} i={i} x={x} />
+            <WigglingCard
+              key={card.id}
+              card={card}
+              i={i}
+              x={x}
+              cardWidth={cardWidth}
+              gap={gap}
+            />
           ))}
         </motion.div>
       </div>
@@ -184,10 +210,11 @@ export function WigglingCards({ cards }: { cards?: CardData[] }) {
           <button
             key={i}
             onClick={() => setIndex(i)}
-            className={`h-3 w-3 rounded-full transition-colors duration-200 ease-out ${i === index
-              ? 'bg-neutral-500 dark:bg-neutral-400'
-              : 'bg-neutral-300 dark:bg-neutral-700'
-              }`}
+            className={`h-3 w-3 rounded-full transition-colors duration-200 ease-out ${
+              i === index
+                ? 'bg-neutral-500 dark:bg-neutral-400'
+                : 'bg-neutral-300 dark:bg-neutral-700'
+            }`}
           />
         ))}
       </div>

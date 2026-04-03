@@ -339,7 +339,7 @@ export function ComponentModal({ item, onClose }: ComponentModalProps) {
         </DialogDescription>
 
         {/* Left Side: Documentation & Code */}
-        <div className="bg-background relative flex h-full w-[40%] flex-col border-r">
+        <div className="bg-background relative flex h-full w-[40%] flex-col overflow-hidden border-r">
           <div className="flex flex-1 flex-col overflow-hidden p-6">
             {/* Header */}
             <div className="mb-4 shrink-0">
@@ -559,7 +559,7 @@ export function ComponentModal({ item, onClose }: ComponentModalProps) {
         {/* Right Side: Preview with Tabs */}
         <Tabs
           defaultValue="preview"
-          className="bg-muted/10 flex h-full min-w-0 flex-1 flex-col"
+          className="bg-muted/10 flex h-full min-w-0 flex-1 flex-col overflow-hidden"
         >
           {/* Toolbar with tabs */}
           <div className="bg-muted/30 flex items-center justify-between border-b px-4 py-2">
@@ -627,14 +627,14 @@ export function ComponentModal({ item, onClose }: ComponentModalProps) {
           </div>
 
           {/* Content */}
-          <div className="relative flex-1">
+          <div className="relative flex-1 overflow-hidden">
             <TabsContents mode="layout" className="h-full">
               {/* Preview Panel */}
               <TabsContent
                 value="preview"
-                className="absolute inset-0 border-none shadow-none data-[state=inactive]:hidden"
+                className="absolute inset-0 overflow-hidden border-none shadow-none data-[state=inactive]:hidden"
               >
-                <div className="from-muted/50 flex h-full items-center justify-center bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] via-transparent to-transparent p-10">
+                <div className="from-muted/50 flex h-full items-center justify-center overflow-hidden bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] via-transparent to-transparent p-10">
                   <ActiveComponent key={`${reloadKey}-${activeCodeTab}`} />
                 </div>
               </TabsContent>

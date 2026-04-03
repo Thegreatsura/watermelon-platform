@@ -62,8 +62,8 @@ export const RevealAndCopy = ({
 
   return (
     <div className="theme-injected  flex flex-col items-center justify-center gap-8 transition-colors duration-500">
-      <div className="border-border bg-background  flex h-[70px] min-w-[420px] items-center rounded-lg border-2 px-2 shadow-sm transition-colors duration-500">
-        <div className="relative flex flex-1 gap-0 overflow-hidden text-[22px] tracking-[0.18em]">
+      <div className="border-border bg-background flex h-[70px] w-full max-w-[420px] items-center rounded-lg border-2 px-3 shadow-sm transition-colors duration-500">
+        <div className="relative flex flex-1 items-center justify-between overflow-hidden text-[16px] tracking-[0.08em] sm:text-[22px] sm:tracking-[0.18em]">
           <AnimatePresence>
             {revealed && (
               <motion.div
@@ -101,7 +101,7 @@ export const RevealAndCopy = ({
             return (
               <div
                 key={idx}
-                className="relative flex w-[85px] justify-center overflow-hidden font-bold"
+                className="relative flex flex-1 min-w-0 justify-center overflow-hidden font-bold"
               >
                 <div className="relative flex items-center">
                   <AnimatePresence mode="popLayout" initial={false}>
@@ -148,7 +148,7 @@ export const RevealAndCopy = ({
           })}
         </div>
 
-        <div className="relative ml-4 h-12 w-12">
+        <div className="relative ml-2 shrink-0 sm:ml-4 h-12 w-12">
           <AnimatePresence mode="popLayout" initial={false}>
             {!revealed && (
               <motion.button
