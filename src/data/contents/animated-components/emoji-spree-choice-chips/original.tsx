@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 
 export interface InterestItem {
@@ -162,11 +162,14 @@ const FloatingEmoji = ({
   rotate: number;
 }) => {
   const [phase, setPhase] = useState<'up' | 'down'>('up');
-  const [isMobile, setIsMobile] = useState(false);
-
-  useEffect(() => {
-    setIsMobile(window.innerWidth < 640);
-  }, []);
+  const isMobile = React.useSyncExternalStore(
+    (callback) => {
+      window.addEventListener('resize', callback);
+      return () => window.removeEventListener('resize', callback);
+    },
+    () => window.innerWidth < 640,
+    () => false
+  );
 
   return (
     <motion.div
