@@ -2,7 +2,7 @@
 
 import { useId, useState } from 'react'
 
-import { CheckIcon, ChevronsUpDownIcon } from 'lucide-react'
+import { ChevronsUpDownIcon } from 'lucide-react'
 
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/base-ui/avatar'
 import {
@@ -132,7 +132,7 @@ const Combobox8 = () => {
             aria-hidden='true'
           />
         </PopoverTrigger>
-        <PopoverContent className='w-75 overflow-hidden rounded-3xl border border-border/60 p-0 shadow-sm'>
+        <PopoverContent className='w-75 overflow-hidden rounded-2xl border border-border/60 p-0 shadow-sm'>
           <Command className='rounded-3xl!'>
             <CommandInput placeholder='Search assignee...' className='h-9 px-1' />
             <CommandList>
@@ -142,6 +142,7 @@ const Combobox8 = () => {
                   <CommandItem
                     key={user.name}
                     value={user.name}
+                    data-checked={selectedUserName === user.name}
                     onSelect={(currentValue) => {
                       if (currentValue === selectedUserName) {
                         setSelectedUserName('')
@@ -156,7 +157,7 @@ const Combobox8 = () => {
                       setSelectedUserName(currentValue)
                       setOpen(false)
                     }}
-                    className='rounded-lg'
+                    className='rounded-lg pr-2'
                   >
                     <span className='flex min-w-0 flex-1 items-center gap-2'>
                       <span className='relative shrink-0'>
@@ -175,9 +176,6 @@ const Combobox8 = () => {
                         </span>
                       </span>
                     </span>
-                    {selectedUserName === user.name && (
-                      <CheckIcon size={16} className='ml-auto shrink-0' />
-                    )}
                   </CommandItem>
                 ))}
               </CommandGroup>

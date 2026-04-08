@@ -173,7 +173,7 @@ const DataTable11 = () => {
                 return (
                   <TableHead
                     key={column}
-                    className='h-12 bg-muted/20 text-[11px] font-medium uppercase tracking-[0.12em] text-muted-foreground'
+                    className='h-12 bg-muted/20 text-[13px] font-medium tracking-[0.08em] text-muted-foreground'
                   >
                     <button
                       type='button'

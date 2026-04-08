@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 
-import { CheckIcon, ChevronsUpDownIcon } from 'lucide-react'
+import { ChevronsUpDownIcon } from 'lucide-react'
 
 import {
   Command,
@@ -13,8 +13,6 @@ import {
   CommandList
 } from '@/components/base-ui/command'
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/base-ui/popover'
-
-import { cn } from '@/lib/utils'
 
 const frameworks = [
   {
@@ -82,6 +80,8 @@ const Combobox1 = () => {
                 <CommandItem
                   key={framework.value}
                   value={framework.value}
+                  className='pr-2'
+                  data-checked={selectedFramework === framework.value}
                   onSelect={currentValue => {
                     if (currentValue === selectedFramework) {
                       setSelectedFramework('')
@@ -98,14 +98,6 @@ const Combobox1 = () => {
                   }}
                 >
                   {framework.label}
-                  <CheckIcon
-                    className={cn(
-                      'ml-auto size-4',
-                      selectedFramework === framework.value
-                        ? 'opacity-100'
-                        : 'opacity-0'
-                    )}
-                  />
                 </CommandItem>
               ))}
             </CommandGroup>

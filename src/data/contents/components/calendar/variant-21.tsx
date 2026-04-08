@@ -55,7 +55,9 @@ const yearOptions: readonly Date[] = eachYearOfInterval({
 
 const calendarClassNames = {
   month_caption: 'ml-2.5 mr-20 justify-start',
-  nav: 'flex absolute w-fit right-0 items-center'
+  nav: 'flex absolute w-fit right-0 items-center',
+  today: '!bg-transparent',
+  day_button: '!ring-0 !ring-offset-0 focus:!ring-0 focus-visible:!ring-0'
 } satisfies CalendarClassNames
 
 const Calendar21 = () => {
@@ -76,7 +78,7 @@ const Calendar21 = () => {
         defaultMonth={initialSelectedDate}
         startMonth={minimumAvailableMonth}
         endMonth={maximumAvailableMonth}
-        className='overflow-hidden rounded-[1.75rem] border border-border/60 bg-muted/10 p-3 shadow-sm'
+        className='overflow-hidden !border-0 !bg-transparent p-3 transition-all !ring-0 !ring-offset-0 focus:!ring-0 focus:!ring-offset-0 focus-visible:!ring-0 focus-visible:!ring-offset-0 [&_*]:!ring-0 [&_*]:!ring-offset-0 [&_*]:focus:!ring-0 [&_*]:focus-visible:!ring-0 [&_.rdp-day_today]:!bg-transparent'
         classNames={calendarClassNames}
         components={{
           CaptionLabel: (props: CaptionLabelProps) => (

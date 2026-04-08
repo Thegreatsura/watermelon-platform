@@ -184,7 +184,7 @@ const DataTable3 = () => {
         <Table className='w-60 sm:w-100 md:w-120 lg:w-160 2xl:w-220 mx-auto'>
           <TableHeader>
             <TableRow>
-              <TableHead className='h-12 w-10 border-b border-border/60 bg-transparent text-[11px] font-medium tracking-[0.12em] text-muted-foreground uppercase'>
+              <TableHead className='h-12 w-10 border-b border-border/60 bg-transparent text-[13px] font-medium tracking-[0.08em] text-muted-foreground uppercase'>
                 <Checkbox
                   checked={allSelected}
                   aria-checked={someSelected ? 'mixed' : allSelected}
@@ -194,22 +194,22 @@ const DataTable3 = () => {
                 />
               </TableHead>
               {visibleColumns.name ? (
-                <TableHead className='h-12 border-b border-border/60 bg-transparent text-[11px] font-medium tracking-[0.12em] text-muted-foreground uppercase'>
+                <TableHead className='h-12 border-b border-border/60 bg-transparent text-[13px] font-medium tracking-[0.08em] text-muted-foreground'>
                   Name
                 </TableHead>
               ) : null}
               {visibleColumns.status ? (
-                <TableHead className='h-12 border-b border-border/60 bg-transparent text-[11px] font-medium tracking-[0.12em] text-muted-foreground uppercase'>
+                <TableHead className='h-12 border-b border-border/60 bg-transparent text-[13px] font-medium tracking-[0.08em] text-muted-foreground'>
                   Status
                 </TableHead>
               ) : null}
               {visibleColumns.email ? (
-                <TableHead className='h-12 border-b border-border/60 bg-transparent text-[11px] font-medium tracking-[0.12em] text-muted-foreground uppercase'>
+                <TableHead className='h-12 border-b border-border/60 bg-transparent text-[13px] font-medium tracking-[0.08em] text-muted-foreground'>
                   Email
                 </TableHead>
               ) : null}
               {visibleColumns.amount ? (
-                <TableHead className='h-12 border-b border-border/60 bg-transparent text-right text-[11px] font-medium tracking-[0.12em] text-muted-foreground uppercase'>
+                <TableHead className='h-12 border-b border-border/60 bg-transparent text-right text-[13px] font-medium tracking-[0.08em] text-muted-foreground'>
                   Amount
                 </TableHead>
               ) : null}

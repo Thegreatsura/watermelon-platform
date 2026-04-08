@@ -2,7 +2,7 @@
 
 import { useId, useState } from 'react'
 
-import { CheckIcon, ChevronDownIcon } from 'lucide-react'
+import { ChevronDownIcon } from 'lucide-react'
 
 import {
   Command,
@@ -117,6 +117,7 @@ const Combobox9 = () => {
                 <CommandItem
                   key={country.value}
                   value={country.value}
+                  data-checked={selectedCountry === country.value}
                   onSelect={(currentValue) => {
                     if (currentValue === selectedCountry) {
                       setSelectedCountry('')
@@ -131,7 +132,7 @@ const Combobox9 = () => {
                     setSelectedCountry(currentValue)
                     setOpen(false)
                   }}
-                  className='rounded-lg'
+                className='rounded-lg pr-2'
                 >
                   <img
                     src={country.flag}
@@ -139,9 +140,6 @@ const Combobox9 = () => {
                     className='h-4 w-5 rounded-[2px] object-cover'
                   />
                   <span className='min-w-0 flex-1 truncate'>{country.label}</span>
-                  {selectedCountry === country.value && (
-                    <CheckIcon size={16} className='ml-auto shrink-0' />
-                  )}
                 </CommandItem>
               ))}
             </CommandList>

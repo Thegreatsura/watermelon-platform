@@ -2,7 +2,7 @@
 
 import { useId, useState } from 'react'
 
-import { CheckIcon, ChevronsUpDownIcon } from 'lucide-react'
+import { ChevronsUpDownIcon } from 'lucide-react'
 
 import { Badge } from '@/components/base-ui/badge'
 import {
@@ -92,13 +92,11 @@ const Combobox12 = () => {
                   <CommandItem
                     key={tag.value}
                     value={tag.value}
+                    data-checked={selectedValues.includes(tag.value)}
                     onSelect={() => toggleSelection(tag.value)}
-                    className='flex items-center rounded-lg'
+                    className='flex items-center rounded-lg pr-2'
                   >
                     <span className='min-w-0 flex-1 truncate'>{tag.label}</span>
-                    {selectedValues.includes(tag.value) && (
-                      <CheckIcon size={16} className='ml-auto shrink-0' />
-                    )}
                   </CommandItem>
                 ))}
               </CommandGroup>

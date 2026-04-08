@@ -2,7 +2,7 @@
 
 import { Fragment, useId, useState } from 'react'
 
-import { CheckIcon, ChevronsUpDownIcon } from 'lucide-react'
+import { ChevronsUpDownIcon } from 'lucide-react'
 
 import {
   Command,
@@ -75,6 +75,8 @@ const Combobox2 = () => {
                       <CommandItem
                         key={item.value}
                         value={item.value}
+                        className='pr-2'
+                        data-checked={selectedValue === item.value}
                         onSelect={currentValue => {
                           if (!isComboboxValue(currentValue)) {
                             return
@@ -85,9 +87,6 @@ const Combobox2 = () => {
                         }}
                       >
                         {item.value}
-                        {selectedValue === item.value && (
-                          <CheckIcon size={16} className='ml-auto' />
-                        )}
                       </CommandItem>
                     ))}
                   </CommandGroup>
