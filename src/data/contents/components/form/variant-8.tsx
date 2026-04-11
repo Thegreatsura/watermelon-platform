@@ -27,7 +27,7 @@ import {
   CommandInput,
   CommandItem,
   CommandList,
-} from '@/components/base-base-ui/command';
+} from '@/components/base-ui/command';
 import {
   Field,
   FieldContent,
@@ -39,7 +39,7 @@ import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from '@/components/base-base-ui/popover';
+} from '@/components/base-ui/popover';
 
 import { cn } from '@/lib/utils';
 
