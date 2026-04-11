@@ -1,6 +1,6 @@
 'use client';
 
-import { FaCheckDouble, FaShieldAlt } from 'react-icons/fa';
+import { FaCheckDouble} from 'react-icons/fa';
 
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Controller, useForm } from 'react-hook-form';
