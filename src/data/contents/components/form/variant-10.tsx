@@ -7,32 +7,32 @@ import { Controller, useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 import { z } from 'zod';
 
-import { Alert, AlertTitle } from '@/components/ui/alert';
-import { Button } from '@/components/ui/button';
+import { Alert, AlertTitle } from '@/components/base-ui/alert';
+import { Button } from '@/components/base-ui/button';
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from '@/components/ui/card';
+} from '@/components/base-ui/card';
 import {
   Field,
   FieldContent,
   FieldDescription,
   FieldError,
   FieldLabel,
-} from '@/components/ui/field';
-import { Input } from '@/components/ui/input';
-import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
+} from '@/components/base-ui/field';
+import { Input } from '@/components/base-ui/input';
+import { RadioGroup, RadioGroupItem } from '@/components/base-ui/radio-group';
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/select';
-import { Textarea } from '@/components/ui/textarea';
+} from '@/components/base-ui/select';
+import { Textarea } from '@/components/base-ui/textarea';
 
 const FormSchema = z.object({
   email: z.string().min(1, 'Email is required').email('Enter a valid email'),
@@ -64,7 +64,7 @@ const Form10 = () => {
   };
 
   return (
-    <Card className="bg-card w-full  max-w-sm rounded-sm shadow-md">
+    <Card className="bg-card w-full max-w-sm rounded-sm shadow-md">
       <CardHeader>
         <CardTitle>Create New Project</CardTitle>
         <CardDescription>
@@ -105,7 +105,7 @@ const Form10 = () => {
                     <SelectTrigger className="bg-muted/50 w-full rounded-sm shadow-[inset_0px_1px_0px_0px_rgba(255,255,255,1),inset_0px_-1px_0px_0px_rgba(0,0,0,0.05)] dark:shadow-[inset_0px_1px_1px_0px_rgba(255,255,255,0.1),inset_0px_-1px_0px_0px_rgba(0,0,0,0.7)]">
                       <SelectValue placeholder="Select project type" />
                     </SelectTrigger>
-                    <SelectContent className="rounded-sm bg-muted shadow-[inset_0px_1px_0px_0px_rgba(255,255,255,1),inset_0px_-1px_0px_0px_rgba(0,0,0,0.05)] dark:shadow-[inset_0px_1px_1px_0px_rgba(255,255,255,0.05),inset_0px_-1px_0px_0px_rgba(0,0,0,0.7)]">
+                    <SelectContent className="bg-muted rounded-sm shadow-[inset_0px_1px_0px_0px_rgba(255,255,255,1),inset_0px_-1px_0px_0px_rgba(0,0,0,0.05)] dark:shadow-[inset_0px_1px_1px_0px_rgba(255,255,255,0.05),inset_0px_-1px_0px_0px_rgba(0,0,0,0.7)]">
                       <SelectItem value="web">Web Application</SelectItem>
                       <SelectItem value="mobile">Mobile App</SelectItem>
                       <SelectItem value="saas">SaaS Platform</SelectItem>
@@ -143,7 +143,7 @@ const Form10 = () => {
                         <label
                           key={item.value}
                           htmlFor={item.value}
-                          className={`flex flex-1 cursor-pointer items-center justify-center gap-2 rounded-sm border px-3 py-2 text-xs transition-all ${isActive ? 'border-primary bg-primary/10' : 'bg-muted/70   border-border/50 hover:bg-muted/60 '} `}
+                          className={`flex flex-1 cursor-pointer items-center justify-center gap-2 rounded-sm border px-3 py-2 text-xs transition-all ${isActive ? 'border-primary bg-primary/10' : 'bg-muted/70 border-border/50 hover:bg-muted/60'} `}
                         >
                           <RadioGroupItem
                             value={item.value}

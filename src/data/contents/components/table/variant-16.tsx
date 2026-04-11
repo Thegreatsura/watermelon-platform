@@ -1,4 +1,4 @@
-import { Badge } from '@/components/ui/badge';
+import { Badge } from '@/components/base-ui/badge';
 import {
   Pagination,
   PaginationContent,
@@ -7,7 +7,7 @@ import {
   PaginationLink,
   PaginationNext,
   PaginationPrevious,
-} from '@/components/ui/pagination';
+} from '@/components/base-ui/pagination';
 import {
   Table,
   TableBody,
@@ -16,7 +16,7 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from '@/components/ui/table';
+} from '@/components/base-ui/table';
 
 const candidates = [
   {
@@ -46,7 +46,7 @@ const candidates = [
   {
     id: '4',
     name: 'Sneha Kapoor',
-    role: 'UI Designer',
+    role: 'base-ui Designer',
     stage: 'Offer',
     applied: '5 Apr 2026',
     rating: '4.9',

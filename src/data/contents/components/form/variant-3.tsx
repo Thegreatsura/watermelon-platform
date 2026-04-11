@@ -8,21 +8,21 @@ import { Controller, useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 import { z } from 'zod';
 
-import { Alert, AlertTitle } from '@/components/ui/alert';
-import { Button } from '@/components/ui/button';
-import { Calendar } from '@/components/ui/calendar';
+import { Alert, AlertTitle } from '@/components/base-ui/alert';
+import { Button } from '@/components/base-ui/button';
+import { Calendar } from '@/components/base-ui/calendar';
 import {
   Field,
   FieldContent,
   FieldDescription,
   FieldError,
   FieldLabel,
-} from '@/components/ui/field';
+} from '@/components/base-ui/field';
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from '@/components/ui/popover';
+} from '@/components/base-ui/popover';
 
 import { cn } from '@/lib/utils';
 
@@ -110,7 +110,7 @@ const Form3 = () => {
 
       <Button
         type="submit"
-        className="from-primary to-primary/70 text-shadow-xs rounded-sm flex w-full items-center justify-center gap-2 bg-gradient-to-b transition-all active:scale-98 border border-black/10 shadow-sm"
+        className="from-primary to-primary/70 flex w-full items-center justify-center gap-2 rounded-sm border border-black/10 bg-gradient-to-b shadow-sm transition-all text-shadow-xs active:scale-98"
       >
         Continue
       </Button>

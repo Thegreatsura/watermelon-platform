@@ -5,7 +5,7 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from '@/components/ui/table';
+} from '@/components/base-ui/table';
 
 const employees = [
   {
@@ -41,7 +41,7 @@ const employees = [
   {
     id: 4,
     name: 'Sneha Kapoor',
-    role: 'UI Designer',
+    role: 'base-ui Designer',
     company: 'PixelCraft',
     email: 'sneha@pixel.com',
     location: 'India',

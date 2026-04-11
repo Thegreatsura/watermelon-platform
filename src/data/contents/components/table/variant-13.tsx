@@ -1,6 +1,6 @@
 import { useId } from 'react';
 
-import { Checkbox } from '@/components/ui/checkbox';
+import { Checkbox } from '@/components/base-ui/checkbox';
 import {
   Table,
   TableBody,
@@ -9,9 +9,9 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from '@/components/ui/table';
+} from '@/components/base-ui/table';
 import { cn } from '@/lib/utils';
-import { Badge } from '@/components/ui/badge';
+import { Badge } from '@/components/base-ui/badge';
 
 const accounts = [
   {
@@ -59,18 +59,18 @@ const accounts = [
 const Table13 = () => {
   const id = useId();
 
- const getStatusClass = (status: string) => {
-   switch (status) {
-     case 'Active':
-       return 'bg-green-600/10 text-green-600 border-green-600/20 dark:bg-green-400/10 dark:text-green-400 dark:border-green-400/20';
-     case 'Inactive':
-       return 'bg-yellow-600/10 text-yellow-600 border-yellow-600/20 dark:bg-yellow-400/10 dark:text-yellow-400 dark:border-yellow-400/20';
-     case 'Overdue':
-       return 'bg-red-600/10 text-red-600 border-red-600/20 dark:bg-red-400/10 dark:text-red-400 dark:border-red-400/20';
-     default:
-       return '';
-   }
- };
+  const getStatusClass = (status: string) => {
+    switch (status) {
+      case 'Active':
+        return 'bg-green-600/10 text-green-600 border-green-600/20 dark:bg-green-400/10 dark:text-green-400 dark:border-green-400/20';
+      case 'Inactive':
+        return 'bg-yellow-600/10 text-yellow-600 border-yellow-600/20 dark:bg-yellow-400/10 dark:text-yellow-400 dark:border-yellow-400/20';
+      case 'Overdue':
+        return 'bg-red-600/10 text-red-600 border-red-600/20 dark:bg-red-400/10 dark:text-red-400 dark:border-red-400/20';
+      default:
+        return '';
+    }
+  };
 
   return (
     <div className="w-full">

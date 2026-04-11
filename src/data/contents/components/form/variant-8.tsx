@@ -18,8 +18,8 @@ import { Controller, useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 import { z } from 'zod';
 
-import { Alert, AlertTitle } from '@/components/ui/alert';
-import { Button } from '@/components/ui/button';
+import { Alert, AlertTitle } from '@/components/base-ui/alert';
+import { Button } from '@/components/base-ui/button';
 import {
   Command,
   CommandEmpty,
@@ -27,19 +27,19 @@ import {
   CommandInput,
   CommandItem,
   CommandList,
-} from '@/components/base-ui/command';
+} from '@/components/base-base-ui/command';
 import {
   Field,
   FieldContent,
   FieldDescription,
   FieldError,
   FieldLabel,
-} from '@/components/ui/field';
+} from '@/components/base-ui/field';
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from '@/components/base-ui/popover';
+} from '@/components/base-base-ui/popover';
 
 import { cn } from '@/lib/utils';
 

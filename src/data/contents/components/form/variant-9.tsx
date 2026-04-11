@@ -7,16 +7,16 @@ import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 import { z } from 'zod';
 
-import { Alert, AlertTitle } from '@/components/ui/alert';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
+import { Alert, AlertTitle } from '@/components/base-ui/alert';
+import { Button } from '@/components/base-ui/button';
+import { Input } from '@/components/base-ui/input';
 import {
   Field,
   FieldContent,
   FieldDescription,
   FieldError,
   FieldLabel,
-} from '@/components/ui/field';
+} from '@/components/base-ui/field';
 
 const FormSchema = z.object({
   email: z

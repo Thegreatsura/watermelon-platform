@@ -1,4 +1,8 @@
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import {
+  Avatar,
+  AvatarFallback,
+  AvatarImage,
+} from '@/components/base-ui/avatar';
 import {
   Table,
   TableBody,
@@ -6,7 +10,7 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from '@/components/ui/table';
+} from '@/components/base-ui/table';
 
 const developers = [
   {
@@ -81,7 +85,6 @@ const Table15 = () => {
           <TableBody>
             {developers.map((dev, i) => (
               <TableRow key={dev.id} className="hover:bg-muted/50">
-         
                 <TableCell className="text-muted-foreground font-medium">
                   {i + 1}
                 </TableCell>
@@ -96,7 +99,6 @@ const Table15 = () => {
                         </AvatarFallback>
                       </Avatar>
 
-                
                       <span
                         className={`border-background absolute right-0 bottom-0 h-2.5 w-2.5 rounded-full border ${getStatusDot(
                           dev.status,
@@ -113,12 +115,10 @@ const Table15 = () => {
                   </div>
                 </TableCell>
 
-               
                 <TableCell className="text-muted-foreground">
                   {dev.country}
                 </TableCell>
 
-    
                 <TableCell className="text-right">
                   <div className="font-semibold">
                     {dev.contributions.toLocaleString()}

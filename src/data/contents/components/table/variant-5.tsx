@@ -6,7 +6,7 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from '@/components/ui/table';
+} from '@/components/base-ui/table';
 import {
   HiCube,
   HiCheckCircle,

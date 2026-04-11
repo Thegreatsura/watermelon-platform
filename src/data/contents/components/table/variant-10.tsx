@@ -6,7 +6,7 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from '@/components/ui/table';
+} from '@/components/base-ui/table';
 
 const orders = [
   { id: 'ORD001', status: 'Delivered', amount: '₹2,500', method: 'UPI' },

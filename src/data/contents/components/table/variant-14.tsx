@@ -2,8 +2,8 @@ import { useId } from 'react';
 
 import { HiFolder, HiPencil, HiTrash } from 'react-icons/hi';
 
-import { Checkbox } from '@/components/ui/checkbox';
-import { Button } from '@/components/ui/button';
+import { Checkbox } from '@/components/base-ui/checkbox';
+import { Button } from '@/components/base-ui/button';
 import {
   Table,
   TableBody,
@@ -11,7 +11,7 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from '@/components/ui/table';
+} from '@/components/base-ui/table';
 
 const projects = [
   {
@@ -24,7 +24,7 @@ const projects = [
   },
   {
     id: '2',
-    name: 'Mobile App UI',
+    name: 'Mobile App base-ui',
     owner: 'Priya Verma',
     status: 'In Progress',
     tasks: 12,
@@ -126,7 +126,6 @@ const Table14 = () => {
                 <TableCell>{item.tasks}</TableCell>
 
                 <TableCell className="font-medium">{item.budget}</TableCell>
-
 
                 <TableCell className="flex items-center gap-1">
                   <Button variant="ghost" size="icon" className="rounded-full">

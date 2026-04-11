@@ -8,7 +8,7 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from '@/components/ui/table';
+} from '@/components/base-ui/table';
 
 const transactions = [
   { id: 'TXN001', status: 'Success', amount: '₹2,500', method: 'UPI' },

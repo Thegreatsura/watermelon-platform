@@ -1,22 +1,22 @@
 'use client';
 
-import { FaCheckDouble} from 'react-icons/fa';
+import { FaCheckDouble } from 'react-icons/fa';
 
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Controller, useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 import { z } from 'zod';
 
-import { Alert, AlertTitle } from '@/components/ui/alert';
-import { Button } from '@/components/ui/button';
-import { Switch } from '@/components/ui/switch';
+import { Alert, AlertTitle } from '@/components/base-ui/alert';
+import { Button } from '@/components/base-ui/button';
+import { Switch } from '@/components/base-ui/switch';
 import {
   Field,
   FieldContent,
   FieldDescription,
   FieldError,
   FieldLabel,
-} from '@/components/ui/field';
+} from '@/components/base-ui/field';
 
 const FormSchema = z.object({
   securityMode: z.boolean().refine((val) => val === true, {
@@ -55,7 +55,6 @@ const Form5 = () => {
             render={({ field }) => (
               <div className="hover:bg-muted/40 flex items-center justify-between rounded-sm border p-3 transition-all">
                 <div className="flex items-center gap-2">
-                  
                   <div className="space-y-0.5">
                     <FieldLabel>Enable Secure Mode</FieldLabel>
                     <FieldDescription>
@@ -68,7 +67,7 @@ const Form5 = () => {
                 <Switch
                   checked={field.value}
                   onCheckedChange={field.onChange}
-                  className='bg-muted/50 '
+                  className="bg-muted/50"
                 />
               </div>
             )}
@@ -80,10 +79,9 @@ const Form5 = () => {
 
       <Button
         type="submit"
-        className="flex w-full items-center justify-center gap-2 transition-all rounded-sm  active:scale-95"
+        className="flex w-full items-center justify-center gap-2 rounded-sm transition-all active:scale-95"
       >
         Continue
-      
       </Button>
     </form>
   );

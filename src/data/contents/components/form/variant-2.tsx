@@ -7,23 +7,27 @@ import { Controller, useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 import { z } from 'zod';
 
-import { Alert, AlertTitle } from '@/components/ui/alert';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { Button } from '@/components/ui/button';
+import { Alert, AlertTitle } from '@/components/base-ui/alert';
+import {
+  Avatar,
+  AvatarFallback,
+  AvatarImage,
+} from '@/components/base-ui/avatar';
+import { Button } from '@/components/base-ui/button';
 import {
   Field,
   FieldContent,
   FieldDescription,
   FieldError,
   FieldLabel,
-} from '@/components/ui/field';
+} from '@/components/base-ui/field';
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/select';
+} from '@/components/base-ui/select';
 
 const accounts = [
   {
@@ -113,7 +117,7 @@ const Form2 = () => {
           Pick the account you want to recover. We'll send a secure reset link.
         </FieldDescription>
 
-        <FieldError className="bg-destructive/10 text-xs border-destructive/50 rounded-sm border p-1 shadow-[inset_0px_1px_0px_0px_rgba(255,255,255,1),inset_0px_-1px_0px_0px_rgba(0,0,0,0.05)] dark:shadow-[inset_0px_1px_1px_0px_rgba(255,255,255,0.25),inset_0px_-1px_0px_0px_rgba(0,0,0,0.7)]">
+        <FieldError className="bg-destructive/10 border-destructive/50 rounded-sm border p-1 text-xs shadow-[inset_0px_1px_0px_0px_rgba(255,255,255,1),inset_0px_-1px_0px_0px_rgba(0,0,0,0.05)] dark:shadow-[inset_0px_1px_1px_0px_rgba(255,255,255,0.25),inset_0px_-1px_0px_0px_rgba(0,0,0,0.7)]">
           {form.formState.errors.email?.message}
         </FieldError>
       </Field>

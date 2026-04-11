@@ -1,13 +1,12 @@
 import {
   Table,
   TableBody,
-
   TableCell,
   TableFooter,
   TableHead,
   TableHeader,
   TableRow,
-} from '@/components/ui/table';
+} from '@/components/base-ui/table';
 
 const products = [
   {

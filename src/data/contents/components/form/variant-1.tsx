@@ -7,21 +7,21 @@ import { Controller, useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 import { z } from 'zod';
 
-import { Alert, AlertTitle } from '@/components/ui/alert';
-import { Button } from '@/components/ui/button';
+import { Alert, AlertTitle } from '@/components/base-ui/alert';
+import { Button } from '@/components/base-ui/button';
 import {
   Field,
   FieldContent,
   FieldDescription,
   FieldError,
   FieldLabel,
-} from '@/components/ui/field';
+} from '@/components/base-ui/field';
 import {
   InputOTP,
   InputOTPGroup,
   InputOTPSeparator,
   InputOTPSlot,
-} from '@/components/ui/input-otp';
+} from '@/components/base-ui/input-otp';
 
 const FormSchema = z.object({
   pin: z.string().min(6, {
@@ -73,7 +73,7 @@ const Form1 = () => {
                     className="bg-muted/50 data-[active=true]:ring-primary/20 data-[active=true]:border-primary/50 h-8 w-8 border text-sm shadow-[inset_0px_1px_0px_0px_rgba(255,255,255,1),inset_0px_-1px_0px_0px_rgba(0,0,0,0.05)] transition-all data-[active=true]:scale-105 data-[active=true]:ring-2! dark:shadow-[inset_0px_1px_0px_0px_rgba(255,255,255,0.25),inset_0px_-1px_0px_0px_rgba(0,0,0,0.7)]"
                   />
                 </InputOTPGroup>
-                <InputOTPSeparator className='text-primary' />
+                <InputOTPSeparator className="text-primary" />
                 <InputOTPGroup className="gap-2 *:data-[slot=input-otp-slot]:rounded-sm *:data-[slot=input-otp-slot]:border">
                   <InputOTPSlot
                     index={3}
@@ -96,7 +96,7 @@ const Form1 = () => {
           We’ve sent a secure code to your device. Enter it here to verify your
           identity.
         </FieldDescription>
-        <FieldError className="bg-destructive/10 text-xs border-destructive/50 rounded-sm border p-1 shadow-[inset_0px_1px_0px_0px_rgba(255,255,255,1),inset_0px_-1px_0px_0px_rgba(0,0,0,0.05)] dark:shadow-[inset_0px_1px_1px_0px_rgba(255,255,255,0.25),inset_0px_-1px_0px_0px_rgba(0,0,0,0.7)]">
+        <FieldError className="bg-destructive/10 border-destructive/50 rounded-sm border p-1 text-xs shadow-[inset_0px_1px_0px_0px_rgba(255,255,255,1),inset_0px_-1px_0px_0px_rgba(0,0,0,0.05)] dark:shadow-[inset_0px_1px_1px_0px_rgba(255,255,255,0.25),inset_0px_-1px_0px_0px_rgba(0,0,0,0.7)]">
           {form.formState.errors.pin?.message}
         </FieldError>
       </Field>
@@ -112,5 +112,3 @@ const Form1 = () => {
 };
 
 export default Form1;
-
-

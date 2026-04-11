@@ -7,16 +7,16 @@ import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 import { z } from 'zod';
 
-import { Alert, AlertTitle } from '@/components/ui/alert';
-import { Button } from '@/components/ui/button';
+import { Alert, AlertTitle } from '@/components/base-ui/alert';
+import { Button } from '@/components/base-ui/button';
 import {
   Field,
   FieldContent,
   FieldDescription,
   FieldError,
   FieldLabel,
-} from '@/components/ui/field';
-import { Textarea } from '@/components/ui/textarea';
+} from '@/components/base-ui/field';
+import { Textarea } from '@/components/base-ui/textarea';
 
 const FormSchema = z.object({
   feedback: z
@@ -72,7 +72,7 @@ const Form7 = () => {
 
       <Button
         type="submit"
-        className="flex w-full items-center justify-center gap-2 rounded-sm transition-all active:scale-98 text-shadow-xs shadow-xs border border-black/5 "
+        className="flex w-full items-center justify-center gap-2 rounded-sm border border-black/5 shadow-xs transition-all text-shadow-xs active:scale-98"
       >
         Submit Feedback
       </Button>

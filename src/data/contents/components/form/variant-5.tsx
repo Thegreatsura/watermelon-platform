@@ -7,16 +7,16 @@ import { Controller, useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 import { z } from 'zod';
 
-import { Alert, AlertTitle } from '@/components/ui/alert';
-import { Button } from '@/components/ui/button';
-import { Checkbox } from '@/components/ui/checkbox';
+import { Alert, AlertTitle } from '@/components/base-ui/alert';
+import { Button } from '@/components/base-ui/button';
+import { Checkbox } from '@/components/base-ui/checkbox';
 import {
   Field,
   FieldContent,
   FieldDescription,
   FieldError,
   FieldLabel,
-} from '@/components/ui/field';
+} from '@/components/base-ui/field';
 
 const FormSchema = z.object({
   agree: z.boolean().refine((val) => val === true, {
@@ -50,7 +50,7 @@ const Form5 = () => {
             control={form.control}
             name="agree"
             render={({ field }) => (
-              <div className="hover:bg-muted/40 flex items-start space-x-3 border p-3 transition-all rounded-sm">
+              <div className="hover:bg-muted/40 flex items-start space-x-3 rounded-sm border p-3 transition-all">
                 <Checkbox
                   checked={field.value}
                   onCheckedChange={(val) => field.onChange(!!val)}
@@ -78,10 +78,9 @@ const Form5 = () => {
 
       <Button
         type="submit"
-        className="flex w-full items-center justify-center gap-2 transition-all active:scale-98 rounded-sm"
+        className="flex w-full items-center justify-center gap-2 rounded-sm transition-all active:scale-98"
       >
         Get Started
-       
       </Button>
     </form>
   );

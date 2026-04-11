@@ -1,4 +1,9 @@
-import { Table, TableBody, TableCell, TableRow } from '@/components/ui/table';
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableRow,
+} from '@/components/base-ui/table';
 import {
   HiCube,
   HiTag,
@@ -12,7 +17,7 @@ import {
 const Table11 = () => {
   return (
     <div className="w-full max-w-lg">
-      <div className="overflow-hidden rounded-xl shadow-sm border">
+      <div className="overflow-hidden rounded-xl border shadow-sm">
         <Table>
           <TableBody>
             <TableRow className="*:border-border [&>:not(:last-child)]:border-r">

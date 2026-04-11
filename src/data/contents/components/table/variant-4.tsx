@@ -6,9 +6,9 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from '@/components/ui/table';
+} from '@/components/base-ui/table';
 
-import { Badge } from '@/components/ui/badge';
+import { Badge } from '@/components/base-ui/badge';
 import { cn } from '@/lib/utils';
 
 const projects = [
@@ -65,7 +65,7 @@ const getStatusClass = (status: string) => {
 const Table4 = () => {
   return (
     <div className="w-full">
-      <div className="overflow-hidden ">
+      <div className="overflow-hidden">
         <Table>
           <TableHeader>
             <TableRow className="hover:bg-transparent">
